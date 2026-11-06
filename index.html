@@ -27,10 +27,15 @@
 /* Absichtlich getrennt von der Prompt-Erstellung und nur nach Aufklappen sichtbar. */
 .reset-safe-zone{margin:30px 0 0;padding:16px 6px;color:var(--muted);font-size:.88rem}.reset-safe-zone details{max-width:480px}.reset-safe-zone summary{cursor:pointer;display:inline-block;color:var(--muted);font-size:.86rem;text-decoration:underline;text-underline-offset:3px}.reset-safe-zone details[open]{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fffaf7}.reset-safe-zone .reset-danger{margin-top:6px;background:#f6eeee;color:#814653;border:1px solid #e4cbd0;font-size:.85rem}
 .new-content-start{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:15px 17px;margin:0 0 22px;border:1px solid #d9c9ed;border-radius:16px;background:#f7f2fc}.new-content-start p{margin:3px 0 0;font-size:.82rem;color:var(--muted)}.new-content-start .new-content-status{flex-basis:100%;margin:0;color:#285b4b;font-weight:700}.new-content-status:empty{display:none}.new-content-start .btn{background:#7657a8;color:white;white-space:nowrap}@media(max-width:540px){.new-content-start .btn{width:100%}}
+input[type=password],input[type=search],input[type=email]{width:100%;border:1px solid var(--line);border-radius:13px;padding:12px 13px;background:#fffdfa;color:var(--ink);font:inherit}.members-list{margin-top:16px;max-height:440px;overflow:auto}.member-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.member-row .member-email{font-size:.88rem;overflow-wrap:anywhere;flex:1;min-width:140px}.member-actions{display:flex;gap:6px}.member-actions .btn{font-size:.78rem;padding:8px 9px}.member-inactive{opacity:.62}.member-state{font-size:.76rem;color:var(--muted)}
+/* Deutlich sichtbare und barrierearme Rückmeldung zur Kundenanmeldung */
+#loginStatus:not(:empty){display:block;margin:16px 0 0;padding:14px 16px;border-radius:12px;border:1px solid #d7a2a2;background:#fff0f0;color:#852c38;font-size:.94rem;font-weight:600;line-height:1.55}
+#loginStatus[data-state="info"]:not(:empty){border-color:#cbbce0;background:#f6f1fb;color:#513b70}
+#loginPassword[aria-invalid="true"]{border-color:#ba4658!important;box-shadow:0 0 0 2px #ba46582a}
 </style>
 </head>
 <body>
-<section class="login-shell" id="loginScreen"><div class="login-card"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-App</div><h1>Schön, dass du da bist. 💜</h1><p>Herzlichen Glückwunsch zum Kauf deiner StoryApp und danke für dein Vertrauen! Gib deinem KI-Avatar Persönlichkeit und entwickle Storys, die zu dir passen – vom kleinen Alltagsmoment bis zur eigenen Idee.</p><div class="login-guide"><strong>So einfach startest du:</strong><ol><li>Gib die E-Mail-Adresse ein, mit der dein StoryApp-Zugang freigeschaltet ist.</li><li>Öffne die E-Mail von Supabase und klicke auf deinen persönlichen Anmeldelink.</li><li>Danach kannst du deinen Story-Prompt erstellen und in ChatGPT verwenden.</li></ol><p>Halte dein Avatarbild bereit. Eine Outfitinspiration kannst du später im Chat hochladen.</p></div><p>Ich wünsche dir viel Spass beim Ausprobieren und viele schöne Story-Momente!<br><strong>Deine Nyra</strong></p><form id="loginForm"><label class="field" for="loginEmail">Deine E-Mail-Adresse</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="name@beispiel.ch" style="width:100%;padding:14px;border:2px solid #aa87d0;border-radius:12px;font:inherit"><label style="display:flex;align-items:center;gap:9px;margin-top:16px;cursor:pointer"><input id="rememberLogin" type="checkbox" checked style="accent-color:#7657a8"> Angemeldet bleiben</label><button class="btn primary" id="loginSubmit" type="submit">Anmeldelink per E-Mail erhalten</button><p id="loginStatus" class="small" role="status" aria-live="polite"></p></form><p class="small">Hilfe: <a href="mailto:elynagoes@outlook.com?subject=Story-App">Kontakt aufnehmen</a></p><nav class="login-links"><a href="https://nyradatenschutz.netlify.app" target="_blank" rel="noopener noreferrer">Datenschutz</a><a href="https://nyraimpressum.netlify.app" target="_blank" rel="noopener noreferrer">Impressum</a></nav><noscript>Bitte aktiviere JavaScript für die Anmeldung.</noscript></div></section><main class="app" id="protectedApp" hidden><div style="text-align:right;margin-bottom:12px"><button class="btn ghost" type="button" id="logout">Abmelden</button></div>
+<section class="login-shell" id="loginScreen"><div class="login-card"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-App</div><h1>Schön, dass du da bist. 💜</h1><p>Herzlichen Glückwunsch zum Kauf deiner StoryApp und danke für dein Vertrauen! Gib deinem KI-Avatar Persönlichkeit und entwickle Storys, die zu dir passen – vom kleinen Alltagsmoment bis zur eigenen Idee.</p><div class="login-guide"><strong>So einfach startest du:</strong><ol><li>Gib die E-Mail-Adresse ein, mit der dein StoryApp-Zugang freigeschaltet ist.</li><li>Gib das gemeinsame Kundenpasswort ein, das du beim Kauf erhalten hast.</li><li>Danach kannst du sofort deinen Story-Prompt erstellen und in ChatGPT verwenden.</li></ol><p>Halte dein Avatarbild bereit. Eine Outfitinspiration kannst du später im Chat hochladen.</p></div><p>Ich wünsche dir viel Spass beim Ausprobieren und viele schöne Story-Momente!<br><strong>Deine Nyra</strong></p><form id="loginForm"><label class="field" for="loginEmail">Deine E-Mail-Adresse</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="name@beispiel.ch" style="width:100%;padding:14px;border:2px solid #aa87d0;border-radius:12px;font:inherit"><label class="field" for="loginPassword">Dein Kundenpasswort</label><input id="loginPassword" type="password" autocomplete="current-password" required style="width:100%;padding:14px;border:2px solid #aa87d0;border-radius:12px;font:inherit"><label style="display:flex;align-items:center;gap:9px;margin-top:16px;cursor:pointer"><input id="rememberLogin" type="checkbox" checked style="accent-color:#7657a8"> Angemeldet bleiben</label><button class="btn primary" id="loginSubmit" type="submit">Bei LIORA anmelden</button><p id="loginStatus" class="small" role="status" aria-live="polite"></p></form><p class="small"><button type="button" class="btn ghost" id="openAdminLogin">Admin-Zugang</button></p><p class="small">Hilfe: <a href="mailto:elynagoes@outlook.com?subject=Story-App">Kontakt aufnehmen</a></p><nav class="login-links"><a href="https://nyradatenschutz.netlify.app" target="_blank" rel="noopener noreferrer">Datenschutz</a><a href="https://nyraimpressum.netlify.app" target="_blank" rel="noopener noreferrer">Impressum</a></nav><noscript>Bitte aktiviere JavaScript für die Anmeldung.</noscript></div></section><section id="adminScreen" class="login-shell" hidden><div class="login-card"><div class="eyebrow">LIORA Verwaltung</div><h1>Adminbereich</h1><div id="adminLoginArea"><form id="adminLoginForm"><label class="field" for="adminPassword">Admin-Passwort</label><input id="adminPassword" type="password" autocomplete="current-password" required><button class="btn primary" id="adminLoginSubmit" type="submit">Als Admin anmelden</button></form><button class="btn ghost" id="adminBack" type="button">Zur Kundenanmeldung</button></div><div id="adminDashboard" hidden><p class="small">Mitglieder verwalten und Kundenpasswort ändern. Änderungen werden direkt in Supabase gespeichert.</p><p id="memberCount" class="small"></p><form id="addMemberForm"><label class="field" for="memberEmail">Mitglied hinzufügen oder reaktivieren</label><input id="memberEmail" type="email" placeholder="name@beispiel.ch" required><button class="btn primary" type="submit">Mitglied hinzufügen</button></form><div class="section"><label class="field" for="memberSearch">Mitglieder suchen</label><input id="memberSearch" type="search" placeholder="E-Mail suchen"><button class="btn secondary" id="refreshMembers" type="button">Liste aktualisieren</button><div id="membersList" class="members-list" aria-live="polite"></div></div><div class="section"><h2>Kundenpasswort ändern</h2><p class="small">Nach einer Änderung müssen sich alle Kundinnen und Kunden erneut anmelden.</p><form id="passwordChangeForm"><label class="field" for="newCustomerPassword">Neues gemeinsames Kundenpasswort (mind. 12 Zeichen)</label><input id="newCustomerPassword" type="password" minlength="12" maxlength="256" required autocomplete="new-password"><label class="field" for="confirmCustomerPassword">Passwort wiederholen</label><input id="confirmCustomerPassword" type="password" minlength="12" required autocomplete="new-password"><button class="btn primary" type="submit">Kundenpasswort ändern</button></form></div><button class="btn ghost" id="adminLogout" type="button">Admin abmelden</button></div><p id="adminStatus" role="status" aria-live="polite" class="small"></p></div></section><main class="app" id="protectedApp" hidden><div style="text-align:right;margin-bottom:12px"><button class="btn ghost" type="button" id="logout">Abmelden</button></div>
 <header class="hero"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-Generator</div><h1>Deine Stories, ohne jedes Mal bei null zu beginnen.</h1><p>Wähle nur aus, was passt, ergänze deine eigenen Worte und erstelle daraus einen persönlichen Masterprompt, eine Wochenplanung oder einen einzelnen Story-Tag.</p></header>
 <div class="layout">
 <section class="panel">
@@ -71,7 +76,7 @@
 </div>
 <aside class="panel login-offer" style="margin-top:24px" aria-label="LIORA Upgrade-Vorteil"><div class="eyebrow">✦ Exklusiver Upgrade-Vorteil ✦</div><h2>Deine 20 € sind nicht verloren! 💜</h2><p>Du möchtest später noch einen Schritt weitergehen und Content entwickeln, der deine Produkte gezielt in den Mittelpunkt stellt? Dann rechnen wir dir deinen StoryApp-Kaufpreis von 20 € beim Upgrade auf unser Premiumprodukt <strong>LIORA</strong> vollständig an.</p><div class="login-guide"><strong style="color:#355e4c">Dein Upgrade-Vorteil</strong><p class="offer-price"><strong>20 € Guthaben</strong></p><p>Statt <s>119 €</s> zahlst du nur <strong>99 €</strong>.</p></div><p style="color:#624582;font-weight:700">Erst starten. Später entscheiden. 💜</p><a class="btn primary offer-link" href="https://aphroditepromt.mytentary.com/p/GCdrQl?coupon=L1ORA20" target="_blank" rel="noopener noreferrer">Upgrade auf LIORA entdecken</a><p class="small">Deine Anrechnung erfolgt über den Rabattcode <strong>L1ORA20</strong>, der bereits im Link enthalten ist. Falls er nicht übernommen wird, gib ihn an der Kasse ein.</p></aside>
 <div class="reset-safe-zone"><details id="resetOptions"><summary>Weitere Einstellungen</summary><p class="small">Hier kannst du deine aktuellen Eingaben zurücksetzen. Dein gespeicherter Story-Stil und deine Markenfarben bleiben erhalten.</p><button class="btn ghost reset-danger" type="reset" form="storyForm" id="safeReset">Auswahl &amp; Eingaben leeren</button></details></div>
-<footer class="footer"><h2>Kontakt bei Problemen oder Anregungen</h2><p>Telegram: <a href="https://t.me/NyraAmanda" target="_blank" rel="noopener noreferrer">@NyraAmanda</a><br>E-Mail: <a href="mailto:elynagoes@outlook.com?subject=Story-App">elynagoes@outlook.com</a><br>Bitte verwende den Betreff <strong>Story-App</strong>. Beschreibe kurz, was passiert ist; ein Screenshot kann helfen. Teile dabei keine Passwörter mit.</p><nav aria-label="Rechtliche Informationen"><a href="https://nyradatenschutz.netlify.app" target="_blank" rel="noopener noreferrer">Datenschutz</a><a href="https://nyraimpressum.netlify.app" target="_blank" rel="noopener noreferrer">Impressum</a></nav><details><summary>Hinweise zur Nutzung und zu KI-Ergebnissen</summary><p><strong>KI bleibt kreativ.</strong> Diese App erstellt einen Prompt, den du in ChatGPT verwendest. Sie steuert die dortige Text- und Bilderstellung nicht direkt. Ergebnisse können von deinen Vorstellungen abweichen. Ich gebe keine Garantie, dass Texte oder Bilder immer genau wie gewünscht entstehen. Prüfe die Ergebnisse vor der Veröffentlichung und passe sie bei Bedarf gemeinsam mit der KI an. Die Bilderstellung setzt voraus, dass diese Funktion in deinem ChatGPT-Zugang verfügbar ist.</p><p><strong>Dein Zugang ist persönlich.</strong> Die Weitergabe persönlicher Anmeldelinks an Dritte ist nicht gestattet. Bitte respektiere die Arbeit, die in dieser App steckt.</p></details></footer></main>
+<footer class="footer"><h2>Kontakt bei Problemen oder Anregungen</h2><p>Telegram: <a href="https://t.me/NyraAmanda" target="_blank" rel="noopener noreferrer">@NyraAmanda</a><br>E-Mail: <a href="mailto:elynagoes@outlook.com?subject=Story-App">elynagoes@outlook.com</a><br>Bitte verwende den Betreff <strong>Story-App</strong>. Beschreibe kurz, was passiert ist; ein Screenshot kann helfen. Teile dabei keine Passwörter mit.</p><nav aria-label="Rechtliche Informationen"><a href="https://nyradatenschutz.netlify.app" target="_blank" rel="noopener noreferrer">Datenschutz</a><a href="https://nyraimpressum.netlify.app" target="_blank" rel="noopener noreferrer">Impressum</a></nav><details><summary>Hinweise zur Nutzung und zu KI-Ergebnissen</summary><p><strong>KI bleibt kreativ.</strong> Diese App erstellt einen Prompt, den du in ChatGPT verwendest. Sie steuert die dortige Text- und Bilderstellung nicht direkt. Ergebnisse können von deinen Vorstellungen abweichen. Ich gebe keine Garantie, dass Texte oder Bilder immer genau wie gewünscht entstehen. Prüfe die Ergebnisse vor der Veröffentlichung und passe sie bei Bedarf gemeinsam mit der KI an. Die Bilderstellung setzt voraus, dass diese Funktion in deinem ChatGPT-Zugang verfügbar ist.</p><p><strong>Dein Zugang ist persönlich.</strong> Die Weitergabe des gemeinsamen Kundenpassworts an Dritte ist nicht gestattet. Bitte respektiere die Arbeit, die in dieser App steckt.</p></details></footer></main>
 <script>
 const $=s=>document.querySelector(s);const all=s=>[...document.querySelectorAll(s)];
 function values(name){return all('input[name="'+name+'"]:checked').map(x=>x.value)}
@@ -106,20 +111,14 @@ async function generatePrompt(){
  $('#status').textContent='Die geschützten Vorlagen werden aus Supabase geladen.';
  try{
   if(!authToken||!currentSession)throw new Error('Bitte melde dich zuerst an.');
-  // Abgelaufene bzw. unmittelbar ablaufende Sitzung vor dem Aufruf erneuern.
-  if(currentSession.expires_at*1000-Date.now()<90000){
-   await refreshSession();
-   if(!authToken||!currentSession||currentSession.expires_at*1000<=Date.now())
-    throw new Error('Deine Anmeldung konnte nicht erneuert werden. Bitte melde dich erneut an.');
-  }
   const res=await fetch(authBase+'/functions/v1/generate-story-prompt',{
-   method:'POST',headers:{'Content-Type':'application/json',apikey:authKey,Authorization:'Bearer '+authToken},
-   body:JSON.stringify(collectPromptInput()),signal:AbortSignal.timeout(30000)
+   method:'POST',headers:{'Content-Type':'application/json',apikey:authKey},
+   body:JSON.stringify({action:'generate',token:authToken,...collectPromptInput()}),signal:AbortSignal.timeout(30000)
   });
   const data=await res.json().catch(()=>({}));
   if(requestId!==promptRequestId)return;
   if(!res.ok||data.success!==true||typeof data.prompt!=='string'||!data.prompt.trim()){
-   if(res.status===401)throw new Error('Deine Anmeldung ist nicht mehr gültig. Bitte melde dich erneut an.');
+   if(res.status===401||res.status===403){lockApp('Dein Zugang ist nicht mehr gültig. Möglicherweise wurde das Kundenpasswort geändert. Das aktuelle Passwort findest du im Mitgliederbereich. Bitte melde dich erneut an.');throw new Error('Deine Anmeldung ist nicht mehr gültig. Bitte melde dich erneut an.');}
    if(res.status===503)throw new Error('LIORA-Vorlagen sind momentan nicht verfügbar. Bitte kontaktiere den Support.');
    throw new Error('Prompt konnte nicht erstellt werden. '+(typeof data.error==='string'?data.error:'Bitte versuche es erneut.'));
   }
@@ -301,114 +300,98 @@ $('#copyStyle').addEventListener('click',async()=>{
 
 const authBase='https://miipmstfeyfusbtebbkj.supabase.co';
 const authKey='sb_publishable_NIPIGps0iCV2g7DFkeFrgw_te9lJ7cf';
-const sessionKey='liora-story-magic-session-v1';
-const redirectUrl='https://nyraamanda.github.io/Liora-Story-App/';
-let authToken=null, authExpiryTimer=null, currentSession=null, rememberSession=true, authEpoch=0, refreshInFlight=null;
-function eraseSavedSession(){for(const storage of [localStorage,sessionStorage]){try{storage.removeItem(sessionKey);}catch(error){}}}
-function persistSession(){
- try{(rememberSession?sessionStorage:localStorage).removeItem(sessionKey);(rememberSession?localStorage:sessionStorage).setItem(sessionKey,JSON.stringify(currentSession));}
- catch(error){$('#loginStatus').textContent='Die Anmeldung ist aktiv. Dieser Browser erlaubt jedoch kein Speichern der Sitzung.';}
+const sessionKey='liora-story-customer-session-v2';
+const adminSessionKey='liora-story-admin-session-v2';
+let authToken=null,currentSession=null,rememberSession=true,authEpoch=0,adminToken=null,members=[];
+function clearStoredCustomer(){for(const storage of [localStorage,sessionStorage])try{storage.removeItem(sessionKey)}catch(e){}}
+const customerLoginHelp='Anmeldung nicht möglich. Bitte überprüfe deine E-Mail-Adresse und dein Kundenpasswort. Falls das Passwort inzwischen geändert wurde, findest du das aktuelle Passwort im Mitgliederbereich.';
+function setLoginStatus(message,kind='error'){
+ const status=$('#loginStatus');status.textContent=message;status.dataset.state=kind;
 }
 function lockApp(message=''){
- authEpoch++;authToken=null;currentSession=null;clearTimeout(authExpiryTimer);eraseSavedSession();$('#protectedApp').hidden=true;$('#loginScreen').hidden=false;$('#loginStatus').textContent=message;
+ authEpoch++;authToken=null;currentSession=null;clearStoredCustomer();$('#protectedApp').hidden=true;$('#loginScreen').hidden=false;
+ $('#adminScreen').hidden=true;setLoginStatus(message,message==='Du bist abgemeldet.'?'info':'error');
 }
-async function authRequest(path,body,token){
- const headers={apikey:authKey,'Content-Type':'application/json'};if(token)headers.Authorization='Bearer '+token;
- const res=await fetch(authBase+path,{method:body?'POST':'GET',headers,...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(20000)});
+function activateSession(token,email,remember=true){
+ authToken=token;currentSession={token,email};rememberSession=remember;
+ try{clearStoredCustomer();(remember?localStorage:sessionStorage).setItem(sessionKey,JSON.stringify(currentSession));}catch(e){}
+ $('#loginScreen').hidden=true;$('#adminScreen').hidden=true;$('#protectedApp').hidden=false;
+ $('#loginPassword').removeAttribute('aria-invalid');setLoginStatus('','info');
+}
+async function edgeRequest(action,body={},token=null){
+ const res=await fetch(authBase+'/functions/v1/generate-story-prompt',{
+  method:'POST',headers:{'Content-Type':'application/json',apikey:authKey},
+  body:JSON.stringify({action,...body,...(token?{token}:{})}),signal:AbortSignal.timeout(30000)
+ });
  const data=await res.json().catch(()=>({}));
- if(!res.ok){const error=new Error(typeof data.msg==='string'?data.msg:(data.error_description||data.message||data.error||'Anmeldung fehlgeschlagen'));error.status=res.status;throw error;}
+ if(!res.ok||data.success!==true){const e=new Error(data.error||'Anfrage fehlgeschlagen');e.status=res.status;throw e;}
  return data;
 }
-async function verifySession(data){
- if(!data?.access_token||!data?.refresh_token)throw new Error('Keine gültige Sitzung erhalten.');
- await authRequest('/auth/v1/user',null,data.access_token);
- // Keine Mitgliederliste im Browser abfragen: die Edge Function prüft serverseitig.
- const res=await fetch(authBase+'/functions/v1/generate-story-prompt',{
-  method:'POST',headers:{apikey:authKey,Authorization:'Bearer '+data.access_token,'Content-Type':'application/json'},
-  body:JSON.stringify({action:'check-access'}),signal:AbortSignal.timeout(20000)
- });
- const body=await res.json().catch(()=>({}));
- if(!res.ok||body.allowed!==true) {const err=new Error(res.status===403?'Diese E-Mail-Adresse ist nicht für die StoryApp freigeschaltet. Bitte kontaktiere den Support.':(body.error||'Dein Zugang konnte noch nicht geprüft werden.'));err.status=res.status;throw err;}
-}
-function activateSession(data){
- currentSession={access_token:data.access_token,refresh_token:data.refresh_token,expires_at:Number(data.expires_at)||Math.floor(Date.now()/1000)+(Number(data.expires_in)||3600)};
- authToken=data.access_token;persistSession();$('#loginScreen').hidden=true;$('#protectedApp').hidden=false;
- clearTimeout(authExpiryTimer);
- authExpiryTimer=setTimeout(()=>refreshSession(),Math.min(Math.max(currentSession.expires_at*1000-Date.now()-60000,1000),2147483647));
-}
-async function refreshSession(){
- if(refreshInFlight)return refreshInFlight;
- if(!currentSession)return;
- const epoch=authEpoch,refreshToken=currentSession.refresh_token;
- refreshInFlight=(async()=>{
-  try{const data=await authRequest('/auth/v1/token?grant_type=refresh_token',{refresh_token:refreshToken});await verifySession(data);if(epoch===authEpoch)activateSession(data);}
-  catch(error){if(epoch!==authEpoch)return;
-   if(error.status>=400&&error.status<500){lockApp(error.status===403?error.message:'Bitte melde dich erneut an. Deine Sitzung ist nicht mehr gültig.');}
-   else{
-    if(currentSession.expires_at*1000<=Date.now()){$('#protectedApp').hidden=true;$('#loginScreen').hidden=false;$('#loginStatus').textContent='Sitzung konnte nicht erneuert werden. Prüfe deine Verbindung.';}
-    clearTimeout(authExpiryTimer);authExpiryTimer=setTimeout(()=>refreshSession(),30000);
-   }
-  }
- })();
- try{await refreshInFlight;}finally{refreshInFlight=null;}
-}
-$('#loginForm').addEventListener('submit',async event=>{
- event.preventDefault();const button=$('#loginSubmit');button.disabled=true;button.textContent='Link wird gesendet …';$('#loginStatus').textContent='';
+$('#loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();const btn=$('#loginSubmit');btn.disabled=true;$('#loginPassword').removeAttribute('aria-invalid');setLoginStatus('Dein Zugang wird geprüft …','info');
  try{
   const email=$('#loginEmail').value.trim().toLowerCase();
-  if(!email||!$('#loginEmail').checkValidity())throw new Error('Bitte gib eine gültige E-Mail-Adresse ein.');
-  // Die Anmeldung ist selbstständig möglich; die Freigabe erfolgt serverseitig nach dem Klick.
-  const res=await fetch(authBase+'/auth/v1/otp?redirect_to='+encodeURIComponent(redirectUrl),{
-   method:'POST',headers:{apikey:authKey,'Content-Type':'application/json'},
-   body:JSON.stringify({email,create_user:true}),signal:AbortSignal.timeout(20000)
-  });
-  const data=await res.json().catch(()=>({}));
-  if(!res.ok){const err=new Error(data.msg||data.error_description||data.message||'Der Anmeldelink konnte nicht gesendet werden.');err.status=res.status;throw err;}
-  $('#loginStatus').textContent='Falls die E-Mail zugestellt werden kann, erhältst du gleich deinen Anmeldelink. Bitte prüfe auch den Spam-Ordner.';
- }catch(error){$('#loginStatus').textContent=error.status===429?'Zu viele Anfragen. Bitte warte etwas und versuche es erneut.':error.message||'Versand fehlgeschlagen. Bitte später erneut versuchen.';}
- finally{button.disabled=false;button.textContent='Anmeldelink per E-Mail erhalten';}
+  const password=$('#loginPassword').value;
+  const data=await edgeRequest('login-customer',{email,password});
+  $('#loginPassword').value='';activateSession(data.token,data.email,$('#rememberLogin').checked);
+ }catch(error){if(error.status===401||error.status===403){$('#loginPassword').setAttribute('aria-invalid','true');setLoginStatus(customerLoginHelp);}else setLoginStatus('Die Anmeldung konnte gerade nicht geprüft werden. Bitte versuche es später erneut.');}
+ finally{btn.disabled=false;}
 });
-$('#logout').addEventListener('click',()=>{
- const token=authToken;lockApp('Du bist abgemeldet.');
- if(token)fetch(authBase+'/auth/v1/logout?scope=local',{method:'POST',headers:{apikey:authKey,Authorization:'Bearer '+token}}).catch(()=>{});
- $('#loginEmail').focus();
-});
+$('#logout').addEventListener('click',()=>{lockApp('Du bist abgemeldet.');$('#loginPassword').value='';});
 async function restoreSession(){
- let saved=null;
- for(const [storage,remember] of [[localStorage,true],[sessionStorage,false]]){
-  try{const raw=storage.getItem(sessionKey);if(raw){const candidate=JSON.parse(raw);if(candidate.access_token&&candidate.refresh_token){saved=candidate;rememberSession=remember;break;}storage.removeItem(sessionKey);}}catch(error){try{storage.removeItem(sessionKey);}catch(ignored){}}
+ let saved=null,remember=true;
+ for(const [storage,keep] of [[localStorage,true],[sessionStorage,false]])try{const raw=storage.getItem(sessionKey);if(raw){saved=JSON.parse(raw);remember=keep;break;}}catch(e){}
+ if(!saved?.token)return;
+ setLoginStatus('Dein Zugang wird überprüft …','info');
+ try{const data=await edgeRequest('check-access',{},saved.token);if(data.role!=='customer')throw new Error('Kein Kundenzugang');activateSession(saved.token,data.email,remember);}
+ catch(error){if(error.status===401||error.status===403)lockApp('Deine Anmeldung ist nicht mehr gültig. Möglicherweise wurde das Kundenpasswort geändert. Das aktuelle Passwort findest du im Mitgliederbereich. Bitte melde dich erneut an.');else setLoginStatus('Verbindung zur Zugangsprüfung fehlgeschlagen. Bitte erneut versuchen.');}
+}
+$('#openAdminLogin').addEventListener('click',()=>{$('#loginScreen').hidden=true;$('#adminScreen').hidden=false;$('#adminLoginArea').hidden=false;$('#adminDashboard').hidden=true;$('#adminStatus').textContent='';});
+$('#adminBack').addEventListener('click',()=>{$('#adminScreen').hidden=true;$('#loginScreen').hidden=false;});
+function adminLogout(){adminToken=null;try{sessionStorage.removeItem(adminSessionKey)}catch(e){}$('#adminDashboard').hidden=true;$('#adminLoginArea').hidden=false;$('#adminPassword').value='';$('#adminStatus').textContent='Admin abgemeldet.';}
+$('#adminLogout').addEventListener('click',adminLogout);
+async function adminCall(action,body={}){
+ if(!adminToken)throw new Error('Bitte als Admin anmelden.');
+ try{return await edgeRequest(action,body,adminToken)}catch(e){if(e.status===401||e.status===403){adminLogout();}throw e;}
+}
+$('#adminLoginForm').addEventListener('submit',async e=>{
+ e.preventDefault();const btn=$('#adminLoginSubmit');btn.disabled=true;$('#adminStatus').textContent='Admin-Zugang wird geprüft …';
+ try{const data=await edgeRequest('login-admin',{password:$('#adminPassword').value});adminToken=data.token;$('#adminPassword').value='';
+  try{sessionStorage.setItem(adminSessionKey,adminToken)}catch(e){}$('#adminLoginArea').hidden=true;$('#adminDashboard').hidden=false;await loadMembers();$('#adminStatus').textContent='Admin angemeldet.';
+ }catch(error){$('#adminStatus').textContent=error.message||'Admin-Anmeldung fehlgeschlagen.';}
+ finally{btn.disabled=false;}
+});
+async function loadMembers(){
+ const data=await adminCall('list-members');members=Array.isArray(data.members)?data.members:[];renderMembers();
+}
+function renderMembers(){
+ const query=$('#memberSearch').value.trim().toLowerCase();const filtered=members.filter(m=>m.email.toLowerCase().includes(query));
+ $('#memberCount').textContent=members.filter(m=>m.active).length+' aktive Mitglieder / '+members.length+' insgesamt';
+ const container=$('#membersList');container.replaceChildren();
+ if(!filtered.length){container.textContent='Keine passenden Mitglieder.';return;}
+ for(const m of filtered){
+  const row=document.createElement('div');row.className='member-row'+(m.active?'':' member-inactive');
+  const info=document.createElement('div');info.className='member-email';info.textContent=m.email;
+  const state=document.createElement('div');state.className='member-state';state.textContent=m.active?'Aktiv':'Gesperrt';info.append(document.createElement('br'),state);
+  const actions=document.createElement('div');actions.className='member-actions';
+  const toggle=document.createElement('button');toggle.type='button';toggle.className='btn secondary';toggle.textContent=m.active?'Sperren':'Aktivieren';
+  toggle.addEventListener('click',async()=>{toggle.disabled=true;try{await adminCall('set-member-active',{email:m.email,active:!m.active});await loadMembers();$('#adminStatus').textContent='Mitglied aktualisiert.';}catch(e){$('#adminStatus').textContent=e.message;}finally{toggle.disabled=false;}});
+  const del=document.createElement('button');del.type='button';del.className='btn ghost';del.textContent='Löschen';
+  del.addEventListener('click',async()=>{if(!confirm('Mitglied '+m.email+' endgültig löschen?'))return;del.disabled=true;try{await adminCall('delete-member',{email:m.email});await loadMembers();$('#adminStatus').textContent='Mitglied gelöscht.';}catch(e){$('#adminStatus').textContent=e.message;}finally{del.disabled=false;}});
+  actions.append(toggle,del);row.append(info,actions);container.append(row);
  }
- if(!saved)return;
- currentSession=saved;$('#rememberLogin').checked=rememberSession;$('#loginSubmit').disabled=true;$('#loginStatus').textContent='Anmeldung wird wiederhergestellt …';
- await refreshSession();$('#loginSubmit').disabled=false;
 }
-async function handleMagicLink(){
- const fragment=new URLSearchParams(location.hash.replace(/^#/,''));
- const query=new URLSearchParams(location.search);
- const error=fragment.get('error_description')||query.get('error_description');
- if(error){history.replaceState(null,'',location.pathname);$('#loginStatus').textContent='Der Anmeldelink ist ungültig oder abgelaufen. Bitte fordere einen neuen an.';return false;}
- let data=null;
- if(fragment.has('access_token')&&fragment.has('refresh_token')){
-  data={access_token:fragment.get('access_token'),refresh_token:fragment.get('refresh_token'),expires_in:Number(fragment.get('expires_in'))||3600};
- }else if(query.has('token_hash')&&query.has('type')){
-  data=await authRequest('/auth/v1/verify',{token_hash:query.get('token_hash'),type:query.get('type')});
- }else if(query.has('code')){
-  $('#loginStatus').textContent='Dieser Anmeldelink verwendet einen anderen Bestätigungsmodus. Bitte kontaktiere den Support.';return true;
- }else return false;
- // Entferne Einmal-Tokens sofort aus der Adresszeile.
- history.replaceState(null,'',location.pathname);
- const epoch=++authEpoch;
- $('#loginStatus').textContent='Dein Zugang wird geprüft …';$('#loginSubmit').disabled=true;
- try{await verifySession(data);if(epoch!==authEpoch)return true;rememberSession=$('#rememberLogin').checked;activateSession(data);}
- catch(e){$('#loginStatus').textContent=e.message||'Der Link konnte nicht bestätigt werden. Bitte fordere einen neuen an.';}
- finally{$('#loginSubmit').disabled=false;}
- return true;
-}
-(async()=>{try{if(!(await handleMagicLink()))await restoreSession();}catch(error){$('#loginStatus').textContent='Anmeldung fehlgeschlagen. Bitte fordere einen neuen Link an.';}})();
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&currentSession&&currentSession.expires_at*1000-Date.now()<90000)refreshSession();});
-window.addEventListener('online',()=>{if(currentSession)refreshSession();});
-window.addEventListener('storage',event=>{if(event.key===sessionKey&&event.newValue===null&&rememberSession)lockApp('Du wurdest abgemeldet.');});
-
+$('#memberSearch').addEventListener('input',renderMembers);
+$('#refreshMembers').addEventListener('click',async()=>{try{await loadMembers();$('#adminStatus').textContent='Mitgliederliste aktualisiert.';}catch(e){$('#adminStatus').textContent=e.message;}});
+$('#addMemberForm').addEventListener('submit',async e=>{e.preventDefault();const email=$('#memberEmail').value.trim().toLowerCase();try{await adminCall('add-member',{email});$('#memberEmail').value='';await loadMembers();$('#adminStatus').textContent=email+' ist freigeschaltet.';}catch(e){$('#adminStatus').textContent=e.message;}});
+$('#passwordChangeForm').addEventListener('submit',async e=>{
+ e.preventDefault();const a=$('#newCustomerPassword').value,b=$('#confirmCustomerPassword').value;
+ if(a!==b){$('#adminStatus').textContent='Die beiden Passwörter stimmen nicht überein.';return;}
+ if(!confirm('Kundenpasswort wirklich ändern? Alle Kundensitzungen werden ungültig.'))return;
+ try{await adminCall('change-customer-password',{newPassword:a});$('#newCustomerPassword').value='';$('#confirmCustomerPassword').value='';$('#adminStatus').textContent='Kundenpasswort geändert. Alle Kundinnen und Kunden müssen sich erneut anmelden.';}catch(e){$('#adminStatus').textContent=e.message;}
+});
+(async()=>{await restoreSession();try{const t=sessionStorage.getItem(adminSessionKey);if(t){const d=await edgeRequest('check-access',{},t);if(d.role==='admin'){adminToken=t;$('#adminLoginArea').hidden=true;$('#adminDashboard').hidden=false;await loadMembers();}}}catch(e){try{sessionStorage.removeItem(adminSessionKey)}catch(_){}}})();
+window.addEventListener('storage',e=>{if(e.key===sessionKey&&e.newValue===null&&rememberSession)lockApp('Du wurdest abgemeldet.');});
 // Voice input for optional free-text fields. Does not upload audio to LIORA or Supabase.
 (function setupOptionalVoiceFields(){
  const SpeechAPI=window.SpeechRecognition||window.webkitSpeechRecognition;
