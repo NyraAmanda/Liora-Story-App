@@ -35,7 +35,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 </style>
 </head>
 <body>
-<section class="login-shell" id="loginScreen"><div class="login-card"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-App</div><h1>Schön, dass du da bist. 💜</h1><p>Herzlichen Glückwunsch zum Kauf deiner StoryApp und danke für dein Vertrauen! Gib deinem KI-Avatar Persönlichkeit und entwickle Storys, die zu dir passen – vom kleinen Alltagsmoment bis zur eigenen Idee.</p><div class="login-guide"><strong>So einfach startest du:</strong><ol><li>Gib die E-Mail-Adresse ein, mit der dein StoryApp-Zugang freigeschaltet ist.</li><li>Gib das gemeinsame Kundenpasswort ein, das du beim Kauf erhalten hast.</li><li>Danach kannst du sofort deinen Story-Prompt erstellen und in ChatGPT verwenden.</li></ol><p>Halte dein Avatarbild bereit. Eine Outfitinspiration kannst du später im Chat hochladen.</p></div><p>Ich wünsche dir viel Spass beim Ausprobieren und viele schöne Story-Momente!<br><strong>Deine Nyra</strong></p><form id="loginForm"><label class="field" for="loginEmail">Deine E-Mail-Adresse</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="name@beispiel.ch" style="width:100%;padding:14px;border:2px solid #aa87d0;border-radius:12px;font:inherit"><label class="field" for="loginPassword">Dein Kundenpasswort</label><input id="loginPassword" type="password" autocomplete="current-password" required style="width:100%;padding:14px;border:2px solid #aa87d0;border-radius:12px;font:inherit"><label style="display:flex;align-items:center;gap:9px;margin-top:16px;cursor:pointer"><input id="rememberLogin" type="checkbox" checked style="accent-color:#7657a8"> Angemeldet bleiben</label><button class="btn primary" id="loginSubmit" type="submit">Bei LIORA anmelden</button><p id="loginStatus" class="small" role="status" aria-live="polite"></p></form><p class="small"><button type="button" class="btn ghost" id="openAdminLogin">Admin-Zugang</button></p><p class="small">Hilfe: <a href="mailto:elynagoes@outlook.com?subject=Story-App">Kontakt aufnehmen</a></p><nav class="login-links"><a href="https://nyradatenschutz.netlify.app" target="_blank" rel="noopener noreferrer">Datenschutz</a><a href="https://nyraimpressum.netlify.app" target="_blank" rel="noopener noreferrer">Impressum</a></nav><noscript>Bitte aktiviere JavaScript für die Anmeldung.</noscript></div></section><section id="adminScreen" class="login-shell" hidden><div class="login-card"><div class="eyebrow">LIORA Verwaltung</div><h1>Adminbereich</h1><div id="adminLoginArea"><form id="adminLoginForm"><label class="field" for="adminPassword">Admin-Passwort</label><input id="adminPassword" type="password" autocomplete="current-password" required><button class="btn primary" id="adminLoginSubmit" type="submit">Als Admin anmelden</button></form><button class="btn ghost" id="adminBack" type="button">Zur Kundenanmeldung</button></div><div id="adminDashboard" hidden><p class="small">Mitglieder verwalten und Kundenpasswort ändern. Änderungen werden direkt in Supabase gespeichert.</p><p id="memberCount" class="small"></p><form id="addMemberForm"><label class="field" for="memberEmail">Mitglied hinzufügen oder reaktivieren</label><input id="memberEmail" type="email" placeholder="name@beispiel.ch" required><button class="btn primary" type="submit">Mitglied hinzufügen</button></form><div class="section"><label class="field" for="memberSearch">Mitglieder suchen</label><input id="memberSearch" type="search" placeholder="E-Mail suchen"><button class="btn secondary" id="refreshMembers" type="button">Liste aktualisieren</button><div id="membersList" class="members-list" aria-live="polite"></div></div><div class="section"><h2>Kundenpasswort ändern</h2><p class="small">Nach einer Änderung müssen sich alle Kundinnen und Kunden erneut anmelden.</p><form id="passwordChangeForm"><label class="field" for="newCustomerPassword">Neues gemeinsames Kundenpasswort (mind. 12 Zeichen)</label><input id="newCustomerPassword" type="password" minlength="12" maxlength="256" required autocomplete="new-password"><label class="field" for="confirmCustomerPassword">Passwort wiederholen</label><input id="confirmCustomerPassword" type="password" minlength="12" required autocomplete="new-password"><button class="btn primary" type="submit">Kundenpasswort ändern</button></form></div><button class="btn ghost" id="adminLogout" type="button">Admin abmelden</button></div><p id="adminStatus" role="status" aria-live="polite" class="small"></p></div></section><main class="app" id="protectedApp" hidden><div style="text-align:right;margin-bottom:12px"><button class="btn ghost" type="button" id="logout">Abmelden</button></div>
+<section class="login-shell" id="loginScreen"><div class="login-card"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-App</div><h1>Schön, dass du da bist. 💜</h1><p>Herzlichen Glückwunsch zum Kauf deiner StoryApp und danke für dein Vertrauen! Gib deinem KI-Avatar Persönlichkeit und entwickle Storys, die zu dir passen – vom kleinen Alltagsmoment bis zur eigenen Idee.</p><div class="login-guide"><strong>So einfach startest du:</strong><ol><li>Gib die E-Mail-Adresse ein, mit der dein StoryApp-Zugang freigeschaltet ist.</li><li>Gib das gemeinsame Kundenpasswort ein, das du beim Kauf erhalten hast.</li><li>Danach kannst du sofort deinen Story-Prompt erstellen und in ChatGPT verwenden.</li></ol><p>Wenn du einen Avatar zeigen möchtest, halte dein Avatarbild bereit. Eine Outfitinspiration kannst du später im Chat hochladen.</p></div><p>Ich wünsche dir viel Spass beim Ausprobieren und viele schöne Story-Momente!<br><strong>Deine Nyra</strong></p><form id="loginForm"><label class="field" for="loginEmail">Deine E-Mail-Adresse</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="name@beispiel.ch" style="width:100%;padding:14px;border:2px solid #aa87d0;border-radius:12px;font:inherit"><label class="field" for="loginPassword">Dein Kundenpasswort</label><input id="loginPassword" type="password" autocomplete="current-password" required style="width:100%;padding:14px;border:2px solid #aa87d0;border-radius:12px;font:inherit"><label style="display:flex;align-items:center;gap:9px;margin-top:16px;cursor:pointer"><input id="rememberLogin" type="checkbox" checked style="accent-color:#7657a8"> Angemeldet bleiben</label><button class="btn primary" id="loginSubmit" type="submit">Bei LIORA anmelden</button><p id="loginStatus" class="small" role="status" aria-live="polite"></p></form><p class="small"><button type="button" class="btn ghost" id="openAdminLogin">Admin-Zugang</button></p><p class="small">Hilfe: <a href="mailto:elynagoes@outlook.com?subject=Story-App">Kontakt aufnehmen</a></p><nav class="login-links"><a href="https://nyradatenschutz.netlify.app" target="_blank" rel="noopener noreferrer">Datenschutz</a><a href="https://nyraimpressum.netlify.app" target="_blank" rel="noopener noreferrer">Impressum</a></nav><noscript>Bitte aktiviere JavaScript für die Anmeldung.</noscript></div></section><section id="adminScreen" class="login-shell" hidden><div class="login-card"><div class="eyebrow">LIORA Verwaltung</div><h1>Adminbereich</h1><div id="adminLoginArea"><form id="adminLoginForm"><label class="field" for="adminPassword">Admin-Passwort</label><input id="adminPassword" type="password" autocomplete="current-password" required><button class="btn primary" id="adminLoginSubmit" type="submit">Als Admin anmelden</button></form><button class="btn ghost" id="adminBack" type="button">Zur Kundenanmeldung</button></div><div id="adminDashboard" hidden><p class="small">Mitglieder verwalten und Kundenpasswort ändern. Änderungen werden direkt in Supabase gespeichert.</p><p id="memberCount" class="small"></p><form id="addMemberForm"><label class="field" for="memberEmail">Mitglied hinzufügen oder reaktivieren</label><input id="memberEmail" type="email" placeholder="name@beispiel.ch" required><button class="btn primary" type="submit">Mitglied hinzufügen</button></form><div class="section"><label class="field" for="memberSearch">Mitglieder suchen</label><input id="memberSearch" type="search" placeholder="E-Mail suchen"><button class="btn secondary" id="refreshMembers" type="button">Liste aktualisieren</button><div id="membersList" class="members-list" aria-live="polite"></div></div><div class="section"><h2>Kundenpasswort ändern</h2><p class="small">Nach einer Änderung müssen sich alle Kundinnen und Kunden erneut anmelden.</p><form id="passwordChangeForm"><label class="field" for="newCustomerPassword">Neues gemeinsames Kundenpasswort (mind. 12 Zeichen)</label><input id="newCustomerPassword" type="password" minlength="12" maxlength="256" required autocomplete="new-password"><label class="field" for="confirmCustomerPassword">Passwort wiederholen</label><input id="confirmCustomerPassword" type="password" minlength="12" required autocomplete="new-password"><button class="btn primary" type="submit">Kundenpasswort ändern</button></form></div><button class="btn ghost" id="adminLogout" type="button">Admin abmelden</button></div><p id="adminStatus" role="status" aria-live="polite" class="small"></p></div></section><main class="app" id="protectedApp" hidden><div style="text-align:right;margin-bottom:12px"><button class="btn ghost" type="button" id="logout">Abmelden</button></div>
 <header class="hero"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-Generator</div><h1>Deine Stories, ohne jedes Mal bei null zu beginnen.</h1><p>Wähle nur aus, was passt, ergänze deine eigenen Worte und erstelle daraus einen persönlichen Masterprompt, eine Wochenplanung oder einen einzelnen Story-Tag.</p></header>
 <div class="layout">
 <section class="panel">
@@ -65,14 +65,39 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <label class="choice"><input type="checkbox" name="life" value="kleine Alltagserkenntnisse"><span>Kleine Erkenntnisse</span></label>
 </div><div class="two"><div><label class="field" for="places">Orte</label><input id="places" type="text" placeholder="z. B. Schreibtisch, Küche, unterwegs"></div><div><label class="field" for="people">Personen oder Tiere</label><input id="people" type="text" placeholder="z. B. Partner, Team, Hund"></div></div><label class="field" for="topics">Eigene Themen und Alltagssituationen</label><textarea id="topics" placeholder="Was darf in deinen Stories vorkommen?"></textarea></div>
 
-<div class="section"><h2>4. Mein Stil</h2><p class="help">Deine persönlichen Stileinstellungen bleiben in diesem Browser gespeichert – auch nach dem Abmelden.</p><div class="notice"><strong>Deinen bisherigen Story-Stil übernehmen</strong><p>Kopiere den Analyse-Prompt in ChatGPT und lade dort 3–5 bisherige Story-Slides hoch. Füge die fertige Stilbeschreibung anschliessend unten ein.</p><button class="btn secondary" type="button" id="copyStyle">Stil-Analyse-Prompt kopieren</button><p class="small" id="styleStatus" role="status" aria-live="polite"></p><details id="stylePromptDetails"><summary>Analyse-Prompt anzeigen</summary><textarea id="stylePromptText" readonly aria-label="Stil-Analyse-Prompt"></textarea></details></div><label class="field" for="savedStyle">Mein bisheriger Story-Stil (optional)</label><textarea id="savedStyle" placeholder="Hier die Stilbeschreibung aus ChatGPT einfügen. Sie wird in deinen Story-Prompt übernommen."></textarea><div class="two"><div><label class="field" for="colors">Markenfarben</label><input id="colors" type="text" placeholder="z. B. Salbeigrün, Beige und Gold"></div><div><label class="field" for="style">Bildstil</label><select id="style"><option>natürlich und editorial</option><option>warm und dokumentarisch</option><option>verspielt und farbig</option><option>minimal und ruhig</option></select></div></div><label class="field" for="font">Schriftwirkung</label><select id="font"><option value="Schriftwirkung aus meiner Stilanalyse übernehmen. Verwende die dort beschriebene Typografie und Schriftwirkung. Falls keine Stilanalyse vorliegt oder darin keine Typografie beschrieben ist, kläre die gewünschte Schriftwirkung im Chat oder schlage eine passende vor; erfinde keine analysierten Schriftmerkmale.">Aus meiner Stilanalyse übernehmen</option><option>edle Editorial-Serifenschrift mit moderner Sans-Serif</option><option>klare moderne Sans-Serif</option><option>weiche elegante Serifenschrift</option><option>markante plakative Typografie</option></select><label class="field" for="avatar">Avatar und Outfit</label><p class="help"><strong>Du kannst dein Avatarbild und dein Outfitbild erst später direkt im Chat hochladen.</strong> Wähle dafür die Option «Avatar und Outfit im Chat hochladen». LIORA fragt die Bilder nacheinander an und wartet auf deinen Upload.</p><p class="help">Noch keine Outfitidee? Schau auf <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" style="color:var(--purple);font-weight:700">Pinterest</a> vorbei, such dir einen Look aus und lade das Bild später in ChatGPT als Outfitvorschlag hoch. Glaub mir, das macht Spass! 💜<br><span class="small">Dein Avatar bleibt derselbe – das Referenzbild dient als Inspiration für die Kleidung.</span></p><textarea id="avatar" placeholder="Soll ein Avatar sichtbar sein? Welche Person, welches Outfit und welche wiederkehrenden Merkmale sollen berücksichtigt werden?"></textarea></div>
+<div class="section"><h2>4. Mein Stil</h2><p class="help">Deine persönlichen Stileinstellungen bleiben in diesem Browser gespeichert – auch nach dem Abmelden.</p><div class="notice"><strong>Deinen bisherigen Story-Stil übernehmen</strong><p>Kopiere den Analyse-Prompt in ChatGPT und lade dort 3–5 bisherige Story-Slides hoch. Füge die fertige Stilbeschreibung anschliessend unten ein.</p><button class="btn secondary" type="button" id="copyStyle">Stil-Analyse-Prompt kopieren</button><p class="small" id="styleStatus" role="status" aria-live="polite"></p><details id="stylePromptDetails"><summary>Analyse-Prompt anzeigen</summary><textarea id="stylePromptText" readonly aria-label="Stil-Analyse-Prompt"></textarea></details></div><label class="field" for="savedStyle">Mein bisheriger Story-Stil (optional)</label><textarea id="savedStyle" placeholder="Hier die Stilbeschreibung aus ChatGPT einfügen. Sie wird in deinen Story-Prompt übernommen."></textarea><div class="two"><div><label class="field" for="colors">Markenfarben</label><input id="colors" type="text" placeholder="z. B. Salbeigrün, Beige und Gold"></div><div><label class="field" for="style">Bildstil</label><select id="style"><option>natürlich und editorial</option><option>warm und dokumentarisch</option><option>verspielt und farbig</option><option>minimal und ruhig</option></select></div></div><label class="field" for="font">Schriftwirkung</label><select id="font"><option value="Schriftwirkung aus meiner Stilanalyse übernehmen. Verwende die dort beschriebene Typografie und Schriftwirkung. Falls keine Stilanalyse vorliegt oder darin keine Typografie beschrieben ist, kläre die gewünschte Schriftwirkung im Chat oder schlage eine passende vor; erfinde keine analysierten Schriftmerkmale.">Aus meiner Stilanalyse übernehmen</option><option>edle Editorial-Serifenschrift mit moderner Sans-Serif</option><option>klare moderne Sans-Serif</option><option>weiche elegante Serifenschrift</option><option>markante plakative Typografie</option></select><label class="field" for="avatar">Bildmotiv · mit oder ohne Avatar</label><p class="help">Wähle, was auf deinen Storybildern zu sehen sein soll.</p><div id="avatarReferenceHelp"><p class="help"><strong>Du kannst dein Avatarbild und dein Outfitbild erst später direkt im Chat hochladen.</strong> Wähle dafür die Option «Avatar und Outfit im Chat hochladen». LIORA fragt die Bilder nacheinander an und wartet auf deinen Upload.</p><p class="help">Noch keine Outfitidee? Schau auf <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" style="color:var(--purple);font-weight:700">Pinterest</a> vorbei, such dir einen Look aus und lade das Bild später in ChatGPT als Outfitvorschlag hoch. Glaub mir, das macht Spass! 💜<br><span class="small">Dein Avatar bleibt derselbe – das Referenzbild dient als Inspiration für die Kleidung.</span></p></div><textarea id="avatar" placeholder="Wähle oben eine Option oder beschreibe dein Bildmotiv, deinen Avatar und dein Outfit selbst."></textarea>
+<div id="slideMotifOptions">
+  <label class="field" for="avatarFreeSlide">Einzelner Slide ohne Avatar (optional)</label>
+  <select id="avatarFreeSlide">
+    <option value="">Keine Ausnahme</option>
+    <option value="1">Slide 1</option>
+    <option value="2">Slide 2</option>
+    <option value="3">Slide 3</option>
+    <option value="4">Slide 4</option>
+    <option value="5">Slide 5</option>
+  </select>
+  <div id="slideMotifChoice" hidden>
+    <label class="field" for="slideMotif">Was soll stattdessen zu sehen sein?</label>
+    <select id="slideMotif">
+      <option value="ein zur Handlung passendes Motiv">LIORA wählt ein passendes Motiv</option>
+      <option value="ein Produkt oder einen Gegenstand als Nahaufnahme">Produkt oder Gegenstand als Nahaufnahme</option>
+      <option value="einen Ort, Raum oder eine Landschaft">Ort, Raum oder Landschaft</option>
+      <option value="ein Detail aus dem Alltag, etwa Kaffee oder Essen">Alltagsdetail, Kaffee oder Essen</option>
+      <option value="ein zur Story passendes Tiermotiv">Tiermotiv</option>
+      <option value="eine ruhige Fläche mit dezenten Hintergrunddetails">Ruhiger Hintergrund</option>
+    </select>
+  </div>
+  <p class="small">Die übrigen Slides folgen deiner Bildmotiv-Auswahl.</p>
+</div></div>
 
-<div class="section"><h2>5. Dein Story-Ziel</h2><p class="help">Gib deiner Story eine Richtung und optional einen konkreten Anlass.</p><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily" selected>Normaler Alltag – meinen KI-Avatar kennenlernen</option><option value="mixed">Alltag und Business – nur verbinden, wenn es passt</option><option value="business">Business, Wissen oder ein Angebot zeigen</option></select><p class="small">Eine kleine Alltagsszene reicht. Du brauchst dafür weder ein Angebot noch eine Businessbotschaft.</p><label class="field" for="goal">Was möchtest du erreichen?</label><select id="goal"><option>Meinen KI-Avatar kennenlernen: Vorlieben, Eigenheiten und normale Alltagsmomente zeigen.</option><option>Einfach unterhalten: eine lustige oder wiedererkennbare Alltagssituation teilen.</option><option>Nähe aufbauen: Die Zielgruppe soll sich verstanden fühlen.</option><option>Antworten auslösen: Eine konkrete, leicht beantwortbare Alltagsfrage stellen.</option><option>Vertrauen stärken: Einen ehrlichen Einblick in meine Arbeit geben.</option><option>Mehrwert geben: Einen kleinen Tipp zeigen, der sofort umsetzbar ist.</option><option>Interesse am Angebot wecken: Ein echtes Problem und einen passenden nächsten Schritt zeigen.</option><option>Community aktivieren: Eine kleine Mitmach-Challenge vorschlagen.</option></select><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><label class="field" for="interaction">Gewünschte Interaktion</label><select id="interaction"><option>Passend zur Situation auswählen; nicht auf jedem Slide einen Sticker.</option><option>Umfrage mit zwei konkreten, gleichwertigen Antwortoptionen.</option><option>Fragensticker mit einer einfachen, persönlichen Frage.</option><option>Emoji-Slider mit einer klaren Frage.</option><option>Direktnachricht mit einem passenden Stichwort.</option><option>Keine Sticker; mit einem ruhigen Gedanken abschliessen.</option></select></div>
+<div class="section"><h2>5. Dein Story-Ziel</h2><p class="help">Gib deiner Story eine Richtung und optional einen konkreten Anlass.</p><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily" selected>Normaler Alltag – meinen KI-Avatar kennenlernen</option><option value="mixed">Alltag und Business – nur verbinden, wenn es passt</option><option value="business">Business, Wissen oder ein Angebot zeigen</option></select><p class="small">Eine kleine Alltagsszene reicht. Du brauchst dafür weder ein Angebot noch eine Businessbotschaft.</p><label class="field" for="goal">Was möchtest du erreichen?</label><select id="goal"><option>Meinen KI-Avatar kennenlernen: Vorlieben, Eigenheiten und normale Alltagsmomente zeigen.</option><option>Einfach unterhalten: eine lustige oder wiedererkennbare Alltagssituation teilen.</option><option>Nähe aufbauen: Die Zielgruppe soll sich verstanden fühlen.</option><option>Antworten auslösen: Eine konkrete, leicht beantwortbare Alltagsfrage stellen.</option><option>Vertrauen stärken: Einen ehrlichen Einblick in meine Arbeit geben.</option><option>Mehrwert geben: Einen kleinen Tipp zeigen, der sofort umsetzbar ist.</option><option>Interesse am Angebot wecken: Ein echtes Problem und einen passenden nächsten Schritt zeigen.</option><option>Community aktivieren: Eine kleine Mitmach-Challenge vorschlagen.</option></select><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><label class="field" for="interaction">Gewünschte Interaktion</label><select id="interaction"><option>Passend zur Situation auswählen; nicht auf jedem Slide einen Sticker.</option><option>Umfrage mit zwei konkreten, gleichwertigen Antwortoptionen.</option><option>Fragensticker mit einer einfachen, persönlichen Frage.</option><option>Emoji-Slider mit einer klaren Frage.</option><option>Direktnachricht mit einem passenden Stichwort.</option><option>Keine Sticker; mit einem ruhigen Gedanken abschliessen.</option></select>
+<label class="field" for="finalLinkSticker"><input type="checkbox" id="finalLinkSticker"> Platz für einen Link-Sticker auf dem letzten Slide lassen</label>
+<p class="small">Der Platz bleibt im Bild frei. Den klickbaren Link-Sticker setzt du später in Instagram. Du kannst diese Option mit einer Umfrage oder einem anderen Sticker kombinieren.</p></div>
 <div class="section"><h2>6. Ausdruck</h2><p class="help">Wie deutlich sollen Mimik und Gestik sein?</p><div class="grid"><label class="choice"><input type="radio" name="expression" value="dezent"><span>Dezent</span></label><label class="choice"><input type="radio" name="expression" value="natürlich"><span>Natürlich</span></label><label class="choice"><input type="radio" name="expression" value="deutlich"><span>Deutlich</span></label></div></div>
 <div class="actions"><button class="btn primary" type="submit">Prompt erstellen</button></div>
 </form>
 </section>
-<aside class="panel output"><h2>Ausgabe</h2><p class="help">Wähle, was du gerade brauchst.</p><div class="mode"><label><input type="radio" name="mode" value="master" checked> Dauerhafter Masterprompt</label><label><input type="radio" name="mode" value="week"> 7-Tage-Wochenplanung</label><label><input type="radio" name="mode" value="day"> Heutige Story erstellen</label></div><div class="notice">Nach der Planung begleitet dich der Chat weiter: Story wählen, Avatar hochladen, Outfit und Contentplan bestätigen – danach die Slides im gewählten Ablauf erstellen – mit Bildtext oder separaten Text-Kopierboxen.</div><pre id="result">Dein fertiger Prompt erscheint hier.</pre><button class="btn primary" id="copy" type="button" disabled>Ausgabe kopieren</button><button class="btn" id="downloadPrompt" type="button" disabled>Vollständigen Prompt als TXT herunterladen</button><p class="small" id="status" role="status" aria-live="polite"></p></aside>
+<aside class="panel output"><h2>Ausgabe</h2><p class="help">Wähle, was du gerade brauchst.</p><div class="mode"><label><input type="radio" name="mode" value="master" checked> Dauerhafter Masterprompt</label><label><input type="radio" name="mode" value="week"> 7-Tage-Wochenplanung</label><label><input type="radio" name="mode" value="day"> Heutige Story erstellen</label></div><div class="notice">Nach der Planung begleitet dich der Chat weiter: Story wählen, bei Bedarf Avatar und Outfit abstimmen, Contentplan bestätigen – danach die Slides im gewählten Ablauf erstellen – mit Bildtext oder separaten Text-Kopierboxen.</div><pre id="result">Dein fertiger Prompt erscheint hier.</pre><button class="btn primary" id="copy" type="button" disabled>Ausgabe kopieren</button><button class="btn" id="downloadPrompt" type="button" disabled>Vollständigen Prompt als TXT herunterladen</button><p class="small" id="status" role="status" aria-live="polite"></p></aside>
 </div>
 <aside class="panel login-offer" style="margin-top:24px" aria-label="LIORA Upgrade-Vorteil"><div class="eyebrow">✦ Exklusiver Upgrade-Vorteil ✦</div><h2>Deine 20 € sind nicht verloren! 💜</h2><p>Du möchtest später noch einen Schritt weitergehen und Content entwickeln, der deine Produkte gezielt in den Mittelpunkt stellt? Dann rechnen wir dir deinen StoryApp-Kaufpreis von 20 € beim Upgrade auf unser Premiumprodukt <strong>LIORA</strong> vollständig an.</p><div class="login-guide"><strong style="color:#355e4c">Dein Upgrade-Vorteil</strong><p class="offer-price"><strong>20 € Guthaben</strong></p><p>Statt <s>119 €</s> zahlst du nur <strong>99 €</strong>.</p></div><p style="color:#624582;font-weight:700">Erst starten. Später entscheiden. 💜</p><a class="btn primary offer-link" href="https://aphroditepromt.mytentary.com/p/GCdrQl?coupon=L1ORA20" target="_blank" rel="noopener noreferrer">Upgrade auf LIORA entdecken</a><p class="small">Deine Anrechnung erfolgt über den Rabattcode <strong>L1ORA20</strong>, der bereits im Link enthalten ist. Falls er nicht übernommen wird, gib ihn an der Kasse ein.</p></aside>
 <div class="reset-safe-zone"><details id="resetOptions"><summary>Weitere Einstellungen</summary><p class="small">Hier kannst du deine aktuellen Eingaben zurücksetzen. Dein gespeicherter Story-Stil und deine Markenfarben bleiben erhalten.</p><button class="btn ghost reset-danger" type="reset" form="storyForm" id="safeReset">Auswahl &amp; Eingaben leeren</button></details></div>
@@ -100,10 +125,26 @@ function collectPromptInput(){
   storyDirection:val('#storyDirection')||'daily',fields
  };
 }
+function storyOutputOptions(){
+ const instructions=[];
+ if(val('#avatarPreset')===noAvatarPreset){
+  instructions.push('BILDMOTIV OHNE AVATAR: Für diesen Auftrag keine sichtbaren Personen und keinen Avatar zeigen. Verwende passende Gegenstände, Orte, Tiere oder Alltagsdetails. Überspringe alle Rückfragen und Freigaben zu Avatar und Outfit. Nutze Stilreferenzen nur für die Gestaltung.');
+ }
+ const slide=val('#avatarFreeSlide');
+ if(slide && !$('#slideMotifOptions').hidden){
+  const motif=val('#slideMotif')||'ein zur Handlung passendes Motiv';
+  instructions.push('EINZELNER SLIDE OHNE AVATAR: Auf Slide '+slide+' der ausgearbeiteten Story zeige '+motif+'. Auf diesem Slide sind kein Avatar und keine sichtbaren Personen. Setze dies schon im Contentplan und später in der Bildanweisung um. Für alle übrigen Slides gilt die allgemeine Bildmotiv-Auswahl. Bei einer Wochenübersicht gilt dies erst beim Ausarbeiten einer konkreten Story.');
+ }
+ if($('#finalLinkSticker').checked){
+  instructions.push('LINK-STICKER AUF DEM LETZTEN SLIDE: Reserviere bereits im Contentplan und in jedem Bildprompt für den letzten Slide der jeweiligen Story eine gut sichtbare, ruhige freie Fläche für den Instagram-Link-Sticker. Positioniere sie bevorzugt mittig im unteren Bilddrittel mit Abstand zum unteren Rand. Halte diese Fläche frei von Text, wichtigen Motiven, Nummern, KI-Hinweis und anderen Stickern. Zeichne keinen Platzhalter, keinen Link und keinen Sticker ins Bild. Gib die Platzierung im Chat an. Falls ein Stickertext oder eine URL fehlt, frage bei Bedarf danach oder liefere nur die Platzierung. Erfinde keine URL. Andere gewünschte Sticker bleiben möglich und sollen die Linkfläche nicht überdecken. Bei nur einem Slide gilt diese Regel für diesen Slide. Bei einer reinen Wochenplanung gilt sie erst beim Ausarbeiten der gewählten Story.');
+ }
+ return instructions.length?'VERBINDLICHE AUSGABE-OPTIONEN FÜR DIESEN AUFTRAG – bei Konflikten mit allgemeinen Avatar- oder Sticker-Regeln gelten diese Optionen:\n'+instructions.join('\n\n'):'';
+}
 let promptRequestId=0;
 let verifiedPrompt="";
 async function generatePrompt(){
  const requestId=++promptRequestId;
+ const selectedOptions=storyOutputOptions();
  const button=$('#storyForm button[type="submit"]');
  $('#copy').disabled=true;$('#downloadPrompt').disabled=true;verifiedPrompt='';
  button.disabled=true;
@@ -126,7 +167,7 @@ async function generatePrompt(){
   if(!Number.isSafeInteger(data.length)||data.length!==data.prompt.length){
    throw new Error('Der Prompt wurde unvollständig übertragen. Bitte erneut erstellen; Kopieren und Download bleiben gesperrt.');
   }
-  verifiedPrompt=data.prompt;
+  verifiedPrompt=[data.prompt,selectedOptions].filter(Boolean).join('\n\n');
   $('#result').textContent=verifiedPrompt;
   $('#copy').disabled=false;$('#downloadPrompt').disabled=false;
   $('#status').textContent='✓ Vollständig empfangen ('+verifiedPrompt.length.toLocaleString('de-CH')+' Zeichen). Du kannst den Prompt kopieren oder als TXT speichern.';
@@ -189,32 +230,50 @@ const presets={
   'Avatar und Outfit im Chat hochladen',
   'Avatar im Chat hochladen – Outfit von LIORA wählen lassen',
   'Eigenes Foto im Chat hochladen',
-  'Ohne sichtbare Person'
+  'Ohne Avatar – nur Motive ohne sichtbare Person'
  ],
  occasion:['Morgenroutine: Der Wecker klingelt, die Decke hält mich aber noch fest.','Kaffee: Ich suche die Tasse, die schon direkt vor mir steht.','Mittagspause: Aufgewärmte Spaghetti statt des geplanten kulinarischen Höhenflugs.','Sofaabend: Serie ausgesucht, Snack bereit – nach zehn Minuten eingeschlafen.','Mit der Katze: Ich wollte lesen, sie wollte auf genau diesem Buch liegen.','Einkaufen: Nur Milch holen und mit einer ganzen Tasche zurückkommen.','Was ziehe ich an? Drei Outfits später wird es doch wieder der Lieblingspullover.','Spaziergang: Kurz frische Luft holen – und von einem Regenschauer überrascht werden.','Haushalt: Die Wäsche ist fertig, nur zusammengelegt hat sie sich noch nicht.','Kochen: Sieht anders aus als im Rezept, schmeckt aber trotzdem.','Musik: Mein Lieblingssong läuft und die Küche wird kurz zur Bühne.','Ein kleiner Glücksmoment: Sonne im Gesicht und für einen Moment nichts vorhaben.','Feierabend: Headset ab, bequeme Kleidung an, erst einmal Ruhe.','Wochenende: Ausschlafen geplant, früh wach und schon wieder Hunger.','Entweder-oder: Bin ich eher Team gemütlicher Sofaabend oder spontan noch raus?','Eine harmlose Eigenheit: Ich rieche erst am Kaffee, bevor ich einen Schluck nehme.','Ich habe eine eigene Idee – unten kurz beschreiben.']
 };
 for(const [id,items] of Object.entries(presets)){
  const field=document.getElementById(id), select=document.createElement('select');
  select.className='preset';select.setAttribute('aria-label','Beispiel auswählen: '+document.querySelector('label[for="'+id+'"]').textContent);
- select.add(new Option(id==='avatar'?'Avatar und Outfit auswählen – oder selbst beschreiben':'Vorschlag wählen – oder darunter selbst schreiben',''));
+ select.add(new Option(id==='avatar'?'Bildmotiv auswählen – oder selbst beschreiben':'Vorschlag wählen – oder darunter selbst schreiben',''));
  items.forEach(item=>select.add(new Option(item,item)));
- if(id==='avatar')select.setAttribute('aria-label','Avatar und Outfit: vier Optionen auswählen');
+ if(id==='avatar'){select.id='avatarPreset';select.setAttribute('aria-label','Bildmotiv mit oder ohne Avatar auswählen');}
  if(id==='avatar'){
   const label=document.querySelector('label[for="avatar"]');
   label.after(select);
  }else{field.before(select);}
  select.addEventListener('change',()=>{
+  if(id==='avatar')updateAvatarReferenceHelp();
   if(!select.value)return;
   const avatarInstructions={
    'Avatar und Outfit im Chat hochladen':'Ich lade mein Avatar-Referenzbild und mein Outfit-Referenzbild später im Chat hoch. LIORA fordert zuerst das Avatarbild an und wartet auf den Upload. Danach fordert LIORA das Outfitbild an und wartet erneut. Avatarbild ausschliesslich für Identität und Gesicht, Outfitbild ausschliesslich für Kleidung verwenden. Keine Gesichtsmerkmale der Outfitreferenz übernehmen.',
    'Avatar im Chat hochladen – Outfit von LIORA wählen lassen':'Ich lade mein Avatar-Referenzbild später im Chat hoch. LIORA fordert es an und wartet auf den Upload. Anschliessend schlägt LIORA ein zur Szene passendes Outfit vor und wartet auf meine Bestätigung. Identität des Avatarbilds unverändert bewahren.',
    'Eigenes Foto im Chat hochladen':'Ich lade ein eigenes Foto später im Chat hoch. LIORA fordert das Foto an und wartet auf den Upload. Danach fragt LIORA, ob das Foto unverändert mit Text gestaltet oder auf ausdrücklichen Wunsch verändert werden soll. Keine Neugenerierung ohne meine Zustimmung.',
-   'Ohne sichtbare Person':'Keine sichtbare Person und kein Avatar. LIORA entwickelt passende Storybilder mit Alltagsdetails, Gegenständen oder Räumen. Kein Avatar- oder Outfitbild anfordern.'
+   'Ohne Avatar – nur Motive ohne sichtbare Person':'Keine sichtbare Person und kein Avatar. LIORA entwickelt passende Storybilder mit Alltagsdetails, Gegenständen oder Räumen. Kein Avatar- oder Outfitbild anfordern.'
   };
   field.value=id==='avatar'?(avatarInstructions[select.value]||select.value):select.value;
   field.dispatchEvent(new Event('input',{bubbles:true}));
  });
 }
+const noAvatarPreset='Ohne Avatar – nur Motive ohne sichtbare Person';
+function updateAvatarReferenceHelp(){
+ const withoutAvatar=val('#avatarPreset')===noAvatarPreset;
+ $('#avatarReferenceHelp').hidden=withoutAvatar;
+ $('#slideMotifOptions').hidden=withoutAvatar;
+ updateSlideMotifOptions();
+}
+function updateSlideMotifOptions(){
+ const count=Number(val('#slideCount')||5);
+ const slideField=$('#avatarFreeSlide');
+ for(const option of slideField.options)option.disabled=Number(option.value)>count;
+ if(Number(slideField.value)>count)slideField.value='';
+ $('#slideMotifChoice').hidden=!slideField.value;
+}
+$('#slideCount').addEventListener('change',updateSlideMotifOptions);
+$('#avatarFreeSlide').addEventListener('change',updateSlideMotifOptions);
+updateSlideMotifOptions();
 // Persönliche Markenfarben nur lokal im Browser merken; keine Übertragung an Supabase ausser bei Prompt-Erstellung.
 const savedColorsKey='liora-story-brand-colors-v1';
 const colorsField=document.getElementById('colors');
@@ -256,6 +315,10 @@ document.getElementById('startNewContent').addEventListener('click',()=>{
     document.getElementById(id).selectedIndex=0;
   }
   document.querySelectorAll('#storyForm input[name="expression"]').forEach(input=>input.checked=false);
+  $('#finalLinkSticker').checked=false;
+  $('#avatarFreeSlide').value='';
+  $('#slideMotif').selectedIndex=0;
+  updateSlideMotifOptions();
   // Den alten Prompt sicher ungültig machen und die Ausgabe zurücksetzen.
   clearOutput('Neuer Content bereit. Du kannst jetzt einen neuen Auftrag erstellen.');
   const status=document.getElementById('newContentStatus');
@@ -263,7 +326,7 @@ document.getElementById('startNewContent').addEventListener('click',()=>{
   status.hidden=false;
   // Kein Scrollen und kein Fokuswechsel zu einem Feld weiter unten.
 });
-function clearOutput(message=''){promptRequestId++;document.getElementById('result').textContent='Dein fertiger Prompt erscheint hier.';document.getElementById('copy').disabled=true;document.getElementById('downloadPrompt').disabled=true;verifiedPrompt='';document.getElementById('status').textContent=message;}
+function clearOutput(message=''){promptRequestId++;document.getElementById('result').textContent='Dein fertiger Prompt erscheint hier.';document.getElementById('copy').disabled=true;document.getElementById('downloadPrompt').disabled=true;verifiedPrompt='';document.getElementById('status').textContent=message;$('#storyForm button[type=submit]').disabled=false;}
 document.getElementById('storyForm').addEventListener('reset',event=>{
  event.preventDefault();
  if(!window.confirm('Möchtest du wirklich alle aktuellen Auswahlfelder und Eingaben leeren? Dein gespeicherter Story-Stil und deine Markenfarben bleiben erhalten.'))return;
@@ -274,6 +337,9 @@ document.getElementById('storyForm').addEventListener('reset',event=>{
  all('#storyForm input').forEach(input=>{if(input.type==='checkbox'||input.type==='radio')input.checked=false;else input.value='';});
  all('#storyForm textarea').forEach(field=>{if(!field.readOnly)field.value='';});
  all('#storyForm select').forEach(select=>{select.selectedIndex=select.classList.contains('preset')?0:-1;});
+ $('#avatarFreeSlide').value='';
+ $('#slideMotif').selectedIndex=0;
+ updateAvatarReferenceHelp();
  colorsField.value=retainedColors;
  fontField.value=retainedFont;
  savedStyleField.value=retainedStyle;
@@ -439,7 +505,7 @@ const modeRequirements={
  day:['language','audience','colors','avatar','style','font','production','textMode','slideCount','goal']
 };
 const modeNames={master:'dauerhaften Masterprompt',week:'7-Tage-Wochenplanung',day:'heutige Story'};
-const fieldNames={language:'Eigene Sprachbeschreibung',audience:'Zielgruppenbeschreibung',topics:'Themen und Alltagssituationen',colors:'Markenfarben',avatar:'Avatar und Outfit',style:'Bildstil',font:'Schriftwirkung',production:'Bilderstellung',textMode:'Text auf den Bildern',slideCount:'Anzahl Slides',goal:'Story-Ziel'};
+const fieldNames={language:'Eigene Sprachbeschreibung',audience:'Zielgruppenbeschreibung',topics:'Themen und Alltagssituationen',colors:'Markenfarben',avatar:'Bildmotiv mit oder ohne Avatar',style:'Bildstil',font:'Schriftwirkung',production:'Bilderstellung',textMode:'Text auf den Bildern',slideCount:'Anzahl Slides',goal:'Story-Ziel'};
 (function initModeFieldGuide(){
  const form=document.getElementById('storyForm');
  const info=document.createElement('p');info.className='help';info.id='modeFieldInfo';form.prepend(info);
@@ -475,7 +541,7 @@ const fieldNames={language:'Eigene Sprachbeschreibung',audience:'Zielgruppenbesc
  function update(){
   const mode=document.querySelector('input[name="mode"]:checked')?.value||'master';
   groups.forEach(wrap=>{const id=wrap.dataset.modeRequired,active=id==='all'||modeRequirements[mode].includes(id);wrap.classList.toggle('is-required',active);wrap.querySelector('.mode-tag').hidden=!active;});
-  info.textContent='Mintgrün markiert die Pflichtangaben für '+(mode==='master'?'deinen '+modeNames[mode]:mode==='week'?'deine '+modeNames[mode]:'deine heutige Story')+'. Bei Avatar/Outfit ist auch „Ohne sichtbare Person“ möglich. Bereits ausgewählte Dropdown-Werte zählen. Weitere Details klärt LIORA bei Bedarf im Chat.';
+  info.textContent='Mintgrün markiert die Pflichtangaben für '+(mode==='master'?'deinen '+modeNames[mode]:mode==='week'?'deine '+modeNames[mode]:'deine heutige Story')+'. Beim Bildmotiv kannst du „Ohne Avatar“ wählen. Bereits ausgewählte Dropdown-Werte zählen. Weitere Details klärt LIORA bei Bedarf im Chat.';
   error.hidden=true;
  }
  document.querySelectorAll('input[name="mode"]').forEach(el=>el.addEventListener('change',update));
@@ -491,11 +557,11 @@ const fieldNames={language:'Eigene Sprachbeschreibung',audience:'Zielgruppenbesc
   if(!field||!label)continue;
   const container=field.parentElement;
   if(!container||label.parentElement!==container)continue;
-  const dropdown=[...container.children].find(el=>el.matches('select.preset')&&el.getAttribute('aria-label')?.includes(id==='avatar'?'Avatar und Outfit':label.textContent.trim()));
+  const dropdown=[...container.children].find(el=>el.matches('select.preset')&&el.getAttribute('aria-label')?.includes(id==='avatar'?'Bildmotiv mit oder ohne Avatar':label.textContent.trim()));
   if(!dropdown)continue;
   // insertBefore verschiebt bestehende Elemente, ohne Werte oder Event-Listener zu verlieren.
   container.insertBefore(label,dropdown);
-  container.insertBefore(dropdown,field);
+  if(id!=='avatar')container.insertBefore(dropdown,field);
  }
 })();
 
