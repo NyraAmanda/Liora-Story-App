@@ -63,7 +63,11 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <label class="choice"><input type="checkbox" name="life" value="kreative Projekte"><span>Kreative Projekte</span></label>
 <label class="choice"><input type="checkbox" name="life" value="Entscheidungen hinter den Kulissen"><span>Hinter den Kulissen</span></label>
 <label class="choice"><input type="checkbox" name="life" value="kleine Alltagserkenntnisse"><span>Kleine Erkenntnisse</span></label>
-</div><div class="two"><div><label class="field" for="places">Orte</label><input id="places" type="text" placeholder="z. B. Schreibtisch, Küche, unterwegs"></div><div><label class="field" for="people">Personen oder Tiere</label><input id="people" type="text" placeholder="z. B. Partner, Team, Hund"></div></div><label class="field" for="topics">Eigene Themen und Alltagssituationen</label><textarea id="topics" placeholder="Was darf in deinen Stories vorkommen?"></textarea></div>
+</div><div class="two"><div><label class="field" for="places">Orte</label><input id="places" type="text" placeholder="z. B. Schreibtisch, Küche, unterwegs"></div><div><label class="field" for="people">Personen oder Tiere</label><input id="people" type="text" placeholder="z. B. Partner, Team, Hund"><div id="recentPeopleGroup" hidden>
+  <label class="field" for="recentPeople">Zuletzt verwendete Personen oder Tiere</label>
+  <select id="recentPeople"></select>
+  <button class="btn ghost" id="clearRecentPeople" type="button">Verlauf leeren</button>
+</div></div></div><label class="field" for="topics">Eigene Themen und Alltagssituationen</label><textarea id="topics" placeholder="Was darf in deinen Stories vorkommen?"></textarea></div>
 
 <div class="section"><h2>4. Mein Stil</h2><p class="help">Deine persönlichen Stileinstellungen bleiben in diesem Browser gespeichert – auch nach dem Abmelden.</p><div class="notice"><strong>Deinen bisherigen Story-Stil übernehmen</strong><p>Kopiere den Analyse-Prompt in ChatGPT und lade dort 3–5 bisherige Story-Slides hoch. Füge die fertige Stilbeschreibung anschliessend unten ein.</p><button class="btn secondary" type="button" id="copyStyle">Stil-Analyse-Prompt kopieren</button><p class="small" id="styleStatus" role="status" aria-live="polite"></p><details id="stylePromptDetails"><summary>Analyse-Prompt anzeigen</summary><textarea id="stylePromptText" readonly aria-label="Stil-Analyse-Prompt"></textarea></details></div><label class="field" for="savedStyle">Mein bisheriger Story-Stil (optional)</label><textarea id="savedStyle" placeholder="Hier die Stilbeschreibung aus ChatGPT einfügen. Sie wird in deinen Story-Prompt übernommen."></textarea><div class="two"><div><label class="field" for="colors">Markenfarben</label><input id="colors" type="text" placeholder="z. B. Salbeigrün, Beige und Gold"></div><div><label class="field" for="style">Bildstil</label><select id="style"><option>natürlich und editorial</option><option>warm und dokumentarisch</option><option>verspielt und farbig</option><option>minimal und ruhig</option></select></div></div><label class="field" for="font">Schriftwirkung</label><select id="font"><option value="Schriftwirkung aus meiner Stilanalyse übernehmen. Verwende die dort beschriebene Typografie und Schriftwirkung. Falls keine Stilanalyse vorliegt oder darin keine Typografie beschrieben ist, kläre die gewünschte Schriftwirkung im Chat oder schlage eine passende vor; erfinde keine analysierten Schriftmerkmale.">Aus meiner Stilanalyse übernehmen</option><option>edle Editorial-Serifenschrift mit moderner Sans-Serif</option><option>klare moderne Sans-Serif</option><option>weiche elegante Serifenschrift</option><option>markante plakative Typografie</option></select><label class="field" for="avatar">Bildmotiv · mit oder ohne Avatar</label><p class="help">Wähle, was auf deinen Storybildern zu sehen sein soll.</p><div id="avatarReferenceHelp"><p class="help"><strong>Du kannst dein Avatarbild und dein Outfitbild erst später direkt im Chat hochladen.</strong> Wähle dafür die Option «Avatar und Outfit im Chat hochladen». LIORA fragt die Bilder nacheinander an und wartet auf deinen Upload.</p><p class="help">Noch keine Outfitidee? Schau auf <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" style="color:var(--purple);font-weight:700">Pinterest</a> vorbei, such dir einen Look aus und lade das Bild später in ChatGPT als Outfitvorschlag hoch. Glaub mir, das macht Spass! 💜<br><span class="small">Dein Avatar bleibt derselbe – das Referenzbild dient als Inspiration für die Kleidung.</span></p></div><textarea id="avatar" placeholder="Wähle oben eine Option oder beschreibe dein Bildmotiv, deinen Avatar und dein Outfit selbst."></textarea>
 <fieldset id="slideMotifOptions">
@@ -147,6 +151,7 @@ let verifiedPrompt="";
 async function generatePrompt(){
  const requestId=++promptRequestId;
  const selectedOptions=storyOutputOptions();
+ const promptInput=collectPromptInput();
  const button=$('#storyForm button[type="submit"]');
  $('#copy').disabled=true;$('#downloadPrompt').disabled=true;verifiedPrompt='';
  button.disabled=true;
@@ -156,7 +161,7 @@ async function generatePrompt(){
   if(!authToken||!currentSession)throw new Error('Bitte melde dich zuerst an.');
   const res=await fetch(authBase+'/functions/v1/generate-story-prompt',{
    method:'POST',headers:{'Content-Type':'application/json',apikey:authKey},
-   body:JSON.stringify({action:'generate',token:authToken,...collectPromptInput()}),signal:AbortSignal.timeout(30000)
+   body:JSON.stringify({action:'generate',token:authToken,...promptInput}),signal:AbortSignal.timeout(30000)
   });
   const data=await res.json().catch(()=>({}));
   if(requestId!==promptRequestId)return;
@@ -169,6 +174,7 @@ async function generatePrompt(){
   if(!Number.isSafeInteger(data.length)||data.length!==data.prompt.length){
    throw new Error('Der Prompt wurde unvollständig übertragen. Bitte erneut erstellen; Kopieren und Download bleiben gesperrt.');
   }
+  rememberPeople(promptInput.fields.people);
   verifiedPrompt=[data.prompt,selectedOptions].filter(Boolean).join('\n\n');
   $('#result').textContent=verifiedPrompt;
   $('#copy').disabled=false;$('#downloadPrompt').disabled=false;
@@ -302,6 +308,40 @@ function resetSlideMotifs(){
 }
 $('#slideCount').addEventListener('change',updateSlideMotifOptions);
 updateSlideMotifOptions();
+const recentPeopleKey='liora-story-recent-people-v1';
+let recentPeople=[];
+try{
+ const stored=JSON.parse(localStorage.getItem(recentPeopleKey)||'[]');
+ if(Array.isArray(stored))recentPeople=stored.filter(entry=>typeof entry==='string'&&entry.trim()).slice(0,8);
+}catch(error){}
+function renderRecentPeople(){
+ const select=$('#recentPeople');
+ select.replaceChildren(new Option('Früheren Eintrag auswählen',''));
+ for(const entry of recentPeople)select.add(new Option(entry,entry));
+ $('#recentPeopleGroup').hidden=!recentPeople.length;
+}
+function rememberPeople(entry){
+ if(!entry||presets.people.includes(entry))return;
+ const normalized=entry.toLocaleLowerCase('de-CH');
+ recentPeople=[entry,...recentPeople.filter(previous=>previous.toLocaleLowerCase('de-CH')!==normalized)].slice(0,8);
+ try{localStorage.setItem(recentPeopleKey,JSON.stringify(recentPeople));}catch(error){}
+ renderRecentPeople();
+}
+$('#recentPeople').addEventListener('change',event=>{
+ const select=event.currentTarget;
+ if(!select.value)return;
+ const field=$('#people');
+ field.value=select.value;
+ select.selectedIndex=0;
+ field.dispatchEvent(new Event('input',{bubbles:true}));
+});
+$('#clearRecentPeople').addEventListener('click',()=>{
+ recentPeople=[];
+ try{localStorage.removeItem(recentPeopleKey);}catch(error){}
+ renderRecentPeople();
+ $('#people').focus({preventScroll:true});
+});
+renderRecentPeople();
 // Persönliche Markenfarben nur lokal im Browser merken; keine Übertragung an Supabase ausser bei Prompt-Erstellung.
 const savedColorsKey='liora-story-brand-colors-v1';
 const colorsField=document.getElementById('colors');
@@ -362,7 +402,7 @@ document.getElementById('storyForm').addEventListener('reset',event=>{
  const retainedImageStyle=imageStyleField.value;
  all('#storyForm input').forEach(input=>{if(input.type==='checkbox'||input.type==='radio')input.checked=false;else input.value='';});
  all('#storyForm textarea').forEach(field=>{if(!field.readOnly)field.value='';});
- all('#storyForm select').forEach(select=>{select.selectedIndex=select.classList.contains('preset')?0:-1;});
+ all('#storyForm select').forEach(select=>{select.selectedIndex=select.classList.contains('preset')||select.id==='recentPeople'?0:-1;});
  resetSlideMotifs();
  updateAvatarReferenceHelp();
  colorsField.value=retainedColors;
