@@ -112,7 +112,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <label class="field" for="finalLinkSticker"><input type="checkbox" id="finalLinkSticker"> Platz für einen Link-Sticker auf dem letzten Slide lassen</label>
 <p class="small">Der Platz bleibt im Bild frei. Den klickbaren Link-Sticker setzt du später in Instagram. Du kannst diese Option mit einer Umfrage oder einem anderen Sticker kombinieren.</p></div>
 <div class="section"><h2>6. Ausdruck</h2><p class="help">Wie deutlich sollen Mimik und Gestik sein?</p><div class="grid"><label class="choice"><input type="radio" name="expression" value="dezent"><span>Dezent</span></label><label class="choice"><input type="radio" name="expression" value="natürlich"><span>Natürlich</span></label><label class="choice"><input type="radio" name="expression" value="deutlich"><span>Deutlich</span></label></div></div>
-<div class="actions"><button class="btn primary" type="submit">Prompt erstellen</button></div>
+<div class="actions"><button class="btn primary" type="submit" aria-describedby="promptWaitStatus">Prompt erstellen</button><p id="promptWaitStatus" class="small" role="status" hidden></p></div>
 </form>
 </section>
 <aside class="panel output"><h2>Ausgabe</h2><p class="help">Wähle, was du gerade brauchst.</p><div class="mode"><label><input type="radio" name="mode" value="master" checked> Dauerhafter Masterprompt</label><label><input type="radio" name="mode" value="week"> 7-Tage-Wochenplanung</label><label><input type="radio" name="mode" value="day"> Heutige Story erstellen</label></div><div class="notice">Nach der Planung begleitet dich der Chat weiter: Story wählen, bei Bedarf Avatar und Outfit abstimmen, Contentplan bestätigen – danach die Slides im gewählten Ablauf erstellen – mit Bildtext oder separaten Text-Kopierboxen.</div><pre id="result">Dein fertiger Prompt erscheint hier.</pre><button class="btn primary" id="copy" type="button" disabled>Ausgabe kopieren</button><button class="btn" id="downloadPrompt" type="button" disabled>Vollständigen Prompt als TXT herunterladen</button><p class="small" id="status" role="status" aria-live="polite"></p></aside>
@@ -190,27 +190,78 @@ function storyOutputOptions(){
  return instructions.length?'VERBINDLICHE AUSGABE-OPTIONEN FÜR DIESEN AUFTRAG – bei Konflikten mit allgemeinen Avatar- oder Sticker-Regeln gelten diese Optionen:\n'+instructions.join('\n\n'):'';
 }
 let promptRequestId=0;
+let promptInFlight=false;
+let promptRetryAt=0;
+let promptButtonTimer;
+
+function updatePromptButton(){
+ clearTimeout(promptButtonTimer);
+ const button=$('#storyForm button[type="submit"]');
+ const status=$('#promptWaitStatus');
+ const wait=promptRetryAt-Date.now();
+ const coolingDown=wait>0;
+ button.disabled=promptInFlight||coolingDown;
+ button.textContent=coolingDown?'Bitte kurz warten …':promptInFlight?'Prompt wird erstellt …':'Prompt erstellen';
+ status.hidden=!button.disabled;
+ status.textContent=coolingDown?'LIORA ist gerade ausgelastet. Danke für deine Geduld 💜':promptInFlight?'Danke für deine Geduld 💜':'';
+ if(coolingDown&&!promptInFlight){
+  promptButtonTimer=setTimeout(updatePromptButton,Math.min(wait,2147483647));
+ }
+}
+
+function promptRetryDelay(response){
+ const retryAfter=response.headers.get('Retry-After');
+ const seconds=retryAfter?.trim() && Number(retryAfter);
+ if(Number.isFinite(seconds)&&seconds>=0)return seconds*1000;
+ const date=Date.parse(retryAfter||'');
+ if(Number.isFinite(date))return Math.max(0,date-Date.now());
+ return 1500;
+}
+async function fetchStoryPrompt(body,isCurrent){
+ for(let attempt=0;attempt<2;attempt++){
+  const response=await fetch(authBase+'/functions/v1/generate-story-prompt',{
+   method:'POST',headers:{'Content-Type':'application/json',apikey:authKey},
+   body,signal:AbortSignal.timeout(30000)
+  });
+  if(!isCurrent())return response;
+  if(response.status!==429&&response.status!==503)return response;
+  const delay=Math.max(1000,promptRetryDelay(response))+Math.floor(Math.random()*1500);
+  promptRetryAt=Date.now()+delay;
+  updatePromptButton();
+  if(attempt===1||delay>12000)return response;
+  $('#status').textContent='LIORA ist gerade ausgelastet. Ein neuer Versuch folgt automatisch.';
+  await response.body?.cancel().catch(()=>{});
+  await new Promise(resolve=>setTimeout(resolve,delay));
+  if(!isCurrent())return response;
+ }
+}
 let verifiedPrompt="";
 async function generatePrompt(){
+ if(promptInFlight)return;
+ const remaining=Math.ceil((promptRetryAt-Date.now())/1000);
+ if(remaining>0){
+  $('#status').textContent='Bitte warte noch '+remaining+' Sek. und versuche es erneut.';
+  return;
+ }
  const requestId=++promptRequestId;
  const selectedOptions=storyOutputOptions();
  const promptInput=collectPromptInput();
- const button=$('#storyForm button[type="submit"]');
  $('#copy').disabled=true;$('#downloadPrompt').disabled=true;verifiedPrompt='';
- button.disabled=true;
+ promptInFlight=true;
+ updatePromptButton();
  $('#result').textContent='LIORA erstellt deinen Prompt …';
  $('#status').textContent='Die geschützten Vorlagen werden aus Supabase geladen.';
  try{
   if(!authToken||!currentSession)throw new Error('Bitte melde dich zuerst an.');
-  const res=await fetch(authBase+'/functions/v1/generate-story-prompt',{
-   method:'POST',headers:{'Content-Type':'application/json',apikey:authKey},
-   body:JSON.stringify({action:'generate',token:authToken,...promptInput}),signal:AbortSignal.timeout(30000)
-  });
+  const token=authToken;
+  const isCurrent=()=>requestId===promptRequestId&&authToken===token;
+  const res=await fetchStoryPrompt(JSON.stringify({action:'generate',token,...promptInput}),isCurrent);
+  if(!isCurrent())return;
   const data=await res.json().catch(()=>({}));
-  if(requestId!==promptRequestId)return;
+  if(!isCurrent())return;
   if(!res.ok||data.success!==true||typeof data.prompt!=='string'||!data.prompt.trim()){
    if(res.status===401||res.status===403){lockApp('Dein Zugang ist nicht mehr gültig. Möglicherweise wurde das Kundenpasswort geändert. Das aktuelle Passwort findest du im Mitgliederbereich. Bitte melde dich erneut an.');throw new Error('Deine Anmeldung ist nicht mehr gültig. Bitte melde dich erneut an.');}
-   if(res.status===503)throw new Error('LIORA-Vorlagen sind momentan nicht verfügbar. Bitte kontaktiere den Support.');
+   if(res.status===429||res.status===503)throw new Error('LIORA ist gerade ausgelastet. Deine Eingaben bleiben erhalten. Bitte versuche es in '+Math.max(1,Math.ceil((promptRetryAt-Date.now())/1000))+' Sek. erneut.');
    throw new Error('Prompt konnte nicht erstellt werden. '+(typeof data.error==='string'?data.error:'Bitte versuche es erneut.'));
   }
   // Die Edge Function liefert die Zeichenanzahl separat. Niemals unvollständige Antworten freigeben.
@@ -228,7 +279,7 @@ async function generatePrompt(){
   $('#status').textContent=error?.name==='TimeoutError'?'Zeitüberschreitung. Bitte erneut versuchen.':
    error?.name==='TypeError'?'Verbindung zu Supabase fehlgeschlagen. Prüfe deine Internetverbindung.':
    error?.message||'Unbekannter Fehler. Bitte versuche es erneut.';
- }finally{if(requestId===promptRequestId)button.disabled=false;}
+ }finally{promptInFlight=false;updatePromptButton();}
 }
 $('#storyForm').addEventListener('submit',e=>{e.preventDefault();if(!$('#storyForm').checkValidity()){ $('#storyForm').reportValidity();return }if(!validateModeFields())return;generatePrompt();});
 function copyFallback(text){
@@ -442,7 +493,7 @@ document.getElementById('startNewContent').addEventListener('click',()=>{
   status.hidden=false;
   // Kein Scrollen und kein Fokuswechsel zu einem Feld weiter unten.
 });
-function clearOutput(message=''){promptRequestId++;document.getElementById('result').textContent='Dein fertiger Prompt erscheint hier.';document.getElementById('copy').disabled=true;document.getElementById('downloadPrompt').disabled=true;verifiedPrompt='';document.getElementById('status').textContent=message;$('#storyForm button[type=submit]').disabled=false;}
+function clearOutput(message=''){promptRequestId++;document.getElementById('result').textContent='Dein fertiger Prompt erscheint hier.';document.getElementById('copy').disabled=true;document.getElementById('downloadPrompt').disabled=true;verifiedPrompt='';document.getElementById('status').textContent=message;updatePromptButton();}
 document.getElementById('storyForm').addEventListener('reset',event=>{
  event.preventDefault();
  if(!window.confirm('Möchtest du wirklich alle aktuellen Auswahlfelder und Eingaben leeren? Dein gespeicherter Story-Stil und deine Markenfarben bleiben erhalten.'))return;
@@ -465,7 +516,9 @@ document.getElementById('storyForm').addEventListener('reset',event=>{
  clearOutput('Auswahl und Eingaben geleert. Deine Markenfarben, Schriftwirkung und dein persönlicher Story-Stil bleiben gespeichert.');
 });
 document.getElementById('storyForm').addEventListener('input',()=>{document.getElementById('newContentStatus').textContent='';if($('#result').textContent!=='Dein fertiger Prompt erscheint hier.')clearOutput('Eingaben geändert. Bitte Prompt neu erstellen.');});
-all('input[name="mode"]').forEach(input=>input.addEventListener('change',()=>{promptRequestId++;if($('#storyForm').checkValidity()&&authToken){generatePrompt();}else clearOutput('Bitte zuerst eine Ansprache auswählen und anmelden.');}));
+all('input[name="mode"]').forEach(input=>input.addEventListener('change',()=>{
+ clearOutput('Modus geändert. Klicke auf „Prompt erstellen“, sobald du bereit bist.');
+}));
 
 
 const styleAnalysisPrompt=`Hilf mir, den visuellen Stil meiner bisherigen Instagram-Storys für neue Story-Slides zu übernehmen.
