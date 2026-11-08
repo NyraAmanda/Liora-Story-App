@@ -544,6 +544,27 @@ const authKey='sb_publishable_NIPIGps0iCV2g7DFkeFrgw_te9lJ7cf';
 const sessionKey='liora-story-customer-session-v2';
 const adminSessionKey='liora-story-admin-session-v2';
 let authToken=null,currentSession=null,rememberSession=true,authEpoch=0,adminToken=null,members=[];
+const presenceInterval=120000;
+const presenceWindow=300000;
+let lastPresenceCheck=0;
+let presenceInFlight=false;
+async function reportPresence(){
+ const token=authToken;
+ if(!token||$('#protectedApp').hidden||document.visibilityState!=='visible'||presenceInFlight)return;
+ if(Date.now()-lastPresenceCheck<presenceInterval)return;
+ lastPresenceCheck=Date.now();
+ presenceInFlight=true;
+ try{
+  await edgeRequest('check-access',{},token);
+ }catch(error){
+  if(authToken===token&&(error.status===401||error.status===403)){
+   lockApp('Deine Anmeldung ist abgelaufen. Bitte melde dich erneut an.');
+  }
+ }finally{presenceInFlight=false;}
+}
+setInterval(reportPresence,presenceInterval);
+document.addEventListener('visibilitychange',reportPresence);
+
 function clearStoredCustomer(){for(const storage of [localStorage,sessionStorage])try{storage.removeItem(sessionKey)}catch(e){}}
 const customerLoginHelp='Anmeldung nicht möglich. Bitte überprüfe deine E-Mail-Adresse und dein Kundenpasswort. Falls das Passwort inzwischen geändert wurde, findest du das aktuelle Passwort im Mitgliederbereich.';
 function setLoginStatus(message,kind='error'){
@@ -554,6 +575,7 @@ function lockApp(message=''){
  $('#adminScreen').hidden=true;setLoginStatus(message,message==='Du bist abgemeldet.'?'info':'error');
 }
 function activateSession(token,email,remember=true){
+ lastPresenceCheck=Date.now();
  authToken=token;currentSession={token,email};rememberSession=remember;
  try{clearStoredCustomer();(remember?localStorage:sessionStorage).setItem(sessionKey,JSON.stringify(currentSession));}catch(e){}
  $('#loginScreen').hidden=true;$('#adminScreen').hidden=true;$('#protectedApp').hidden=false;
@@ -612,10 +634,16 @@ function renderMembers(){
  const knownLogins=members.filter(m=>typeof m.last_login_at==='string').map(m=>Date.parse(m.last_login_at)).filter(t=>Number.isFinite(t)&&t<=now);
  const inLastDays=days=>knownLogins.filter(t=>t>=now-days*day).length;
  const trackingAvailable=members.some(m=>Object.hasOwn(m,'last_login_at'));
+ const presenceAvailable=members.some(m=>Object.hasOwn(m,'last_seen_at'));
+ const recentlyActive=m=>{
+  const seen=Date.parse(m.last_seen_at);
+  return m.active&&seen<=now&&seen>=now-presenceWindow;
+ };
  const accessCount=members.filter(m=>m.active).length+' freigeschaltet / '+members.length+' insgesamt';
  $('#memberCount').textContent=accessCount+(trackingAvailable
   ?' · Angemeldet in den letzten 7 Tagen: '+inLastDays(7)+' · In den letzten 30 Tagen: '+inLastDays(30)
-  :members.length?' · Anmeldestatistik noch nicht verfügbar.':'');
+  :members.length?' · Anmeldestatistik noch nicht verfügbar.':'')
+  +(presenceAvailable?' · Kürzlich aktiv (5 Min.): '+members.filter(recentlyActive).length:'');
  const container=$('#membersList');container.replaceChildren();
  if(!filtered.length){container.textContent='Keine passenden Mitglieder.';return;}
  for(const m of filtered){
@@ -630,6 +658,15 @@ function renderMembers(){
     ?'Letzte erfolgreiche Anmeldung: '+new Intl.DateTimeFormat('de-CH',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Zurich'}).format(date)
     :'Noch keine Anmeldung erfasst';
    info.append(lastLogin);
+  }
+  if(Object.hasOwn(m,'last_seen_at')){
+   const presence=document.createElement('div');
+   presence.className='member-state';
+   const date=Date.parse(m.last_seen_at);
+   presence.textContent=recentlyActive(m)?'● Kürzlich aktiv (letzte 5 Min.)'
+    :Number.isFinite(date)?'Zuletzt aktiv: '+new Intl.DateTimeFormat('de-CH',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Zurich'}).format(date)
+    :'Noch keine Aktivität erfasst';
+   info.append(presence);
   }
   const actions=document.createElement('div');actions.className='member-actions';
   const toggle=document.createElement('button');toggle.type='button';toggle.className='btn secondary';toggle.textContent=m.active?'Sperren':'Aktivieren';
