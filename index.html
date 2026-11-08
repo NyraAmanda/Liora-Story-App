@@ -39,7 +39,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <header class="hero"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-Generator</div><h1>Deine Stories, ohne jedes Mal bei null zu beginnen.</h1><p>Wähle nur aus, was passt, ergänze deine eigenen Worte und erstelle daraus einen persönlichen Masterprompt, eine Wochenplanung oder einen einzelnen Story-Tag.</p></header>
 <div class="layout">
 <section class="panel">
-<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt den aktuellen Anlass und das Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>So möchtest du deine Story erstellen</h2><p class="help">Wähle den Ablauf für deinen ChatGPT-Zugang. Mit Free oder Go führst du die Story Slide für Slide fort. Nutzt du ChatGPT Work, kannst du die gesamte Serie beauftragen.</p><label class="field" for="production">Bilderstellung</label><select id="production"><option value="single" selected>Free / Go oder normaler Chat – einzeln mit „Weiter“</option><option value="batch">ChatGPT Work – alle Slides in einem Durchlauf</option><option value="prompts">Nur Bildprompts für ein anderes Bildtool</option><option value="unsure">Ich weiss noch nicht, was möglich ist</option></select><div class="two"><div><label class="field" for="textMode">Text auf den Bildern</label><select id="textMode"><option value="integrated">Mit Storytext direkt im Bild</option><option value="separate">Ohne Storytext – Text separat in Kopierboxen</option></select></div><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div><label class="field" for="slideNumbers">Slide-Reihenfolge sichtbar machen</label><select id="slideNumbers"><option value="yes" selected>Kleine Nummer rechts oben in der sicheren Zone: 1, 2, 3 …</option><option value="no">Keine Nummer im Bild</option></select><p class="small">Instagram-Sicherheitszone: Die oberen 20 % und unteren 22 % bleiben frei von Schrift. Nummer, KI-Hinweis und Sticker-Platz liegen innerhalb der sicheren Zone. Die Nummer gehört zum Inhalt, nicht zur Reihenfolge der Bildanzeige. Work kann Bilder zeitversetzt anzeigen.</p><label class="field" for="disclosure">Sichtbarer KI-Hinweis auf generierten Bildern</label><select id="disclosure"><option value="label">Klein und lesbar: „KI-generiert“</option><option value="none">Keinen Hinweis ins Bild einfügen</option></select><p class="small">Für den gesamten Durchlauf muss ChatGPT Work in deinem Zugang verfügbar und geöffnet sein. Ein Abo allein startet Work nicht automatisch. Bildlimits können beide Abläufe unterbrechen. Interaktive Sticker setzt du später in Instagram; der Chat liefert die Hinweise separat.</p></div>
+<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt den aktuellen Anlass und das Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>So möchtest du deine Story erstellen</h2><p class="help">Wähle den Ablauf für deinen ChatGPT-Zugang. Mit Free oder Go führst du die Story Slide für Slide fort. Nutzt du ChatGPT Work, kannst du die gesamte Serie beauftragen.</p><label class="field" for="production">Bilderstellung</label><select id="production"><option value="single" selected>Free / Go oder normaler Chat – einzeln mit „Weiter“</option><option value="batch">ChatGPT Work – alle Slides in einem Durchlauf</option><option value="prompts">Nur Bildprompts für ein anderes Bildtool</option><option value="unsure">Ich weiss noch nicht, was möglich ist</option></select><div class="two"><div><label class="field" for="textMode">Text auf den Bildern</label><select id="textMode"><option value="integrated">Mit Storytext direkt im Bild</option><option value="separate">Ohne Storytext – Text separat in Kopierboxen</option></select></div><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div><label class="field" for="slideNumbers">Slide-Reihenfolge sichtbar machen</label><select id="slideNumbers"><option value="yes" selected>Kleine Nummer oben rechts in der Bildecke: 1, 2, 3 …</option><option value="no">Keine Nummer im Bild</option></select><p class="small">Instagram-Sicherheitszone: Die oberen 20 % und unteren 22 % bleiben frei von Storytext und Stickern. Die kleinen Ecklabels sind davon ausgenommen. Die Nummer gehört zum Inhalt, nicht zur Reihenfolge der Bildanzeige. Work kann Bilder zeitversetzt anzeigen.</p><label class="field" for="disclosure">Sichtbarer KI-Hinweis auf generierten Bildern</label><select id="disclosure"><option value="label">Klein und lesbar: „KI-generiert“</option><option value="none">Keinen Hinweis ins Bild einfügen</option></select><p class="small">Für den gesamten Durchlauf muss ChatGPT Work in deinem Zugang verfügbar und geöffnet sein. Ein Abo allein startet Work nicht automatisch. Bildlimits können beide Abläufe unterbrechen. Interaktive Sticker setzt du später in Instagram; der Chat liefert die Hinweise separat.</p></div>
 <div class="section"><h2>1. Deine Sprache</h2><p class="help">Welche Wirkung soll dein Content haben?</p><div class="grid">
 <label class="choice"><input type="checkbox" name="tone" value="ruhig und echt"><span>Ruhig und echt</span></label>
 <label class="choice"><input type="checkbox" name="tone" value="warm und nahbar"><span>Warm und nahbar</span></label>
@@ -92,7 +92,23 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
   </template>
 </fieldset></div>
 
-<div class="section"><h2>5. Dein Story-Ziel</h2><p class="help">Gib deiner Story eine Richtung und optional einen konkreten Anlass.</p><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily" selected>Normaler Alltag – meinen KI-Avatar kennenlernen</option><option value="mixed">Alltag und Business – nur verbinden, wenn es passt</option><option value="business">Business, Wissen oder ein Angebot zeigen</option></select><p class="small">Eine kleine Alltagsszene reicht. Du brauchst dafür weder ein Angebot noch eine Businessbotschaft.</p><label class="field" for="goal">Was möchtest du erreichen?</label><select id="goal"><option>Meinen KI-Avatar kennenlernen: Vorlieben, Eigenheiten und normale Alltagsmomente zeigen.</option><option>Einfach unterhalten: eine lustige oder wiedererkennbare Alltagssituation teilen.</option><option>Nähe aufbauen: Die Zielgruppe soll sich verstanden fühlen.</option><option>Antworten auslösen: Eine konkrete, leicht beantwortbare Alltagsfrage stellen.</option><option>Vertrauen stärken: Einen ehrlichen Einblick in meine Arbeit geben.</option><option>Mehrwert geben: Einen kleinen Tipp zeigen, der sofort umsetzbar ist.</option><option>Interesse am Angebot wecken: Ein echtes Problem und einen passenden nächsten Schritt zeigen.</option><option>Community aktivieren: Eine kleine Mitmach-Challenge vorschlagen.</option></select><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><label class="field" for="interaction">Gewünschte Interaktion</label><select id="interaction"><option>Passend zur Situation auswählen; nicht auf jedem Slide einen Sticker.</option><option>Umfrage mit zwei konkreten, gleichwertigen Antwortoptionen.</option><option>Fragensticker mit einer einfachen, persönlichen Frage.</option><option>Emoji-Slider mit einer klaren Frage.</option><option>Direktnachricht mit einem passenden Stichwort.</option><option>Keine Sticker; mit einem ruhigen Gedanken abschliessen.</option></select>
+<div class="section"><h2>5. Dein Story-Ziel</h2><p class="help">Gib deiner Story eine Richtung und optional einen konkreten Anlass.</p><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily" selected>Normaler Alltag – meinen KI-Avatar kennenlernen</option><option value="mixed">Alltag und Business – nur verbinden, wenn es passt</option><option value="business">Business, Wissen oder ein Angebot zeigen</option></select><p class="small">Eine kleine Alltagsszene reicht. Du brauchst dafür weder ein Angebot noch eine Businessbotschaft.</p><label class="field" for="goal">Was möchtest du erreichen?</label><select id="goal"><option>Meinen KI-Avatar kennenlernen: Vorlieben, Eigenheiten und normale Alltagsmomente zeigen.</option><option>Einfach unterhalten: eine lustige oder wiedererkennbare Alltagssituation teilen.</option><option>Nähe aufbauen: Die Zielgruppe soll sich verstanden fühlen.</option><option>Antworten auslösen: Eine konkrete, leicht beantwortbare Alltagsfrage stellen.</option><option>Vertrauen stärken: Einen ehrlichen Einblick in meine Arbeit geben.</option><option>Mehrwert geben: Einen kleinen Tipp zeigen, der sofort umsetzbar ist.</option><option>Interesse am Angebot wecken: Ein echtes Problem und einen passenden nächsten Schritt zeigen.</option><option>Community aktivieren: Eine kleine Mitmach-Challenge vorschlagen.</option></select><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><label class="field" for="interaction">Gewünschte Interaktion</label>
+<select id="interaction">
+  <option value="auto">LIORA wählt passend zur Story</option>
+  <option value="manual">Sticker und Interaktionen selbst auswählen</option>
+  <option value="none">Ohne zusätzliche Interaktion</option>
+</select>
+<fieldset id="interactionChoices" hidden>
+  <legend class="field">Was möchtest du einbauen?</legend>
+  <p class="small">Mehrfachauswahl möglich. LIORA verteilt passende Formate auf unterschiedliche Slides.</p>
+  <div class="grid">
+    <label class="choice"><input type="checkbox" name="storyInteraction" value="Umfrage"><span>Umfrage</span></label>
+    <label class="choice"><input type="checkbox" name="storyInteraction" value="Fragensticker"><span>Fragensticker</span></label>
+    <label class="choice"><input type="checkbox" name="storyInteraction" value="Emoji-Slider"><span>Emoji-Slider</span></label>
+    <label class="choice"><input type="checkbox" name="storyInteraction" value="Quiz, falls verfügbar"><span>Quiz, falls verfügbar</span></label>
+    <label class="choice"><input type="checkbox" name="storyInteraction" value="Direktnachricht mit Stichwort"><span>Direktnachricht mit Stichwort</span></label>
+  </div>
+</fieldset>
 <label class="field" for="finalLinkSticker"><input type="checkbox" id="finalLinkSticker"> Platz für einen Link-Sticker auf dem letzten Slide lassen</label>
 <p class="small">Der Platz bleibt im Bild frei. Den klickbaren Link-Sticker setzt du später in Instagram. Du kannst diese Option mit einer Umfrage oder einem anderen Sticker kombinieren.</p></div>
 <div class="section"><h2>6. Ausdruck</h2><p class="help">Wie deutlich sollen Mimik und Gestik sein?</p><div class="grid"><label class="choice"><input type="radio" name="expression" value="dezent"><span>Dezent</span></label><label class="choice"><input type="radio" name="expression" value="natürlich"><span>Natürlich</span></label><label class="choice"><input type="radio" name="expression" value="deutlich"><span>Deutlich</span></label></div></div>
@@ -111,9 +127,11 @@ function val(id){return $(id).value.trim()}
 // Prompt-Wissen bleibt in Supabase. Der Browser sendet ausschliesslich Formularwerte.
 function collectPromptInput(){
  const fields={};
- for(const id of ['language','audience','need','places','people','topics','savedStyle','colors','style','font','avatar','goal','occasion','interaction']){
+ for(const id of ['language','audience','need','places','people','topics','savedStyle','colors','style','font','avatar','goal','occasion']){
   fields[id]=val('#'+id);
  }
+ const interaction=val('#interaction');
+ fields.interaction=interaction==='none'?'Keine Sticker; mit einem ruhigen Gedanken abschliessen.':interaction==='manual'&&values('storyInteraction').length?values('storyInteraction').join(', '):'Passend zur Situation auswählen; nicht auf jedem Slide einen Sticker.';
  return {
   mode:$('input[name="mode"]:checked')?.value||'master',
   count:val('#slideCount')||'5',
@@ -129,11 +147,20 @@ function collectPromptInput(){
 }
 function storyOutputOptions(){
  const instructions=[
-  'INSTAGRAM-STORY-SICHERHEITSZONE – VERBINDLICH FÜR JEDEN SLIDE: Bei 9:16 bleiben die oberen 20 % und die unteren 22 % des Bildes frei von Schrift und Interaktionselementen. Bei 1080 × 1920 px beginnt der sichere Bereich bei y = 384 px und endet bei y = 1497 px. Die vollständigen Textblöcke inklusive Schatten und Hinterlegung müssen innerhalb dieses Bereichs liegen. Das gilt für Überschriften, Storytext, CTA, Slide-Nummern, KI-Hinweise und Platz für Instagram-Sticker. Falls gewählt: Nummer rechts oben innerhalb der sicheren Zone, KI-Hinweis links unten innerhalb der sicheren Zone, jeweils mit etwas Abstand zur Zonengrenze. Diese Regel hat Vorrang vor abweichenden Randangaben, Stilreferenzen und Layoutvorlagen. Plane die Zone im Contentplan ein, wiederhole sie in jeder Bildanweisung, auch bei reinen Bildprompts, und prüfe sie vor der Ausgabe. Bei Platzmangel verschiebe Motiv oder Text innerhalb der Zone oder schlage kürzeren Text zur Freigabe vor.'
+  'INSTAGRAM-STORY-SICHERHEITSZONE – VERBINDLICH FÜR JEDEN SLIDE: Bei 9:16 bleiben die oberen 20 % und unteren 22 % frei von Überschriften, Storytext, CTA und Sticker-Platz. Bei 1080 × 1920 px liegt der sichere Bereich zwischen y = 384 px und y = 1497 px. Der gesamte Textblock samt Schatten und Hinterlegung bleibt darin. Diese Regel hat Vorrang vor abweichenden Stilreferenzen und Layoutvorlagen. Plane die Zone im Contentplan ein, wiederhole sie in jeder Bildanweisung und prüfe sie vor der Ausgabe.'
+ 
  ];
  if(val('#avatarPreset')===noAvatarPreset){
   instructions.push('BILDMOTIV OHNE AVATAR: Für diesen Auftrag keine sichtbaren Personen und keinen Avatar zeigen. Verwende passende Gegenstände, Orte, Tiere oder Alltagsdetails. Überspringe alle Rückfragen und Freigaben zu Avatar und Outfit. Nutze Stilreferenzen nur für die Gestaltung.');
  }
+ const cornerLabels=[];
+ if(val('#slideNumbers')!=='no')cornerLabels.push('Kleine Slide-Nummer direkt oben rechts in der Bildecke, rechtsbündig.');
+ if(val('#disclosure')!=='none')cornerLabels.push('Kleiner Hinweis „KI-generiert“ direkt unten links in der Bildecke, linksbündig.');
+ if(cornerLabels.length){
+  instructions.push('SEPARATE ECKLABELS: '+cornerLabels.join(' ')+' Diese gewählten Labels sind die einzige Ausnahme vom vertikalen Sicherheitsabstand. Setze sie unabhängig vom Storytext mit jeweils etwa 60 px Abstand zu beiden angrenzenden Bildrändern bei 1080 × 1920 px, bei anderen Auflösungen proportional. Position und Grösse über die ganze Serie konstant halten. Die Auswahl für Nummer und KI-Hinweis gilt unabhängig davon, ob der Storytext separat ausgegeben wird.');
+ }
+ if(val('#slideNumbers')==='no')instructions.push('Slide-Nummern sind abgewählt. Füge keine Nummer ins Bild ein.');
+ if(val('#disclosure')==='none')instructions.push('Der KI-Hinweis im Bild ist abgewählt. Füge kein entsprechendes Ecklabel ins Bild ein.');
  const selectedSlides=$('#slideMotifOptions').hidden?[]:slideMotifRows.filter(row=>!row.hidden&&row.querySelector('input').checked);
  if(selectedSlides.length){
   const motifs=selectedSlides.map(row=>{
@@ -142,6 +169,16 @@ function storyOutputOptions(){
   });
   const allWithoutAvatar=selectedSlides.length===Number(val('#slideCount')||5);
   instructions.push('SLIDES OHNE AVATAR: '+motifs.join(' ')+' Auf diesen Slides keine sichtbaren Personen und keinen Avatar zeigen. Setze die Motive im Contentplan und in den Bildanweisungen um. '+(allWithoutAvatar?'Überspringe sämtliche Rückfragen und Freigaben zu Avatar und Outfit.':'Für alle übrigen Slides gilt die allgemeine Bildmotiv-Auswahl.')+' Bei einer Wochenübersicht gilt dies erst beim Ausarbeiten einer konkreten Story.');
+ }
+ const interaction=val('#interaction');
+ const picked=interaction==='manual'?values('storyInteraction'):[];
+ if(interaction==='none'){
+  instructions.push('INTERAKTION: Keine zusätzlichen Sticker, Fragen oder Aufforderungen zu Direktnachrichten. Ein ausdrücklich gewählter Link-Sticker bleibt vorgesehen.');
+ }else{
+  const strategy=picked.length
+   ?'Meine Auswahl: '+picked.join(', ')+'. Nutze diese Formate möglichst auf unterschiedlichen Slides. Falls weniger passende Slides als ausgewählte Formate verfügbar sind, priorisiere die Formate, die am besten zur Szene und zum Story-Ziel passen, und nenne die übrigen als Alternativen.'
+   :'Wähle nach Story-Ziel, Szene und der einfachsten passenden Reaktion. Eine Umfrage passt zu zwei klaren Alternativen, ein Emoji-Slider zu einer Stimmung oder Intensität, ein Quiz mit Auflösung zu einer Wissensfrage (falls verfügbar), ein Fragensticker zu einem konkreten Erfahrungsaustausch und eine Direktnachricht zu einem persönlichen Anschluss. Entscheide zwischen diesen Formaten anhand des konkreten Inhalts.';
+  instructions.push('INTERAKTIONSPLAN: '+strategy+' Platziere die Interaktion direkt bei der passenden Szene, auch am Anfang oder in der Mitte. Beispiel: Abstimmung vor der Auflösung, Slider beim emotionalen Moment. Der letzte Slide ist kein Standardplatz. Plane höchstens eine Interaktion pro Slide und berücksichtige dabei einen reservierten Link-Sticker. In der Automatik genügen meist ein bis zwei passende Interaktionen pro Story; wenn nichts passt, lass sie weg. Gib Slide-Nummer, Format, genaue Frage, bei Auswahlformaten konkrete Antwortoptionen und die Position innerhalb der sicheren Zone an. Gib Fragen und Antwortoptionen in separaten Kopierboxen aus.');
  }
  if($('#finalLinkSticker').checked){
   instructions.push('LINK-STICKER AUF DEM LETZTEN SLIDE: Reserviere bereits im Contentplan und in jedem Bildprompt für den letzten Slide der jeweiligen Story eine gut sichtbare, ruhige freie Fläche für den Instagram-Link-Sticker. Positioniere sie bevorzugt mittig im unteren Teil der sicheren Zone, vollständig oberhalb des unteren textfreien Bereichs. Halte diese Fläche frei von Text, wichtigen Motiven, Nummern, KI-Hinweis und anderen Stickern. Zeichne keinen Platzhalter, keinen Link und keinen Sticker ins Bild. Gib die Platzierung im Chat an. Falls ein Stickertext oder eine URL fehlt, frage bei Bedarf danach oder liefere nur die Platzierung. Erfinde keine URL. Andere gewünschte Sticker bleiben möglich und sollen die Linkfläche nicht überdecken. Bei nur einem Slide gilt diese Regel für diesen Slide. Bei einer reinen Wochenplanung gilt sie erst beim Ausarbeiten der gewählten Story.');
@@ -377,6 +414,11 @@ imageStyleField.addEventListener('change',()=>{
 });
 // Neuen Story-Auftrag beginnen: nur auftragsspezifische Werte leeren.
 // Sprache, Zielgruppe, Themen, Avatar und persönlicher Stil bleiben erhalten.
+function updateInteractionChoices(){
+ $('#interactionChoices').hidden=val('#interaction')!=='manual';
+}
+$('#interaction').addEventListener('change',updateInteractionChoices);
+updateInteractionChoices();
 document.getElementById('startNewContent').addEventListener('click',()=>{
   // Nur den aktuellen Auftrag leeren, persönliche Grundlagen beibehalten.
   const occasion=document.getElementById('occasion');
@@ -385,6 +427,8 @@ document.getElementById('startNewContent').addEventListener('click',()=>{
     document.getElementById(id).selectedIndex=0;
   }
   document.querySelectorAll('#storyForm input[name="expression"]').forEach(input=>input.checked=false);
+  all('input[name="storyInteraction"]').forEach(input=>input.checked=false);
+  updateInteractionChoices();
   $('#finalLinkSticker').checked=false;
   resetSlideMotifs();
   // Den alten Prompt sicher ungültig machen und die Ausgabe zurücksetzen.
@@ -405,6 +449,8 @@ document.getElementById('storyForm').addEventListener('reset',event=>{
  all('#storyForm input').forEach(input=>{if(input.type==='checkbox'||input.type==='radio')input.checked=false;else input.value='';});
  all('#storyForm textarea').forEach(field=>{if(!field.readOnly)field.value='';});
  all('#storyForm select').forEach(select=>{select.selectedIndex=select.classList.contains('preset')||select.id==='recentPeople'?0:-1;});
+ $('#interaction').value='auto';
+ updateInteractionChoices();
  resetSlideMotifs();
  updateAvatarReferenceHelp();
  colorsField.value=retainedColors;
