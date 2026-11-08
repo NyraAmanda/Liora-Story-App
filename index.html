@@ -607,13 +607,30 @@ async function loadMembers(){
 }
 function renderMembers(){
  const query=$('#memberSearch').value.trim().toLowerCase();const filtered=members.filter(m=>m.email.toLowerCase().includes(query));
- $('#memberCount').textContent=members.filter(m=>m.active).length+' aktive Mitglieder / '+members.length+' insgesamt';
+ const now=Date.now();
+ const day=86400000;
+ const knownLogins=members.filter(m=>typeof m.last_login_at==='string').map(m=>Date.parse(m.last_login_at)).filter(t=>Number.isFinite(t)&&t<=now);
+ const inLastDays=days=>knownLogins.filter(t=>t>=now-days*day).length;
+ const trackingAvailable=members.some(m=>Object.hasOwn(m,'last_login_at'));
+ const accessCount=members.filter(m=>m.active).length+' freigeschaltet / '+members.length+' insgesamt';
+ $('#memberCount').textContent=accessCount+(trackingAvailable
+  ?' · Angemeldet in den letzten 7 Tagen: '+inLastDays(7)+' · In den letzten 30 Tagen: '+inLastDays(30)
+  :members.length?' · Anmeldestatistik noch nicht verfügbar.':'');
  const container=$('#membersList');container.replaceChildren();
  if(!filtered.length){container.textContent='Keine passenden Mitglieder.';return;}
  for(const m of filtered){
   const row=document.createElement('div');row.className='member-row'+(m.active?'':' member-inactive');
   const info=document.createElement('div');info.className='member-email';info.textContent=m.email;
   const state=document.createElement('div');state.className='member-state';state.textContent=m.active?'Aktiv':'Gesperrt';info.append(document.createElement('br'),state);
+  if(Object.hasOwn(m,'last_login_at')){
+   const lastLogin=document.createElement('div');
+   lastLogin.className='member-state';
+   const date=Date.parse(m.last_login_at);
+   lastLogin.textContent=Number.isFinite(date)
+    ?'Letzte erfolgreiche Anmeldung: '+new Intl.DateTimeFormat('de-CH',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Zurich'}).format(date)
+    :'Noch keine Anmeldung erfasst';
+   info.append(lastLogin);
+  }
   const actions=document.createElement('div');actions.className='member-actions';
   const toggle=document.createElement('button');toggle.type='button';toggle.className='btn secondary';toggle.textContent=m.active?'Sperren':'Aktivieren';
   toggle.addEventListener('click',async()=>{toggle.disabled=true;try{await adminCall('set-member-active',{email:m.email,active:!m.active});await loadMembers();$('#adminStatus').textContent='Mitglied aktualisiert.';}catch(e){$('#adminStatus').textContent=e.message;}finally{toggle.disabled=false;}});
