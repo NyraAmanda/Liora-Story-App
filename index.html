@@ -71,7 +71,33 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
   <button class="btn ghost" id="clearRecentPeople" type="button">Verlauf leeren</button>
 </div></div></div><label class="field" for="topics">Eigene Themen und Alltagssituationen</label><textarea id="topics" placeholder="Was darf in deinen Stories vorkommen?"></textarea></div>
 
-<div class="section"><h2>4. Mein Stil</h2><p class="help">Deine persönlichen Stileinstellungen bleiben in diesem Browser gespeichert – auch nach dem Abmelden.</p><div class="notice"><strong>Deinen bisherigen Story-Stil übernehmen</strong><p>Kopiere den Analyse-Prompt in ChatGPT und lade dort 3–5 bisherige Story-Slides hoch. Füge die fertige Stilbeschreibung anschliessend unten ein.</p><button class="btn secondary" type="button" id="copyStyle">Stil-Analyse-Prompt kopieren</button><p class="small" id="styleStatus" role="status" aria-live="polite"></p><details id="stylePromptDetails"><summary>Analyse-Prompt anzeigen</summary><textarea id="stylePromptText" readonly aria-label="Stil-Analyse-Prompt"></textarea></details></div><label class="field" for="savedStyle">Mein bisheriger Story-Stil (optional)</label><textarea id="savedStyle" placeholder="Hier die Stilbeschreibung aus ChatGPT einfügen. Sie wird in deinen Story-Prompt übernommen."></textarea><div class="two"><div><label class="field" for="colors">Markenfarben</label><input id="colors" type="text" placeholder="z. B. Salbeigrün, Beige und Gold"></div><div><label class="field" for="style">Bildstil</label><select id="style"><option>natürlich und editorial</option><option>warm und dokumentarisch</option><option>verspielt und farbig</option><option>minimal und ruhig</option></select></div></div><label class="field" for="font">Schriftwirkung</label><select id="font"><option value="Schriftwirkung aus meiner Stilanalyse übernehmen. Verwende die dort beschriebene Typografie und Schriftwirkung. Falls keine Stilanalyse vorliegt oder darin keine Typografie beschrieben ist, kläre die gewünschte Schriftwirkung im Chat oder schlage eine passende vor; erfinde keine analysierten Schriftmerkmale.">Aus meiner Stilanalyse übernehmen</option><option>edle Editorial-Serifenschrift mit moderner Sans-Serif</option><option>klare moderne Sans-Serif</option><option>weiche elegante Serifenschrift</option><option>markante plakative Typografie</option></select><label class="field" for="avatar">Bildmotiv · mit oder ohne Avatar</label><p class="help">Wähle, was auf deinen Storybildern zu sehen sein soll.</p><div id="avatarReferenceHelp"><p class="help"><strong>Du kannst dein Avatarbild und dein Outfitbild erst später direkt im Chat hochladen.</strong> Wähle dafür die Option «Avatar und Outfit im Chat hochladen». LIORA fragt die Bilder nacheinander an und wartet auf deinen Upload.</p><p class="help">Noch keine Outfitidee? Schau auf <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" style="color:var(--purple);font-weight:700">Pinterest</a> vorbei, such dir einen Look aus und lade das Bild später in ChatGPT als Outfitvorschlag hoch. Glaub mir, das macht Spass! 💜<br><span class="small">Dein Avatar bleibt derselbe – das Referenzbild dient als Inspiration für die Kleidung.</span></p></div><textarea id="avatar" placeholder="Wähle oben eine Option oder beschreibe dein Bildmotiv, deinen Avatar und dein Outfit selbst."></textarea>
+<div class="section"><h2>4. Mein Stil</h2><p class="help">Deine persönlichen Stileinstellungen bleiben in diesem Browser gespeichert – auch nach dem Abmelden.</p><div class="notice"><strong>Deinen bisherigen Story-Stil übernehmen</strong><p>Kopiere den Analyse-Prompt in ChatGPT und lade dort 3–5 bisherige Story-Slides hoch. Füge die fertige Stilbeschreibung anschliessend unten ein.</p><button class="btn secondary" type="button" id="copyStyle">Stil-Analyse-Prompt kopieren</button><p class="small" id="styleStatus" role="status" aria-live="polite"></p><details id="stylePromptDetails"><summary>Analyse-Prompt anzeigen</summary><textarea id="stylePromptText" readonly aria-label="Stil-Analyse-Prompt"></textarea></details></div><div class="two">
+  <div>
+    <label class="field" for="storyLayout">Bildaufbau (optional)</label>
+    <select id="storyLayout">
+      <option value="">Wie bisher</option>
+      <option value="auto">LIORA entscheidet</option>
+      <option value="single">Einzelbild</option>
+      <option value="four">Vierraster (2 × 2)</option>
+      <option value="strip">Dreierstreifen untereinander</option>
+      <option value="mosaic">Mehrbildraster</option>
+      <option value="polaroid">Polaroid-Collage</option>
+      <option value="editorial">Magazin-Collage mit Rahmen</option>
+    </select>
+  </div>
+  <div>
+    <label class="field" for="storyLettering">Textwirkung (optional)</label>
+    <select id="storyLettering">
+      <option value="">Wie bisher</option>
+      <option value="notes">Kleine handschriftliche Notizen</option>
+      <option value="word">Ein Wort im Fokus</option>
+      <option value="script">Kurze geschwungene Zeile</option>
+      <option value="none">Ohne Story-Schrift im Bild</option>
+    </select>
+  </div>
+</div>
+<p class="small">Beispiel: Vierraster mit kleinen Notizen oder ein Einzelbild mit einem grossen Wort. Ein Raster zählt als ein Story-Slide.</p><label class="choice"><input type="checkbox" id="styleReference"><span>Eigenes Stilbild später in ChatGPT hochladen</span></label>
+<p class="small">Ein Beispielbild reicht. Deine Auswahl für Bildaufbau und Textwirkung hat Vorrang.</p><label class="field" for="savedStyle">Mein bisheriger Story-Stil (optional)</label><textarea id="savedStyle" placeholder="Hier die Stilbeschreibung aus ChatGPT einfügen. Sie wird in deinen Story-Prompt übernommen."></textarea><div class="two"><div><label class="field" for="colors">Markenfarben</label><input id="colors" type="text" placeholder="z. B. Salbeigrün, Beige und Gold"></div><div><label class="field" for="style">Bildstil</label><select id="style"><option>natürlich und editorial</option><option>warm und dokumentarisch</option><option>verspielt und farbig</option><option>minimal und ruhig</option></select></div></div><label class="field" for="font">Schriftwirkung</label><select id="font"><option value="Schriftwirkung aus meiner Stilanalyse übernehmen. Verwende die dort beschriebene Typografie und Schriftwirkung. Falls keine Stilanalyse vorliegt oder darin keine Typografie beschrieben ist, kläre die gewünschte Schriftwirkung im Chat oder schlage eine passende vor; erfinde keine analysierten Schriftmerkmale.">Aus meiner Stilanalyse übernehmen</option><option>edle Editorial-Serifenschrift mit moderner Sans-Serif</option><option>klare moderne Sans-Serif</option><option>weiche elegante Serifenschrift</option><option>markante plakative Typografie</option></select><label class="field" for="avatar">Bildmotiv · mit oder ohne Avatar</label><p class="help">Wähle, was auf deinen Storybildern zu sehen sein soll.</p><div id="avatarReferenceHelp"><p class="help"><strong>Du kannst dein Avatarbild und dein Outfitbild erst später direkt im Chat hochladen.</strong> Wähle dafür die Option «Avatar und Outfit im Chat hochladen». LIORA fragt die Bilder nacheinander an und wartet auf deinen Upload.</p><p class="help">Noch keine Outfitidee? Schau auf <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" style="color:var(--purple);font-weight:700">Pinterest</a> vorbei, such dir einen Look aus und lade das Bild später in ChatGPT als Outfitvorschlag hoch. Glaub mir, das macht Spass! 💜<br><span class="small">Dein Avatar bleibt derselbe – das Referenzbild dient als Inspiration für die Kleidung.</span></p></div><textarea id="avatar" placeholder="Wähle oben eine Option oder beschreibe dein Bildmotiv, deinen Avatar und dein Outfit selbst."></textarea>
 <fieldset id="slideMotifOptions">
   <legend class="field">Slides ohne Avatar (optional)</legend>
   <p class="small">Markiere alle gewünschten Slides und wähle pro Slide ein Motiv.</p>
@@ -152,6 +178,21 @@ function collectPromptInput(){
   storyDirection:val('#storyDirection')||'daily',fields
  };
 }
+const storyLayouts={
+ auto:'Wähle je Slide einen passenden Bildaufbau. Ein Hauptmotiv eignet sich für ein Einzelbild, vier ergänzende Details für ein Vierraster. Nutze ein Raster, wenn die Ausschnitte zusammen etwas erzählen. Halte die Serie visuell zusammen.',
+ single:'Ein formatfüllendes Foto mit einem klaren Hauptmotiv.',
+ four:'Exakt vier gleich grosse Bildfelder in einem 2 × 2 Raster. Kombiniere eine Übersicht und drei unterschiedliche, zusammengehörige Ausschnitte.',
+ strip:'Drei unterschiedliche Bildausschnitte als waagerechte Streifen untereinander, mit zwei dezenten Trennlinien.',
+ mosaic:'Mehrbildraster mit sechs klar getrennten Bildfeldern, zwei Spalten und drei Reihen. Mische Übersichten und Nahaufnahmen.',
+ polaroid:'Ein weich unscharfes Hintergrundfoto mit zwei versetzt platzierten Sofortbildrahmen im Vordergrund. Nutze zusammengehörige Aufnahmen oder bewusst gewählte Ausschnitte.',
+ editorial:'Magazin-Collage aus einem grossen Hauptmotiv und ein bis zwei kleineren Detailausschnitten, mit präzisen Rahmen und klarer Hierarchie.'
+};
+const storyLettering={
+ notes:'Setze bis zu drei kurze, gut lesbare handschriftliche Notizen. Kleine Linien, Sterne oder Pfeile sind sparsam möglich und dürfen keine wichtigen Motivdetails überdecken.',
+ word:'Setze genau ein zur Story passendes Wort als typografischen Blickfang, etwa «Feierabend». Nutze die gewählte Schriftwirkung und gib längeren Storytext separat aus.',
+ script:'Setze eine kurze Zeile in eleganter, geschwungener Schrift mit ausreichendem Kontrast. Gib längeren Storytext separat aus.',
+ none:'Gib den Storytext separat in einer Kopierbox aus. Verzichte im Bild auf Storytext und handschriftliche Wörter. Berücksichtige die separat gewählten Ecklabels.'
+};
 function storyOutputOptions(){
  const instructions=[
   'INSTAGRAM-STORY-SICHERHEITSZONE – VERBINDLICH FÜR JEDEN SLIDE: Bei 9:16 bleiben die oberen 20 % und unteren 22 % frei von Überschriften, Storytext, CTA und Sticker-Platz. Bei 1080 × 1920 px liegt der sichere Bereich zwischen y = 384 px und y = 1497 px. Der gesamte Textblock samt Schatten und Hinterlegung bleibt darin. Diese Regel hat Vorrang vor abweichenden Stilreferenzen und Layoutvorlagen. Plane die Zone im Contentplan ein, wiederhole sie in jeder Bildanweisung und prüfe sie vor der Ausgabe.'
@@ -161,6 +202,17 @@ function storyOutputOptions(){
   'SZENENKONTINUITÄT: Halte vor der Bilderstellung pro wiederkehrendem Schauplatz einen kurzen Szenenanker fest. Übernimm Möbel, Kissen und andere sichtbare Requisiten aus der bestätigten Szenenbeschreibung oder der passenden Raumreferenz. Halte Anzahl, Farbe, Ausrichtung und Position relativ zu festen Punkten fest, etwa ein Kissen am rechten Sofaende und der Tisch vor dem Sofa. Wiederhole die relevanten Anker in jeder einzelnen Bildanweisung. Nutze, wenn das Bildtool es unterstützt, den ersten gelungenen Slide derselben Szene als zusätzliche Raumreferenz. Bei geändertem Blickwinkel bleibt die Anordnung im Raum gleich. Dinge dürfen durch Ausschnitt oder Verdeckung aus dem Bild geraten. Verschiebe oder entferne sie nur, wenn es die Handlung erklärt, und führe den neuen Zustand auf späteren Slides fort. Bei einem Schauplatzwechsel gilt ein eigener Szenenanker.',
   'ANATOMIE UND BILDCHECK: Plane eine natürliche, physisch plausible Pose mit klarer Gewichtsverteilung. Prüfe bei sichtbaren Menschen und Tieren Proportionen, Gelenke und sichtbare Gliedmassen sowie Hände und Finger, Griff und Kontakt mit Möbeln oder Requisiten. Vermeide doppelte Gliedmassen, verdrehte Gelenke und Körperteile, die mit Gegenständen verschmelzen. Wenn du das Bild prüfen kannst, vergleiche es vor der Ausgabe mit dem Szenenanker und den vorherigen Slides derselben Szene. Bei einem Fehler korrigiere nur den betroffenen Slide oder nenne die konkrete Korrektur, falls Bildbearbeitung nicht verfügbar ist.'
  );
+ const layout=storyLayouts[val('#storyLayout')];
+ const lettering=storyLettering[val('#storyLettering')];
+ if(layout){
+  instructions.push('BILDAUFBAU: '+layout+' Jede Komposition ist ein einzelner 9:16-Story-Slide und zählt einmal zur gewählten Slide-Anzahl. Halte Avatar, Outfit, Raum und Requisiten innerhalb derselben Szene konsistent. Halte die geplanten Stickerflächen frei.');
+ }
+ if(lettering&&val('#textMode')!=='separate'){
+  instructions.push('TEXTWIRKUNG: '+lettering+' Platziere Story-Schrift vollständig innerhalb der Instagram-Sicherheitszone. Dieser ausdrücklich gewählte Textstil hat Vorrang vor abweichenden Stilbeispielen.');
+ }
+ if($('#styleReference').checked){
+  instructions.push('STILBILD: Frage bei der Ausarbeitung einer konkreten Story vor der visuellen Gestaltung einmal nach einem Beispielbild und warte auf den Upload oder die Freigabe, ohne Bild fortzufahren. Nutze ein bereits beigefügtes Stilbild direkt. Orientiere dich an Bildaufbau, Schriftwirkung, Farbwelt und Stimmung. Ausdrückliche Vorgaben aus der App, insbesondere Bildaufbau, Textwirkung, Textmodus und Sicherheitszonen, haben Vorrang. Nutze separate Referenzen und Angaben für Avatar, Outfit und Ort. Übernimm keine Personen, Texte oder Logos aus dem Stilbild. Bei einer reinen Wochenübersicht warte mit der Uploadfrage bis zur Ausarbeitung einer konkreten Story.');
+ }
  if($('#placeReference').checked){
   instructions.push('ORTSFOTO ALS RAUMREFERENZ: Sobald eine konkrete Story mit Bildern ausgearbeitet wird, bitte vor der Bildproduktion um ein Foto des gewünschten Orts und warte auf das Foto oder auf die ausdrückliche Freigabe, ohne Foto weiterzumachen. Liegt bereits ein passendes Foto vor, nutze es direkt. Verwende es nur für den Ort: Raumaufteilung, feste Blickpunkte, Möbel und Positionen der Requisiten relativ zueinander. Übernimm keine Personen oder Outfits aus dem Ortsfoto. Verwende das Foto, soweit technisch möglich, bei jedem Slide an diesem Ort erneut und nutze den Szenenanker zur Orientierung bei Perspektivwechseln. Bei einer reinen Wochenübersicht stelle die Uploadfrage erst bei der konkreten Ausarbeitung.');
  }else{
