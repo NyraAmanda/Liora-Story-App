@@ -47,6 +47,28 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 #collagePreview[data-layout="polaroid"] .collage-diagram{background:#bda5cc}
 #collagePreview[data-layout="polaroid"] i{position:absolute;width:53%;height:34%;border:4px solid white;border-bottom-width:10px;left:8%;top:21%;transform:rotate(-10deg)}
 #collagePreview[data-layout="polaroid"] i:nth-child(2){left:39%;top:48%;transform:rotate(10deg)}
+
+.required-story-label,.story-settings > summary.required-story-label{background:#dff5eb;color:#285b4b;border-radius:8px;padding:7px 10px}
+.required-story-label::after{content:" · Pflicht";font-size:.76em;font-weight:700}
+
+.more-story-settings > summary {
+  padding: .85rem 1rem;
+  border: 1px solid #bba3d3;
+  border-radius: .75rem;
+  background: #f1e8fa;
+  color: #50356b;
+  font-weight: 700;
+  cursor: pointer;
+}
+.more-story-settings > summary:focus-visible {
+  outline: 2px solid #7657a8;
+  outline-offset: 3px;
+}
+.story-settings-optional {
+  margin-inline-start: .4rem;
+  font-size: .8em;
+  font-weight: 500;
+}
 </style>
 </head>
 <body>
@@ -55,8 +77,8 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <div class="layout">
 <section class="panel">
 <form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt den aktuellen Anlass und das Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>Deine Story</h2><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div>
-<details class="section story-settings"><summary>Weitere Story-Einstellungen</summary>
-<details class="section story-settings"><summary>Bilderstellung und Ausgabe</summary><p class="help">Wähle den Ablauf für deinen ChatGPT-Zugang. Mit Free oder Go führst du die Story Slide für Slide fort. Nutzt du ChatGPT Work, kannst du die gesamte Serie beauftragen.</p><label class="field" for="production">Bilderstellung</label><select id="production"><option value="single" selected>Free / Go oder normaler Chat – einzeln mit „Weiter“</option><option value="batch">ChatGPT Work – alle Slides in einem Durchlauf</option><option value="prompts">Nur Bildprompts für ein anderes Bildtool</option><option value="unsure">Ich weiss noch nicht, was möglich ist</option></select><div class="two"><div><label class="field" for="textMode">Text auf den Bildern</label><select id="textMode"><option value="integrated">Mit Storytext direkt im Bild</option><option value="separate">Ohne Storytext – Text separat in Kopierboxen</option></select></div></div><label class="field" for="slideNumbers">Slide-Reihenfolge sichtbar machen</label><select id="slideNumbers"><option value="yes" selected>Kleine Nummer oben rechts in der Bildecke: 1, 2, 3 …</option><option value="no">Keine Nummer im Bild</option></select><p class="small">Instagram-Sicherheitszone: Die oberen 20 % und unteren 22 % bleiben frei von Storytext und Stickern. Die kleinen Ecklabels sind davon ausgenommen. Die Nummer gehört zum Inhalt, nicht zur Reihenfolge der Bildanzeige. Work kann Bilder zeitversetzt anzeigen.</p><label class="field" for="disclosure">Sichtbarer KI-Hinweis auf generierten Bildern</label><select id="disclosure"><option value="label">Klein und lesbar: „KI-generiert“</option><option value="none">Keinen Hinweis ins Bild einfügen</option></select><p class="small">Für den gesamten Durchlauf muss ChatGPT Work in deinem Zugang verfügbar und geöffnet sein. Ein Abo allein startet Work nicht automatisch. Bildlimits können beide Abläufe unterbrechen. Interaktive Sticker setzt du später in Instagram; der Chat liefert die Hinweise separat.</p></details>
+<details class="section story-settings more-story-settings"><summary>Weitere Story-Einstellungen <span class="story-settings-optional">Optional</span></summary>
+<details class="section story-settings"><summary>Bilderstellung und Ausgabe</summary><p class="help">Wähle den Ablauf für deinen ChatGPT-Zugang. Mit Free oder Go führst du die Story Slide für Slide fort. Nutzt du ChatGPT Work, kannst du die gesamte Serie beauftragen.</p><label class="field" for="production">Bilderstellung</label><select id="production"><option value="single" selected>Free / Go oder normaler Chat – einzeln mit „Weiter“</option><option value="batch">ChatGPT Work – alle Slides in einem Durchlauf</option><option value="prompts">Nur Bildprompts für ein anderes Bildtool</option><option value="unsure">Ich weiss noch nicht, was möglich ist</option></select><div class="two"><div><label class="field" for="textMode">Text auf den Bildern</label><select id="textMode"><option value="integrated">Mit Storytext direkt im Bild</option><option value="separate">Ohne Storytext – Text separat in Kopierboxen</option></select></div></div><label class="field" for="slideNumbers">Slide-Reihenfolge sichtbar machen</label><select id="slideNumbers"><option value="no" selected>Keine Nummer im Bild</option><option value="yes">Kleine Nummer oben rechts in der Bildecke: 1, 2, 3 …</option></select><p class="small">Instagram-Sicherheitszone: Die oberen 20 % und unteren 22 % bleiben frei von Storytext und Stickern. Die kleinen Ecklabels sind davon ausgenommen. Die Nummer gehört zum Inhalt, nicht zur Reihenfolge der Bildanzeige. Work kann Bilder zeitversetzt anzeigen.</p><label class="field" for="disclosure">Sichtbarer KI-Hinweis auf generierten Bildern</label><select id="disclosure"><option value="label">Klein und lesbar: „KI-generiert“</option><option value="none">Keinen Hinweis ins Bild einfügen</option></select><p class="small">Für den gesamten Durchlauf muss ChatGPT Work in deinem Zugang verfügbar und geöffnet sein. Ein Abo allein startet Work nicht automatisch. Bildlimits können beide Abläufe unterbrechen. Interaktive Sticker setzt du später in Instagram; der Chat liefert die Hinweise separat.</p></details>
 <details class="section story-settings"><summary>Sprache und Ton</summary><p class="help">Welche Wirkung soll dein Content haben?</p><div class="grid">
 <label class="choice"><input type="checkbox" name="tone" value="ruhig und echt"><span>Ruhig und echt</span></label>
 <label class="choice"><input type="checkbox" name="tone" value="warm und nahbar"><span>Warm und nahbar</span></label>
@@ -87,7 +109,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 </div></div></div><label class="field" for="topics">Eigene Themen und Alltagssituationen</label><textarea id="topics" placeholder="Was darf in deinen Stories vorkommen?"></textarea></details>
 <details class="section story-settings"><summary>Mein Stil</summary><p class="help">Deine persönlichen Stileinstellungen bleiben in diesem Browser gespeichert – auch nach dem Abmelden.</p><div class="notice"><strong>Deinen bisherigen Story-Stil übernehmen</strong><p>Kopiere den Analyse-Prompt in ChatGPT und lade dort 3–5 bisherige Story-Slides hoch. Füge die fertige Stilbeschreibung anschliessend unten ein.</p><button class="btn secondary" type="button" id="copyStyle">Stil-Analyse-Prompt kopieren</button><p class="small" id="styleStatus" role="status" aria-live="polite"></p><details id="stylePromptDetails"><summary>Analyse-Prompt anzeigen</summary><textarea id="stylePromptText" readonly aria-label="Stil-Analyse-Prompt"></textarea></details></div><div class="two">
   <div>
-    <label class="field" for="storyLayout">Collage auf einem Slide (optional)</label>
+    <label class="field" for="storyLayout">Collage (optional)</label>
     <select id="storyLayout">
       <option value="">Keine Collage</option>
       <option value="auto">LIORA wählt das Layout</option>
@@ -104,7 +126,8 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
     <div id="collageSlideField" hidden>
       <label class="field" for="collageSlide">Auf welchem Slide?</label>
       <select id="collageSlide">
-        <option value="auto">LIORA wählt den Slide</option>
+        <option value="auto">LIORA wählt einen Slide</option>
+        <option value="all">Alle Slides</option>
         <option value="1">Slide 1</option><option value="2">Slide 2</option>
         <option value="3">Slide 3</option><option value="4">Slide 4</option>
         <option value="5">Slide 5</option>
@@ -122,7 +145,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
     </select>
   </div>
 </div>
-<p class="small">Ein Raster oder eine Collage zählt als ein Slide.</p><label class="choice"><input type="checkbox" id="styleReference"><span>Eigenes Stilbild später in ChatGPT hochladen</span></label>
+<p class="small">Wähle einen einzelnen Slide oder alle Slides. Jede Collage zählt als ein Slide.</p><label class="choice"><input type="checkbox" id="styleReference"><span>Eigenes Stilbild später in ChatGPT hochladen</span></label>
 <p class="small">Ein Beispielbild reicht. Deine Auswahl für Bildaufbau und Textwirkung hat Vorrang.</p><label class="field" for="savedStyle">Mein bisheriger Story-Stil (optional)</label><textarea id="savedStyle" placeholder="Hier die Stilbeschreibung aus ChatGPT einfügen. Sie wird in deinen Story-Prompt übernommen."></textarea><div class="two"><div><label class="field" for="colors">Markenfarben</label><input id="colors" type="text" placeholder="z. B. Salbeigrün, Beige und Gold"></div><div><label class="field" for="style">Bildstil</label><select id="style"><option>natürlich und editorial</option><option>warm und dokumentarisch</option><option>verspielt und farbig</option><option>minimal und ruhig</option></select></div></div><label class="field" for="font">Schriftwirkung</label><select id="font"><option value="Schriftwirkung aus meiner Stilanalyse übernehmen. Verwende die dort beschriebene Typografie und Schriftwirkung. Falls keine Stilanalyse vorliegt oder darin keine Typografie beschrieben ist, kläre die gewünschte Schriftwirkung im Chat oder schlage eine passende vor; erfinde keine analysierten Schriftmerkmale.">Aus meiner Stilanalyse übernehmen</option><option>edle Editorial-Serifenschrift mit moderner Sans-Serif</option><option>klare moderne Sans-Serif</option><option>weiche elegante Serifenschrift</option><option>markante plakative Typografie</option></select><label class="field" for="avatar">Bildmotiv · mit oder ohne Avatar</label><p class="help">Wähle, was auf deinen Storybildern zu sehen sein soll.</p><div id="avatarReferenceHelp"><p class="help"><strong>Du kannst dein Avatarbild und dein Outfitbild erst später direkt im Chat hochladen.</strong> Wähle dafür die Option «Avatar und Outfit im Chat hochladen». LIORA fragt die Bilder nacheinander an und wartet auf deinen Upload.</p><p class="help">Noch keine Outfitidee? Schau auf <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" style="color:var(--purple);font-weight:700">Pinterest</a> vorbei, such dir einen Look aus und lade das Bild später in ChatGPT als Outfitvorschlag hoch. Glaub mir, das macht Spass! 💜<br><span class="small">Dein Avatar bleibt derselbe – das Referenzbild dient als Inspiration für die Kleidung.</span></p></div><textarea id="avatar" placeholder="Wähle oben eine Option oder beschreibe dein Bildmotiv, deinen Avatar und dein Outfit selbst."></textarea>
 <fieldset id="slideMotifOptions">
   <legend class="field">Slides ohne Avatar (optional)</legend>
@@ -231,8 +254,8 @@ function storyOutputOptions(){
  const lettering=storyLettering[val('#storyLettering')];
  if(layout){
   const slide=val('#collageSlide');
-  const placement=slide&&slide!=='auto'?'Setze die Collage auf Slide '+slide+'.':'Wähle den passenden Slide für die Collage im Storyplan.';
-  instructions.push('BILDAUFBAU: Genau eine Collage pro ausgearbeiteter Story. '+placement+' '+layout+' Alle übrigen Slides sind Einzelbilder, auch bei einem Stilbild mit Raster. Die Collage ist ein einzelner 9:16-Story-Slide und zählt einmal zur gewählten Slide-Anzahl. Halte Avatar, Outfit, Raum und Requisiten innerhalb derselben Szene konsistent. Halte die geplanten Stickerflächen frei.');
+  const placement=slide==='all'?'Gestalte alle gewählten Slides als Collage.':(slide&&slide!=='auto'?'Setze die Collage auf Slide '+slide+'.':'Wähle den passenden Slide für die Collage im Storyplan.')+' Alle übrigen Slides sind Einzelbilder.';
+  instructions.push('BILDAUFBAU: '+placement+' '+layout+' Jede Collage zählt als ein 9:16-Story-Slide. Halte die gewählte Gesamtzahl der Slides ein. Halte Avatar, Outfit, Raum und Requisiten innerhalb derselben Szene konsistent. Halte die geplanten Stickerflächen frei.');
  }
  if(lettering&&val('#textMode')!=='separate'){
   instructions.push('TEXTWIRKUNG: '+lettering+' Platziere Story-Schrift vollständig innerhalb der Instagram-Sicherheitszone. Dieser ausdrücklich gewählte Textstil hat Vorrang vor abweichenden Stilbeispielen.');
@@ -249,12 +272,12 @@ function storyOutputOptions(){
   instructions.push('BILDMOTIV OHNE AVATAR: Für diesen Auftrag keine sichtbaren Personen und keinen Avatar zeigen. Verwende passende Gegenstände, Orte, Tiere oder Alltagsdetails. Überspringe alle Rückfragen und Freigaben zu Avatar und Outfit. Nutze Stilreferenzen nur für die Gestaltung.');
  }
  const cornerLabels=[];
- if(val('#slideNumbers')!=='no')cornerLabels.push('Kleine Slide-Nummer direkt oben rechts in der Bildecke, rechtsbündig.');
+ if(val('#slideNumbers')==='yes')cornerLabels.push('Kleine Slide-Nummer direkt oben rechts in der Bildecke, rechtsbündig.');
  if(val('#disclosure')!=='none')cornerLabels.push('Kleiner Hinweis „KI-generiert“ direkt unten links in der Bildecke, linksbündig.');
  if(cornerLabels.length){
   instructions.push('SEPARATE ECKLABELS: '+cornerLabels.join(' ')+' Diese gewählten Labels sind die einzige Ausnahme vom vertikalen Sicherheitsabstand. Setze sie unabhängig vom Storytext mit jeweils etwa 60 px Abstand zu beiden angrenzenden Bildrändern bei 1080 × 1920 px, bei anderen Auflösungen proportional. Position und Grösse über die ganze Serie konstant halten. Die Auswahl für Nummer und KI-Hinweis gilt unabhängig davon, ob der Storytext separat ausgegeben wird.');
  }
- if(val('#slideNumbers')==='no')instructions.push('Slide-Nummern sind abgewählt. Füge keine Nummer ins Bild ein.');
+ if(val('#slideNumbers')!=='yes')instructions.push('Slide-Nummern sind abgewählt. Füge keine Nummer ins Bild ein.');
  if(val('#disclosure')==='none')instructions.push('Der KI-Hinweis im Bild ist abgewählt. Füge kein entsprechendes Ecklabel ins Bild ein.');
  const selectedSlides=$('#slideMotifOptions').hidden?[]:slideMotifRows.filter(row=>!row.hidden&&row.querySelector('input').checked);
  if(selectedSlides.length){
@@ -372,7 +395,7 @@ async function generatePrompt(){
    error?.message||'Unbekannter Fehler. Bitte versuche es erneut.';
  }finally{promptInFlight=false;updatePromptButton();}
 }
-$('#storyForm').addEventListener('submit',e=>{e.preventDefault();if(!$('#storyForm').checkValidity()){ $('#storyForm').reportValidity();return }generatePrompt();});
+$('#storyForm').addEventListener('submit',e=>{e.preventDefault();if(!$('#storyForm').checkValidity()){ $('#storyForm').reportValidity();return }if(validateStoryFields())generatePrompt();});
 function copyFallback(text){
  const field=document.createElement('textarea');
  field.value=text;field.setAttribute('readonly','');field.setAttribute('aria-label','Prompt kopieren');
@@ -853,4 +876,49 @@ window.addEventListener('storage',e=>{if(e.key===sessionKey&&e.newValue===null&&
  }
 })();
 
+
+const storyRequiredFields={
+ language:'Sprachbeschreibung',audience:'Zielgruppenbeschreibung',topics:'Themen und Alltagssituationen',
+ colors:'Markenfarben',avatar:'Bildmotiv',style:'Bildstil',font:'Schriftwirkung',
+ production:'Bilderstellung',textMode:'Text auf den Bildern',slideCount:'Anzahl Slides',goal:'Story-Ziel'
+};
+function requiredStoryInputs(){
+ const mode=$('input[name="mode"]:checked')?.value;
+ return [
+  ...Object.entries(storyRequiredFields)
+   .filter(([id])=>id!=='topics'||mode!=='day')
+   .map(([id,title])=>({field:document.getElementById(id),title})),
+  ...[['tone','Tonalität'],['address','Zielgruppen-Ansprache']].map(([name,title])=>({
+   field:$('input[name="'+name+'"]'),title,group:name
+  }))
+ ];
+}
+const storyValidation=document.createElement('p');
+storyValidation.className='small';
+storyValidation.setAttribute('role','alert');
+storyValidation.hidden=true;
+$('.actions').before(storyValidation);
+function markStoryRequiredFields(){
+ all('.required-story-label').forEach(node=>node.classList.remove('required-story-label'));
+ for(const {field,group} of requiredStoryInputs()){
+  if(!group)$('label[for="'+field.id+'"]').classList.add('required-story-label');
+  for(let parent=field.parentElement;parent;parent=parent.parentElement){
+   if(parent.matches('details.story-settings'))parent.querySelector(':scope > summary').classList.add('required-story-label');
+  }
+ }
+ storyValidation.hidden=true;
+}
+function validateStoryFields(){
+ const missing=requiredStoryInputs().find(({field,group})=>group?!values(group).length:!field.value.trim());
+ if(!missing){storyValidation.hidden=true;return true;}
+ storyValidation.hidden=false;
+ storyValidation.textContent='Bitte ergänze '+missing.title+'.';
+ for(let parent=missing.field.parentElement;parent;parent=parent.parentElement){
+  if(parent.matches('details'))parent.open=true;
+ }
+ missing.field.focus();
+ return false;
+}
+all('input[name="mode"]').forEach(input=>input.addEventListener('change',markStoryRequiredFields));
+markStoryRequiredFields();
 </script></body></html>
