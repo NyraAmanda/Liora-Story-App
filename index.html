@@ -100,7 +100,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <label class="choice"><input type="checkbox" name="life" value="kreative Projekte"><span>Kreative Projekte</span></label>
 <label class="choice"><input type="checkbox" name="life" value="Entscheidungen hinter den Kulissen"><span>Hinter den Kulissen</span></label>
 <label class="choice"><input type="checkbox" name="life" value="kleine Alltagserkenntnisse"><span>Kleine Erkenntnisse</span></label>
-</div><div class="two"><div><label class="field" for="places">Ort oder Raum (optional)</label><input id="places" type="text" placeholder="z. B. Wohnzimmer, Café, Park">
+</div><div class="two"><div><label class="field" for="places">Ort oder Raum ergänzen (optional)</label><input id="places" type="text" placeholder="Nur falls dein Thema noch keinen Ort vorgibt"><p class="small">Ein Ort, der zu deiner Story-Idee gehört, hat Vorrang. Möchtest du die Szene verlegen, passe die Idee unter „Worum geht es heute?“ an.</p>
 <label class="choice"><input type="checkbox" id="placeReference"><span>Foto vom Ort später in ChatGPT hochladen</span></label>
 <p class="small">Wähle einen Vorschlag, beschreibe deinen Ort oder lass LIORA entscheiden. Ein Foto hilft, Möbel und Gegenstände über mehrere Slides hinweg an ihrem Platz zu halten.</p></div><div><label class="field" for="people">Personen oder Tiere</label><input id="people" type="text" placeholder="z. B. Partner, Team, Hund"><div id="recentPeopleGroup" hidden>
   <label class="field" for="recentPeople">Zuletzt verwendete Personen oder Tiere</label>
@@ -266,10 +266,11 @@ function storyOutputOptions(){
  if($('#styleReference').checked){
   instructions.push('STILBILD: Frage bei der Ausarbeitung einer konkreten Story vor der visuellen Gestaltung einmal nach einem Beispielbild und warte auf den Upload oder die Freigabe, ohne Bild fortzufahren. Nutze ein bereits beigefügtes Stilbild direkt. Orientiere dich an Bildaufbau, Schriftwirkung, Farbwelt und Stimmung. Ausdrückliche Vorgaben aus der App, insbesondere Bildaufbau, Textwirkung, Textmodus und Sicherheitszonen, haben Vorrang. Nutze separate Referenzen und Angaben für Avatar, Outfit und Ort. Übernimm keine Personen, Texte oder Logos aus dem Stilbild. Bei einer reinen Wochenübersicht warte mit der Uploadfrage bis zur Ausarbeitung einer konkreten Story.');
  }
+ instructions.push('ORTSWAHL: Ein für die Handlung vorgegebener Ort im konkreten Anlass ist verbindlich, auch bei einem ausgewählten Themenbeispiel. Nutze die separate Ortsangabe nur als Ergänzung, wenn der Anlass keinen Ort vorgibt oder wenn sie zum Ort im Anlass passt. Ein widersprüchlicher Ort oder ein widersprüchliches Ortsfoto darf die Szene nicht verlegen. Allgemeine Themen und beiläufig genannte Orte legen den Schauplatz nicht fest. In der Wochenplanung gilt der Ort des konkreten Anlasses nur für die dazugehörige Story.');
  if($('#placeReference').checked){
   instructions.push('ORTSFOTO ALS RAUMREFERENZ: Sobald eine konkrete Story mit Bildern ausgearbeitet wird, bitte vor der Bildproduktion um ein Foto des gewünschten Orts und warte auf das Foto oder auf die ausdrückliche Freigabe, ohne Foto weiterzumachen. Liegt bereits ein passendes Foto vor, nutze es direkt. Verwende es nur für den Ort: Raumaufteilung, feste Blickpunkte, Möbel und Positionen der Requisiten relativ zueinander. Übernimm keine Personen oder Outfits aus dem Ortsfoto. Verwende das Foto, soweit technisch möglich, bei jedem Slide an diesem Ort erneut und nutze den Szenenanker zur Orientierung bei Perspektivwechseln. Bei einer reinen Wochenübersicht stelle die Uploadfrage erst bei der konkreten Ausarbeitung.');
  }else{
-  instructions.push('ORT ODER RAUM: Nutze einen angegebenen Ort. Wenn keiner genannt ist, wähle einen zur Story passenden Ort und verankere seine räumliche Anordnung für wiederkehrende Szenen. Ein Ortsfoto ist optional.');
+  instructions.push('ORT ODER RAUM: Beachte bei der Ortswahl den Vorrang des konkreten Anlasses. Wenn kein passender Ort genannt ist, wähle einen zur Story passenden Ort und verankere seine räumliche Anordnung für wiederkehrende Szenen. Ein Ortsfoto ist optional.');
  }
  if(val('#avatarPreset')===noAvatarPreset){
   instructions.push('BILDMOTIV OHNE AVATAR: Für diesen Auftrag keine sichtbaren Personen und keinen Avatar zeigen. Verwende passende Gegenstände, Orte, Tiere oder Alltagsdetails. Überspringe alle Rückfragen und Freigaben zu Avatar und Outfit. Nutze Stilreferenzen nur für die Gestaltung.');
@@ -615,6 +616,39 @@ function updateInteractionChoices(){
 }
 $('#interaction').addEventListener('change',updateInteractionChoices);
 updateInteractionChoices();
+const storyDraftKey='liora-story-form-v1';
+const storyDraftFields=all('#storyForm input, #storyForm select, #storyForm textarea').filter(field=>
+ !field.readOnly && !['password','file','hidden','button','submit','reset'].includes(field.type) &&
+ !field.classList.contains('preset') && field.id!=='recentPeople' &&
+ !['colors','font','savedStyle','style'].includes(field.id)
+);
+function storyDraftFieldKey(field,index){
+ return field.id || (field.name ? field.name+':'+field.value : 'field-'+index);
+}
+function saveStoryDraft(){
+ const draft=Object.fromEntries(storyDraftFields.map((field,index)=>[
+  storyDraftFieldKey(field,index),
+  ['radio','checkbox'].includes(field.type)?field.checked:field.value
+ ]));
+ try{localStorage.setItem(storyDraftKey,JSON.stringify(draft));}catch(error){}
+}
+try{
+ const draft=JSON.parse(localStorage.getItem(storyDraftKey)||'{}');
+ storyDraftFields.forEach((field,index)=>{
+  const saved=draft[storyDraftFieldKey(field,index)];
+  if(['radio','checkbox'].includes(field.type)){
+   if(typeof saved==='boolean')field.checked=saved;
+  }else if(typeof saved==='string' && (field.tagName!=='SELECT'||!saved||[...field.options].some(option=>option.value===saved))){
+   field.value=saved;
+  }
+ });
+}catch(error){}
+updateInteractionChoices();
+updateCollageSlide();
+updateSlideMotifOptions();
+updateAvatarReferenceHelp();
+$('#storyForm').addEventListener('input',saveStoryDraft);
+$('#storyForm').addEventListener('change',saveStoryDraft);
 document.getElementById('startNewContent').addEventListener('click',()=>{
   // Nur den aktuellen Auftrag leeren, persönliche Grundlagen beibehalten.
   const occasion=document.getElementById('occasion');
@@ -632,6 +666,7 @@ document.getElementById('startNewContent').addEventListener('click',()=>{
   const status=document.getElementById('newContentStatus');
   status.textContent='✓ Neuer Content gestartet! Bisheriger Anlass und Story-Ziel wurden zurückgesetzt. Deine persönlichen Angaben bleiben erhalten.';
   status.hidden=false;
+  saveStoryDraft();
   // Kein Scrollen und kein Fokuswechsel zu einem Feld weiter unten.
 });
 function clearOutput(message=''){promptRequestId++;document.getElementById('result').textContent='Dein fertiger Prompt erscheint hier.';document.getElementById('copy').disabled=true;document.getElementById('downloadPrompt').disabled=true;verifiedPrompt='';document.getElementById('status').textContent=message;updatePromptButton();}
@@ -655,6 +690,7 @@ document.getElementById('storyForm').addEventListener('reset',event=>{
  savedStyleField.value=retainedStyle;
  imageStyleField.value=retainedImageStyle;
  $('#styleStatus').textContent='';$('#stylePromptDetails').open=false;
+ saveStoryDraft();
  clearOutput('Auswahl und Eingaben geleert. Deine Markenfarben, Schriftwirkung und dein persönlicher Story-Stil bleiben gespeichert.');
 });
 document.getElementById('storyForm').addEventListener('input',()=>{document.getElementById('newContentStatus').textContent='';if($('#result').textContent!=='Dein fertiger Prompt erscheint hier.')clearOutput('Eingaben geändert. Bitte Prompt neu erstellen.');});
