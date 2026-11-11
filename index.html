@@ -124,10 +124,13 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
       <figcaption class="small" id="collageCaption"></figcaption>
     </figure>
     <div id="collageSlideField" hidden>
-      <label class="field" for="collageSlide">Auf welchem Slide?</label>
+      <label class="field" for="collageSlide">Wie viele oder welche Slides sollen Collagen sein?</label>
       <select id="collageSlide">
         <option value="auto">LIORA wählt einen Slide</option>
         <option value="all">Alle Slides</option>
+        <option value="count-2">2 Slides · LIORA wählt</option>
+        <option value="count-3">3 Slides · LIORA wählt</option>
+        <option value="count-4">4 Slides · LIORA wählt</option>
         <option value="1">Slide 1</option><option value="2">Slide 2</option>
         <option value="3">Slide 3</option><option value="4">Slide 4</option>
         <option value="5">Slide 5</option>
@@ -254,7 +257,7 @@ function storyOutputOptions(){
  const lettering=storyLettering[val('#storyLettering')];
  if(layout){
   const slide=val('#collageSlide');
-  const placement=slide==='all'?'Gestalte alle gewählten Slides als Collage.':(slide&&slide!=='auto'?'Setze die Collage auf Slide '+slide+'.':'Wähle den passenden Slide für die Collage im Storyplan.')+' Alle übrigen Slides sind Einzelbilder.';
+  const placement=slide.startsWith('count-')?'Wähle im Storyplan genau '+slide.slice(6)+' passende Slides für Collagen. Alle übrigen Slides sind Einzelbilder.':slide==='all'?'Gestalte alle gewählten Slides als Collage.':(slide&&slide!=='auto'?'Setze die Collage auf Slide '+slide+'.':'Wähle den passenden Slide für die Collage im Storyplan.')+' Alle übrigen Slides sind Einzelbilder.';
   instructions.push('BILDAUFBAU: '+placement+' '+layout+' Jede Collage zählt als ein 9:16-Story-Slide. Halte die gewählte Gesamtzahl der Slides ein. Halte Avatar, Outfit, Raum und Requisiten innerhalb derselben Szene konsistent. Halte die geplanten Stickerflächen frei.');
  }
  if(lettering&&val('#textMode')!=='separate'){
@@ -301,7 +304,7 @@ function storyOutputOptions(){
  if($('#finalLinkSticker').checked){
   instructions.push('LINK-STICKER AUF DEM LETZTEN SLIDE: Reserviere bereits im Contentplan und in jedem Bildprompt für den letzten Slide der jeweiligen Story eine gut sichtbare, ruhige freie Fläche für den Instagram-Link-Sticker. Positioniere sie bevorzugt mittig im unteren Teil der sicheren Zone, vollständig oberhalb des unteren textfreien Bereichs. Halte diese Fläche frei von Text, wichtigen Motiven, Nummern, KI-Hinweis und anderen Stickern. Zeichne keinen Platzhalter, keinen Link und keinen Sticker ins Bild. Gib die Platzierung im Chat an. Falls ein Stickertext oder eine URL fehlt, frage bei Bedarf danach oder liefere nur die Platzierung. Erfinde keine URL. Andere gewünschte Sticker bleiben möglich und sollen die Linkfläche nicht überdecken. Bei nur einem Slide gilt diese Regel für diesen Slide. Bei einer reinen Wochenplanung gilt sie erst beim Ausarbeiten der gewählten Story.');
  }
- return instructions.length?'VERBINDLICHE AUSGABE-OPTIONEN FÜR DIESEN AUFTRAG – bei Konflikten mit allgemeinen Avatar- oder Sticker-Regeln gelten diese Optionen:\n'+instructions.join('\n\n'):'';
+ return instructions.length?'VERBINDLICHE AUSGABE-OPTIONEN FÜR DIESEN AUFTRAG – bei Konflikten mit allgemeinen Avatar-, Sticker- oder Produktionsregeln gelten diese Optionen:\n'+instructions.join('\n\n'):'';
 }
 let promptRequestId=0;
 let promptInFlight=false;
@@ -517,8 +520,11 @@ function resetSlideMotifs(){
 function updateCollageSlide(){
  const count=Number(val('#slideCount')||5);
  const field=$('#collageSlide');
- for(const option of field.options)option.hidden=Number(option.value)>count;
- if(!field.value||Number(field.value)>count)field.value='auto';
+ for(const option of field.options){
+  option.hidden=Number(option.value.replace('count-',''))>count;
+  option.disabled=option.hidden;
+ }
+ if(!field.value||field.selectedOptions[0]?.disabled)field.value='auto';
  const layout=val('#storyLayout');
  $('#collageSlideField').hidden=!layout;
  const preview=$('#collagePreview');
