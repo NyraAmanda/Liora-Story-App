@@ -277,6 +277,10 @@ function storyOutputOptions(){
  if(($('input[name="expression"]:checked')?.value||'natürlich')==='natürlich'){
   instructions.push('NATÜRLICHER FOTOLOOK: Inszeniere die Szene wie eine spontane Handyaufnahme im Alltag. Nutze vorhandenes weiches Fensterlicht oder plausibles Umgebungslicht mit natürlichen Schatten und neutraler Farbwiedergabe. Erhalte die Hautstruktur und Gesichtszüge der Avatar-Referenz. Zeige eine ungezwungene Haltung und eine glaubwürdige Reaktion mitten in der Handlung. Vermeide Beauty-Retusche, künstlichen Glanz und übermässig goldenes Licht.');
  }
+ instructions.push('HANDLUNGSANSCHLUSS: Halte für jeden Slide fest, was sich gegenüber dem vorherigen Bild sichtbar verändert hat. Ein abgelegtes Accessoire bleibt am letzten bekannten Ort und erscheint erst nach einer ausdrücklich erzählten Handlung wieder am Körper. Referenzen übernehmen die Identität, aber keine Accessoires, die laut Handlung bereits abgelegt wurden. Prüfe besonders den letzten Slide auf versehentliche Rücksprünge.');
+ if(/headset/i.test(val('#occasion')) && /feierabend/i.test(val('#occasion'))){
+  instructions.push('INSZENIERUNG FÜR HEADSET UND FEIERABEND: Bei fünf Slides 1. Letzter Blick auf den Bildschirm, das Headset ist noch auf. 2. Headset abnehmen und sichtbar neben die Tastatur legen. 3. Laptop zuklappen, Headset bleibt auf dem Schreibtisch. 4. Ortswechsel aufs Sofa in bequemer Kleidung, ohne Headset. 5. Ruhiger Abschluss auf dem Sofa mit einer kleinen Pointe, ebenfalls ohne Headset. Bei drei Slides den Ablauf auf Absetzen, Laptop zuklappen und Sofa verdichten. Bei einem Slide nur den Feierabendmoment auf dem Sofa zeigen. Keine Rückkehr zur Arbeitsszene nach dem Ortswechsel.');
+ }
  const avatarName=val('#avatarName');
  instructions.push(avatarName?'AVATAR-NAME: '+JSON.stringify(avatarName)+'. Verwende diesen Namen für den eigenen Avatar, wenn du ihn im Chat oder Storyplan benennst.':'AVATAR-NAME: Wenn ich keinen Namen für diesen Avatar angegeben habe, nenne ihn „dein Avatar“. Übernimm keine Namen aus anderen Projekten oder Beispielen.');
  const layout=storyLayouts[val('#storyLayout')];
