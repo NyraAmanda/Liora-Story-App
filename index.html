@@ -89,7 +89,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <header class="hero"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-Generator</div><h1>Deine Stories, ohne jedes Mal bei null zu beginnen.</h1><p>Wähle nur aus, was passt, ergänze deine eigenen Worte und erstelle daraus einen persönlichen Masterprompt, eine Wochenplanung oder einen einzelnen Story-Tag.</p></header>
 <div class="layout">
 <section class="panel">
-<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt den aktuellen Anlass und das Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>Deine Story</h2><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily">Alltag &amp; Persönlichkeit</option><option value="business">Mehrwert &amp; Vertrauen</option><option value="mixed" hidden>Alltag und Business</option></select><p id="storyDirectionHelp" class="small"></p><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div>
+<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt Anlass, Ergänzung und Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>Deine Story</h2><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily">Alltag &amp; Persönlichkeit</option><option value="business">Mehrwert &amp; Vertrauen</option><option value="mixed" hidden>Alltag und Business</option></select><p id="storyDirectionHelp" class="small"></p><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div>
 <details class="section story-settings more-story-settings"><summary>Weitere Story-Einstellungen <span class="story-settings-optional">Optional</span></summary>
 <details class="section story-settings"><summary>Bilderstellung und Ausgabe</summary><p class="help">Wähle den Ablauf für deinen ChatGPT-Zugang. Mit Free oder Go führst du die Story Slide für Slide fort. Nutzt du ChatGPT Work, kannst du die gesamte Serie beauftragen.</p><label class="field" for="production">Bilderstellung</label><select id="production"><option value="single" selected>Free / Go oder normaler Chat – einzeln mit „Weiter“</option><option value="batch">ChatGPT Work – alle Slides in einem Durchlauf</option><option value="prompts">Nur Bildprompts für ein anderes Bildtool</option><option value="unsure">Ich weiss noch nicht, was möglich ist</option></select><div class="two"><div><label class="field" for="textMode">Text auf den Bildern</label><select id="textMode"><option value="integrated">Mit Storytext direkt im Bild</option><option value="separate">Ohne Storytext – Text separat in Kopierboxen</option></select></div></div><label class="field" for="slideNumbers">Slide-Reihenfolge sichtbar machen</label><select id="slideNumbers"><option value="no" selected>Keine Nummer im Bild</option><option value="yes">Kleine Nummer oben rechts in der Bildecke: 1, 2, 3 …</option></select><p class="small">Instagram-Sicherheitszone: Die oberen 25 % und unteren 22 % bleiben frei von Storytext und Stickern. Die kleinen Ecklabels sind davon ausgenommen. Die Nummer gehört zum Inhalt, nicht zur Reihenfolge der Bildanzeige. Work kann Bilder zeitversetzt anzeigen.</p><label class="field" for="disclosure">Sichtbarer KI-Hinweis auf generierten Bildern</label><select id="disclosure"><option value="label">Klein und lesbar: „KI-generiert“</option><option value="none">Keinen Hinweis ins Bild einfügen</option></select><p class="small">Für den gesamten Durchlauf muss ChatGPT Work in deinem Zugang verfügbar und geöffnet sein. Ein Abo allein startet Work nicht automatisch. Bildlimits können beide Abläufe unterbrechen. Interaktive Sticker setzt du später in Instagram; der Chat liefert die Hinweise separat.</p></details>
 <details class="section story-settings"><summary>Sprache und Ton</summary><p class="help">Welche Wirkung soll dein Content haben?</p><div class="grid">
@@ -119,7 +119,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
   <label class="field" for="recentPeople">Zuletzt verwendete Personen oder Tiere</label>
   <select id="recentPeople"></select>
   <button class="btn ghost" id="clearRecentPeople" type="button">Verlauf leeren</button>
-</div></div></div><label class="field" for="topics">Eigene Themen und Alltagssituationen</label><textarea id="topics" placeholder="Was darf in deinen Stories vorkommen?"></textarea></details>
+</div></div></div><label class="field" for="topics">Was möchtest du ergänzen? (optional)</label><p id="topicsHelp" class="small">Ergänze bei Bedarf ein Detail zum Anlass oder ein Thema für mehrere Storys.</p><textarea id="topics" aria-describedby="topicsHelp" placeholder="Deine Ergänzung"></textarea></details>
 <details class="section story-settings"><summary>Mein Stil</summary><p class="help">Deine persönlichen Stileinstellungen bleiben in diesem Browser gespeichert – auch nach dem Abmelden.</p><div class="notice"><strong>Deinen bisherigen Story-Stil übernehmen</strong><p>Kopiere den Analyse-Prompt in ChatGPT und lade dort 3–5 bisherige Story-Slides hoch. Füge die fertige Stilbeschreibung anschliessend unten ein.</p><button class="btn secondary" type="button" id="copyStyle">Stil-Analyse-Prompt kopieren</button><p class="small" id="styleStatus" role="status" aria-live="polite"></p><details id="stylePromptDetails"><summary>Analyse-Prompt anzeigen</summary><textarea id="stylePromptText" readonly aria-label="Stil-Analyse-Prompt"></textarea></details></div><div class="two">
   <div>
     <label class="field" for="storyLayout">Collage (optional)</label>
@@ -279,6 +279,7 @@ function storyOutputOptions(){
  }
  instructions.push('HANDLUNGSANSCHLUSS: Halte für jeden Slide fest, was sich gegenüber dem vorherigen Bild sichtbar verändert hat. Ein abgelegtes Accessoire bleibt am letzten bekannten Ort und erscheint erst nach einer ausdrücklich erzählten Handlung wieder am Körper. Referenzen übernehmen die Identität, aber keine Accessoires, die laut Handlung bereits abgelegt wurden. Prüfe besonders den letzten Slide auf versehentliche Rücksprünge.');
  const valueStory=val('#storyDirection')!=='daily';
+ instructions.push('ZUSATZKONTEXT: Lies eigene Themen als optionale Ergänzung zur gewählten Story-Richtung. Der konkrete Anlass und das gewählte Story-Ziel führen die Story. Widersprechende oder unpassende Zusatzangaben lässt du weg. Wenn das Feld leer ist, leite den Blickwinkel aus Anlass und Ziel ab, ohne erneut danach zu fragen.');
  instructions.push('ROTER FADEN – VERBINDLICH AB DEM ERSTEN STORY-VORSCHLAG: Lege intern fest, welche Frage, Beobachtung oder Erwartung der Einstieg eröffnet und wie der Abschluss sie einlöst. Jeder Slide entwickelt denselben Gedanken durch ein neues Detail, eine Entscheidung, eine Erklärung oder eine Folge. Ersetze Füllslides und wiederholte Aussagen. Bei einem Slide passen Einstieg und Auflösung in einen Moment. Plane Bilder und Sticker erst entlang dieser Handlung. Eine Umfrage oder Frage muss zum Thema passen und darf die Auflösung nicht ersetzen.');
  instructions.push(valueStory
   ? 'MEHRWERT & VERTRAUEN: Zeige an der konkreten Szene, was die Community besser versteht, entscheiden oder selbst ausprobieren kann. Erkläre, warum es hier funktioniert, und gib einen kleinen Test oder ein sichtbares Kriterium. Nutze Marke, Wiedererkennung oder Konsistenz, wenn sie aus dem Thema folgen. Wenn ein Angebot ausdrücklich gewünscht ist, zeige am selben Beispiel, welchen konkreten Schritt es erleichtert. Nenne die LIORA StoryApp nur, wenn sie als Angebot oder Entstehungsweg ausdrücklich gewünscht ist. Erfinde keine Ergebnisse, Funktionen oder Links.'
@@ -495,7 +496,7 @@ for(const [id,items] of Object.entries(presets)){
  select.className='preset';select.setAttribute('aria-label','Beispiel auswählen: '+document.querySelector('label[for="'+id+'"]').textContent);
  select.add(new Option(id==='avatar'?'Bildmotiv auswählen – oder selbst beschreiben':'Vorschlag wählen – oder darunter selbst schreiben',''));
  items.forEach(item=>select.add(new Option(item,item)));
- if(id==='occasion')select.id='occasionPreset';
+ if(id==='occasion'||id==='topics')select.id=id+'Preset';
  if(id==='avatar'){select.id='avatarPreset';select.setAttribute('aria-label','Bildmotiv mit oder ohne Avatar auswählen');}
  if(id==='avatar'){
   const label=document.querySelector('label[for="avatar"]');
@@ -537,6 +538,19 @@ function updateStoryDirection(){
  $('#storyDirectionHelp').textContent=valueStory
   ? 'Vermittle eine Erkenntnis oder einen Tipp anhand einer konkreten Szene.'
   : 'Erzähle einen Alltagsmoment mit einer Pointe, einer Eigenheit oder einem echten Wiedererkennungsmoment.';
+ const extra=$('#topicsPreset');
+ const extraOptions=valueStory
+  ? ['Einen Tipp zeigen, den meine Community ausprobieren kann.','Eine Entscheidung erklären und zeigen, woran ich sie festgemacht habe.','Einen konkreten Fehler zeigen und was ich beim nächsten Mal anders mache.']
+  : ['Eine kleine Eigenheit zeigen, die typisch für mich ist.','Das Detail zeigen, das den Moment lustig gemacht hat.','Erzählen, was mich in dem Moment überrascht hat.'];
+ const question=valueStory?'Was soll deine Community mitnehmen?':'Was macht den Moment persönlich?';
+ $('label[for="topics"]').textContent=question+' (optional)';
+ extra.setAttribute('aria-label',question);
+ $('#topicsHelp').textContent='Ergänze bei Bedarf den Anlass von oben. Du kannst dieses Feld leer lassen.';
+ $('#topics').placeholder=valueStory?'Zum Beispiel: Warum ich diese eine Idee ausgewählt habe':'Zum Beispiel: Was mich daran zum Lachen gebracht hat';
+ if([...extra.options].some(option=>option.value&&option.value===$('#topics').value)&&!extraOptions.includes($('#topics').value))$('#topics').value='';
+ extra.options.length=1;
+ extraOptions.forEach(option=>extra.add(new Option(option,option)));
+ extra.value=extraOptions.includes($('#topics').value)?$('#topics').value:'';
  const goals=goalOptions.filter((option,index)=>valueStory?index>=4:index<=3||index>=7);
  const selected=$('#goal').value;
  $('#goal').replaceChildren(...goals);
@@ -720,6 +734,7 @@ document.getElementById('startNewContent').addEventListener('click',()=>{
   // Nur den aktuellen Auftrag leeren, persönliche Grundlagen beibehalten.
   const occasion=document.getElementById('occasion');
   occasion.value='';
+  $('#topics').value='';
   for(const id of ['storyDirection','goal','interaction']){
     document.getElementById(id).selectedIndex=0;
   }
@@ -988,15 +1003,13 @@ window.addEventListener('storage',e=>{if(e.key===sessionKey&&e.newValue===null&&
 
 
 const storyRequiredFields={
- language:'Sprachbeschreibung',audience:'Zielgruppenbeschreibung',topics:'Themen und Alltagssituationen',
+ language:'Sprachbeschreibung',audience:'Zielgruppenbeschreibung',
  colors:'Markenfarben',avatar:'Bildmotiv',style:'Bildstil',font:'Schriftwirkung',
  production:'Bilderstellung',textMode:'Text auf den Bildern',slideCount:'Anzahl Slides',goal:'Story-Ziel'
 };
 function requiredStoryInputs(){
- const mode=$('input[name="mode"]:checked')?.value;
  return [
   ...Object.entries(storyRequiredFields)
-   .filter(([id])=>id!=='topics'||mode!=='day')
    .map(([id,title])=>({field:document.getElementById(id),title})),
   ...[['tone','Tonalität'],['address','Zielgruppen-Ansprache']].map(([name,title])=>({
    field:$('input[name="'+name+'"]'),title,group:name
