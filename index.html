@@ -89,7 +89,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <header class="hero"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-Generator</div><h1>Deine Stories, ohne jedes Mal bei null zu beginnen.</h1><p>Wähle nur aus, was passt, ergänze deine eigenen Worte und erstelle daraus einen persönlichen Masterprompt, eine Wochenplanung oder einen einzelnen Story-Tag.</p></header>
 <div class="layout">
 <section class="panel">
-<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt den aktuellen Anlass und das Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>Deine Story</h2><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div>
+<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt den aktuellen Anlass und das Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>Deine Story</h2><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily">Alltag &amp; Persönlichkeit</option><option value="business">Mehrwert &amp; Vertrauen</option><option value="mixed" hidden>Alltag und Business</option></select><p id="storyDirectionHelp" class="small"></p><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div>
 <details class="section story-settings more-story-settings"><summary>Weitere Story-Einstellungen <span class="story-settings-optional">Optional</span></summary>
 <details class="section story-settings"><summary>Bilderstellung und Ausgabe</summary><p class="help">Wähle den Ablauf für deinen ChatGPT-Zugang. Mit Free oder Go führst du die Story Slide für Slide fort. Nutzt du ChatGPT Work, kannst du die gesamte Serie beauftragen.</p><label class="field" for="production">Bilderstellung</label><select id="production"><option value="single" selected>Free / Go oder normaler Chat – einzeln mit „Weiter“</option><option value="batch">ChatGPT Work – alle Slides in einem Durchlauf</option><option value="prompts">Nur Bildprompts für ein anderes Bildtool</option><option value="unsure">Ich weiss noch nicht, was möglich ist</option></select><div class="two"><div><label class="field" for="textMode">Text auf den Bildern</label><select id="textMode"><option value="integrated">Mit Storytext direkt im Bild</option><option value="separate">Ohne Storytext – Text separat in Kopierboxen</option></select></div></div><label class="field" for="slideNumbers">Slide-Reihenfolge sichtbar machen</label><select id="slideNumbers"><option value="no" selected>Keine Nummer im Bild</option><option value="yes">Kleine Nummer oben rechts in der Bildecke: 1, 2, 3 …</option></select><p class="small">Instagram-Sicherheitszone: Die oberen 25 % und unteren 22 % bleiben frei von Storytext und Stickern. Die kleinen Ecklabels sind davon ausgenommen. Die Nummer gehört zum Inhalt, nicht zur Reihenfolge der Bildanzeige. Work kann Bilder zeitversetzt anzeigen.</p><label class="field" for="disclosure">Sichtbarer KI-Hinweis auf generierten Bildern</label><select id="disclosure"><option value="label">Klein und lesbar: „KI-generiert“</option><option value="none">Keinen Hinweis ins Bild einfügen</option></select><p class="small">Für den gesamten Durchlauf muss ChatGPT Work in deinem Zugang verfügbar und geöffnet sein. Ein Abo allein startet Work nicht automatisch. Bildlimits können beide Abläufe unterbrechen. Interaktive Sticker setzt du später in Instagram; der Chat liefert die Hinweise separat.</p></details>
 <details class="section story-settings"><summary>Sprache und Ton</summary><p class="help">Welche Wirkung soll dein Content haben?</p><div class="grid">
@@ -184,7 +184,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
     </div>
   </template>
 </fieldset></details>
-<details class="section story-settings"><summary>Story-Ziel und Sticker</summary><p class="help">Gib deiner Story eine Richtung und optional einen konkreten Anlass.</p><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily" selected>Normaler Alltag – meinen KI-Avatar kennenlernen</option><option value="mixed">Alltag und Business – nur verbinden, wenn es passt</option><option value="business">Business, Wissen oder ein Angebot zeigen</option></select><p class="small">Eine kleine Alltagsszene reicht. Du brauchst dafür weder ein Angebot noch eine Businessbotschaft.</p><label class="field" for="goal">Was möchtest du erreichen?</label><select id="goal"><option>Meinen KI-Avatar kennenlernen: Vorlieben, Eigenheiten und normale Alltagsmomente zeigen.</option><option>Einfach unterhalten: eine lustige oder wiedererkennbare Alltagssituation teilen.</option><option>Nähe aufbauen: Die Zielgruppe soll sich verstanden fühlen.</option><option>Antworten auslösen: Eine konkrete, leicht beantwortbare Alltagsfrage stellen.</option><option>Vertrauen stärken: Einen ehrlichen Einblick in meine Arbeit geben.</option><option>Mehrwert geben: Einen kleinen Tipp zeigen, der sofort umsetzbar ist.</option><option>Interesse am Angebot wecken: Ein echtes Problem und einen passenden nächsten Schritt zeigen.</option><option>Community aktivieren: Eine kleine Mitmach-Challenge vorschlagen.</option></select><label class="field" for="interaction">Gewünschte Interaktion</label>
+<details class="section story-settings"><summary>Story-Ziel und Sticker</summary><p class="help">Gib deiner Story eine Richtung und optional einen konkreten Anlass.</p><label class="field" for="goal">Was möchtest du erreichen?</label><select id="goal"><option>Meinen KI-Avatar kennenlernen: Vorlieben, Eigenheiten und normale Alltagsmomente zeigen.</option><option>Einfach unterhalten: eine lustige oder wiedererkennbare Alltagssituation teilen.</option><option>Nähe aufbauen: Die Zielgruppe soll sich verstanden fühlen.</option><option>Antworten auslösen: Eine konkrete, leicht beantwortbare Alltagsfrage stellen.</option><option>Vertrauen stärken: Einen ehrlichen Einblick in meine Arbeit geben.</option><option>Mehrwert geben: Einen kleinen Tipp zeigen, der sofort umsetzbar ist.</option><option>Interesse am Angebot wecken: Ein echtes Problem und einen passenden nächsten Schritt zeigen.</option><option>Community aktivieren: Eine kleine Mitmach-Challenge vorschlagen.</option><option>LIORA StoryApp zeigen: Am selben Beispiel erklären, wobei die App hilft.</option></select><label class="field" for="interaction">Gewünschte Interaktion</label>
 <select id="interaction">
   <option value="auto">LIORA wählt passend zur Story</option>
   <option value="manual">Sticker und Interaktionen selbst auswählen</option>
@@ -248,7 +248,7 @@ function collectPromptInput(){
  };
 }
 const storyLayouts={
- auto:'Wähle für den Collage-Slide ein passendes Raster oder eine Collage mit Rahmen.',
+ auto:'Wähle für jeden als Collage vorgesehenen Slide ein passendes Raster oder eine Gestaltung mit Rahmen.',
  four:'Exakt vier gleich grosse Bildfelder in einem 2 × 2 Raster. Kombiniere eine Übersicht und drei unterschiedliche, zusammengehörige Ausschnitte.',
  strip:'Drei unterschiedliche Bildausschnitte als waagerechte Streifen untereinander, mit zwei dezenten Trennlinien.',
  mosaic:'Mehrbildraster mit sechs klar getrennten Bildfeldern, zwei Spalten und drei Reihen. Mische Übersichten und Nahaufnahmen.',
@@ -278,8 +278,13 @@ function storyOutputOptions(){
   instructions.push('NATÜRLICHER FOTOLOOK: Inszeniere die Szene wie eine spontane Handyaufnahme im Alltag. Nutze vorhandenes weiches Fensterlicht oder plausibles Umgebungslicht mit natürlichen Schatten und neutraler Farbwiedergabe. Erhalte die Hautstruktur und Gesichtszüge der Avatar-Referenz. Zeige eine ungezwungene Haltung und eine glaubwürdige Reaktion mitten in der Handlung. Vermeide Beauty-Retusche, künstlichen Glanz und übermässig goldenes Licht.');
  }
  instructions.push('HANDLUNGSANSCHLUSS: Halte für jeden Slide fest, was sich gegenüber dem vorherigen Bild sichtbar verändert hat. Ein abgelegtes Accessoire bleibt am letzten bekannten Ort und erscheint erst nach einer ausdrücklich erzählten Handlung wieder am Körper. Referenzen übernehmen die Identität, aber keine Accessoires, die laut Handlung bereits abgelegt wurden. Prüfe besonders den letzten Slide auf versehentliche Rücksprünge.');
- if(/headset/i.test(val('#occasion')) && /feierabend/i.test(val('#occasion'))){
-  instructions.push('INSZENIERUNG FÜR HEADSET UND FEIERABEND: Bei fünf Slides 1. Letzter Blick auf den Bildschirm, das Headset ist noch auf. 2. Headset abnehmen und sichtbar neben die Tastatur legen. 3. Laptop zuklappen, Headset bleibt auf dem Schreibtisch. 4. Ortswechsel aufs Sofa in bequemer Kleidung, ohne Headset. 5. Ruhiger Abschluss auf dem Sofa mit einer kleinen Pointe, ebenfalls ohne Headset. Bei drei Slides den Ablauf auf Absetzen, Laptop zuklappen und Sofa verdichten. Bei einem Slide nur den Feierabendmoment auf dem Sofa zeigen. Keine Rückkehr zur Arbeitsszene nach dem Ortswechsel.');
+ const valueStory=val('#storyDirection')!=='daily';
+ instructions.push('ROTER FADEN – VERBINDLICH AB DEM ERSTEN STORY-VORSCHLAG: Lege intern fest, welche Frage, Beobachtung oder Erwartung der Einstieg eröffnet und wie der Abschluss sie einlöst. Jeder Slide entwickelt denselben Gedanken durch ein neues Detail, eine Entscheidung, eine Erklärung oder eine Folge. Ersetze Füllslides und wiederholte Aussagen. Bei einem Slide passen Einstieg und Auflösung in einen Moment. Plane Bilder und Sticker erst entlang dieser Handlung. Eine Umfrage oder Frage muss zum Thema passen und darf die Auflösung nicht ersetzen.');
+ instructions.push(valueStory
+  ? 'MEHRWERT & VERTRAUEN: Zeige an der konkreten Szene, was die Community besser versteht, entscheiden oder selbst ausprobieren kann. Erkläre, warum es hier funktioniert, und gib einen kleinen Test oder ein sichtbares Kriterium. Nutze Marke, Wiedererkennung oder Konsistenz, wenn sie aus dem Thema folgen. Wenn ein Angebot ausdrücklich gewünscht ist, zeige am selben Beispiel, welchen konkreten Schritt es erleichtert. Nenne die LIORA StoryApp nur, wenn sie als Angebot oder Entstehungsweg ausdrücklich gewünscht ist. Erfinde keine Ergebnisse, Funktionen oder Links.'
+  : 'ALLTAG & PERSÖNLICHKEIT: Entwickle aus dem Anlass eine kleine Geschichte mit Pointe, Eigenheit oder Wiedererkennung. Eine Szene darf für sich stehen. Folge dem ausgewählten Ziel und leite nur bei ausdrücklichem Wunsch zu einem Angebot über.');
+ if(val('#goal').startsWith('LIORA StoryApp zeigen:')){
+  instructions.push('OPTIONALER ABSCHLUSS GEWÄHLT – LIORA STORYAPP: Bleibe beim selben Anlass. Zeige zuerst die Pointe oder den konkreten Nutzen. Erkläre dann an genau diesem Beispiel kurz, wobei die StoryApp beim Entwickeln des Masterprompts hilft. Verwende einen Link nur, wenn er angegeben wurde.');
  }
  const avatarName=val('#avatarName');
  instructions.push(avatarName?'AVATAR-NAME: '+JSON.stringify(avatarName)+'. Verwende diesen Namen für den eigenen Avatar, wenn du ihn im Chat oder Storyplan benennst.':'AVATAR-NAME: Wenn ich keinen Namen für diesen Avatar angegeben habe, nenne ihn „dein Avatar“. Übernimm keine Namen aus anderen Projekten oder Beispielen.');
@@ -417,7 +422,8 @@ async function generatePrompt(){
    throw new Error('Der Prompt wurde unvollständig übertragen. Bitte erneut erstellen; Kopieren und Download bleiben gesperrt.');
   }
   rememberPeople(promptInput.fields.people);
-  verifiedPrompt=[data.prompt,selectedOptions].filter(Boolean).join('\n\n');
+  const basePrompt=data.prompt.replaceAll('Keine Collage und kein Kontaktblatt.', 'Jeder Slide ist ein separates Bild. Gestalte einzelne Slides gemäss der gewählten Einstellung als Collage. Fasse die Serie nie in einem Kontaktblatt zusammen.').replaceAll('Keine Collage zur Lösung des Reihenfolgeproblems erstellen.', 'Behalte für die Reihenfolge die festen Slide-IDs bei, auch wenn einzelne Slides als Collage gestaltet sind.');
+  verifiedPrompt=[basePrompt,selectedOptions].filter(Boolean).join('\n\n');
   $('#result').textContent=verifiedPrompt;
   $('#copy').disabled=false;$('#downloadPrompt').disabled=false;
   $('#status').textContent='✓ Vollständig empfangen ('+verifiedPrompt.length.toLocaleString('de-CH')+' Zeichen). Du kannst den Prompt kopieren oder als TXT speichern.';
@@ -482,13 +488,14 @@ const presets={
   'Eigenes Foto im Chat hochladen',
   'Ohne Avatar – nur Motive ohne sichtbare Person'
  ],
- occasion:['Morgenroutine: Der Wecker klingelt, die Decke hält mich aber noch fest.','Kaffee: Ich suche die Tasse, die schon direkt vor mir steht.','Mittagspause: Aufgewärmte Spaghetti statt des geplanten kulinarischen Höhenflugs.','Sofaabend: Serie ausgesucht, Snack bereit – nach zehn Minuten eingeschlafen.','Mit der Katze: Ich wollte lesen, sie wollte auf genau diesem Buch liegen.','Einkaufen: Nur Milch holen und mit einer ganzen Tasche zurückkommen.','Was ziehe ich an? Drei Outfits später wird es doch wieder der Lieblingspullover.','Spaziergang: Kurz frische Luft holen – und von einem Regenschauer überrascht werden.','Haushalt: Die Wäsche ist fertig, nur zusammengelegt hat sie sich noch nicht.','Kochen: Sieht anders aus als im Rezept, schmeckt aber trotzdem.','Musik: Mein Lieblingssong läuft und die Küche wird kurz zur Bühne.','Ein kleiner Glücksmoment: Sonne im Gesicht und für einen Moment nichts vorhaben.','Feierabend: Headset ab, bequeme Kleidung an, erst einmal Ruhe.','Wochenende: Ausschlafen geplant, früh wach und schon wieder Hunger.','Entweder-oder: Bin ich eher Team gemütlicher Sofaabend oder spontan noch raus?','Eine harmlose Eigenheit: Ich rieche erst am Kaffee, bevor ich einen Schluck nehme.','Ich habe eine eigene Idee – unten kurz beschreiben.']
+ occasion:['Morgenroutine: Der Wecker klingelt, die Decke hält mich aber noch fest.','Mittagspause: Aufgewärmte Spaghetti statt des geplanten kulinarischen Höhenflugs.','Sofaabend: Serie ausgesucht, Snack bereit – nach zehn Minuten eingeschlafen.','Mit der Katze: Ich wollte lesen, sie wollte auf genau diesem Buch liegen.','Einkaufen: Nur Milch holen und mit einer ganzen Tasche zurückkommen.','Was ziehe ich an? Drei Outfits später wird es doch wieder der Lieblingspullover.','Spaziergang: Kurz frische Luft holen – und von einem Regenschauer überrascht werden.','Haushalt: Die Wäsche ist fertig, nur zusammengelegt hat sie sich noch nicht.','Kochen: Sieht anders aus als im Rezept, schmeckt aber trotzdem.','Musik: Mein Lieblingssong läuft und die Küche wird kurz zur Bühne.','Ein kleiner Glücksmoment: Sonne im Gesicht und für einen Moment nichts vorhaben.','Feierabend: Headset ab, bequeme Kleidung an, erst einmal Ruhe.','Wochenende: Ausschlafen geplant, früh wach und schon wieder Hunger.','Entweder-oder: Bin ich eher Team gemütlicher Sofaabend oder spontan noch raus?','Eine harmlose Eigenheit: Ich rieche erst am Kaffee, bevor ich einen Schluck nehme.']
 };
 for(const [id,items] of Object.entries(presets)){
  const field=document.getElementById(id), select=document.createElement('select');
  select.className='preset';select.setAttribute('aria-label','Beispiel auswählen: '+document.querySelector('label[for="'+id+'"]').textContent);
  select.add(new Option(id==='avatar'?'Bildmotiv auswählen – oder selbst beschreiben':'Vorschlag wählen – oder darunter selbst schreiben',''));
  items.forEach(item=>select.add(new Option(item,item)));
+ if(id==='occasion')select.id='occasionPreset';
  if(id==='avatar'){select.id='avatarPreset';select.setAttribute('aria-label','Bildmotiv mit oder ohne Avatar auswählen');}
  if(id==='avatar'){
   const label=document.querySelector('label[for="avatar"]');
@@ -507,6 +514,35 @@ for(const [id,items] of Object.entries(presets)){
   field.dispatchEvent(new Event('input',{bubbles:true}));
  });
 }
+const valueExamples=[
+ 'Wiedererkennung: Mein Lieblingssong eröffnet immer dieselbe Rubrik. Zeige, wie ein wiederkehrender Sound mit einem Format verbunden werden kann, und gib einen kleinen Versuch für die eigene Reihe.',
+ 'Konsistenz: Dieselbe Tasse, eine neue Frage. Zeige, wie ein wiederkehrender Einstieg eine Story-Reihe erkennbar macht, während die Inhalte wechseln.',
+ 'Einstieg finden: Hast du heute schon eine Story gepostet? Zeige, wie aus einem Moment und einer Entscheidung ein konkreter erster Satz wird.',
+ 'Story-Hürden: Wann hast du eine Story angefangen und dann doch nicht gepostet? Greife eine konkrete Hürde auf und zeige eine machbare Lösung.',
+ 'Roter Faden: Aus einem Alltagsmoment werden drei Slides. Zeige am selben Beispiel, wie Einstieg, Entwicklung und Auflösung zusammenhängen.',
+ 'Arbeitsweise zeigen: Stelle zwei Einstiege gegenüber und erkläre, welcher den Anlass schneller verständlich macht.'
+];
+const goalOptions=[...$('#goal').options];
+function updateStoryDirection(){
+ const direction=$('#storyDirection');
+ if(direction.value==='mixed')direction.value='business';
+ const valueStory=direction.value==='business';
+ const preset=$('#occasionPreset');
+ const examples=valueStory?valueExamples:presets.occasion;
+ const occasion=$('#occasion');
+ if([...presets.occasion,...valueExamples].includes(occasion.value)&&!examples.includes(occasion.value))occasion.value='';
+ preset.options.length=1;
+ examples.forEach(example=>preset.add(new Option(example,example)));
+ preset.value=examples.includes(occasion.value)?occasion.value:'';
+ $('#storyDirectionHelp').textContent=valueStory
+  ? 'Vermittle eine Erkenntnis oder einen Tipp anhand einer konkreten Szene.'
+  : 'Erzähle einen Alltagsmoment mit einer Pointe, einer Eigenheit oder einem echten Wiedererkennungsmoment.';
+ const goals=goalOptions.filter((option,index)=>valueStory?index>=4:index<=3||index>=7);
+ const selected=$('#goal').value;
+ $('#goal').replaceChildren(...goals);
+ $('#goal').value=goals.some(option=>option.value===selected)?selected:goals[0].value;
+}
+$('#storyDirection').addEventListener('change',updateStoryDirection);
 const noAvatarPreset='Ohne Avatar – nur Motive ohne sichtbare Person';
 function updateAvatarReferenceHelp(){
  const withoutAvatar=val('#avatarPreset')===noAvatarPreset;
@@ -673,6 +709,7 @@ try{
   }
  });
 }catch(error){}
+updateStoryDirection();
 updateInteractionChoices();
 updateCollageSlide();
 updateSlideMotifOptions();
@@ -688,6 +725,7 @@ document.getElementById('startNewContent').addEventListener('click',()=>{
   }
   document.querySelectorAll('#storyForm input[name="expression"]').forEach(input=>input.checked=false);
   all('input[name="storyInteraction"]').forEach(input=>input.checked=false);
+  updateStoryDirection();
   updateInteractionChoices();
   $('#finalLinkSticker').checked=false;
   resetSlideMotifs();
