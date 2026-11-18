@@ -398,8 +398,11 @@ async function generatePrompt(){
   return;
  }
  const requestId=++promptRequestId;
- const selectedOptions=storyOutputOptions();
  const promptInput=collectPromptInput();
+ const valueRequirement=promptInput.storyDirection==='business'
+  ? 'VERBINDLICHER AUFTRAG – MEHRWERT & VERTRAUEN. Diese Anforderung gilt bereits für den ersten Story-Vorschlag und hat Vorrang vor allgemeinen Alltags- und Ablaufbeispielen. Nutze den Anlass als Einstieg in genau eine konkrete Frage der Community. Formuliere die Antwort im eigentlichen Storytext: einen machbaren Schritt, ein Entscheidungskriterium oder eine nachvollziehbare Erklärung. Zeige ihn an derselben Szene und mache erkennbar, wann oder warum er hilft. Eine Abfolge von Alltagshandlungen, eine Begrüssung, ein netter Wunsch oder eine reine Umfrage erfüllt diesen Auftrag nicht. Beispiel nur zur Orientierung: Aus einer Morgenroutine kann eine Story darüber werden, wie man einen wiederkehrenden Einstieg gestaltet: Wähle für dieselbe Rubrik jedes Mal denselben ersten Bildausschnitt und ändere danach das Thema. Nutze den konkreten Anlass und das Fachgebiet der Nutzerin für eigene Beispiele. Erfinde keine persönlichen Erfahrungen, Resultate oder fachlichen Behauptungen. Prüfe vor der Ausgabe des Storyplans nur die sichtbare Copy: Kann die Zuschauerin daraus konkret sagen, was sie ausprobieren, entscheiden oder besser verstehen kann? Wenn nein, überarbeite den Plan vor der Freigabe und vor jedem Bildaufruf. Bei drei oder fünf Slides muss die Antwort vor einem optionalen CTA kommen. Bei einem Slide müssen Beispiel und Erkenntnis zusammen verständlich sein. Sprache und Story-Ziel bleiben massgeblich für Ton und Abschluss.'
+  : '';
+ const selectedOptions=storyOutputOptions();
  $('#copy').disabled=true;$('#downloadPrompt').disabled=true;verifiedPrompt='';
  promptInFlight=true;
  updatePromptButton();
@@ -424,7 +427,7 @@ async function generatePrompt(){
   }
   rememberPeople(promptInput.fields.people);
   const basePrompt=data.prompt.replaceAll('Keine Collage und kein Kontaktblatt.', 'Jeder Slide ist ein separates Bild. Gestalte einzelne Slides gemäss der gewählten Einstellung als Collage. Fasse die Serie nie in einem Kontaktblatt zusammen.').replaceAll('Keine Collage zur Lösung des Reihenfolgeproblems erstellen.', 'Behalte für die Reihenfolge die festen Slide-IDs bei, auch wenn einzelne Slides als Collage gestaltet sind.');
-  verifiedPrompt=[basePrompt,selectedOptions].filter(Boolean).join('\n\n');
+  verifiedPrompt=[valueRequirement,basePrompt,selectedOptions].filter(Boolean).join('\n\n');
   $('#result').textContent=verifiedPrompt;
   $('#copy').disabled=false;$('#downloadPrompt').disabled=false;
   $('#status').textContent='✓ Vollständig empfangen ('+verifiedPrompt.length.toLocaleString('de-CH')+' Zeichen). Du kannst den Prompt kopieren oder als TXT speichern.';
