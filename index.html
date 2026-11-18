@@ -89,7 +89,7 @@ input[type=password],input[type=search],input[type=email]{width:100%;border:1px 
 <header class="hero"><img class="liora-banner" src="https://img.tentary.com/file_00000000ef488246aaf6fb041178b684_55872147315308807-1793802589.png?width=1100" alt="LIORA – kreativer Workspace" loading="eager" decoding="async"><div class="eyebrow">LIORA Story-Generator</div><h1>Deine Stories, ohne jedes Mal bei null zu beginnen.</h1><p>Wähle nur aus, was passt, ergänze deine eigenen Worte und erstelle daraus einen persönlichen Masterprompt, eine Wochenplanung oder einen einzelnen Story-Tag.</p></header>
 <div class="layout">
 <section class="panel">
-<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt Anlass, Ergänzung und Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>Deine Story</h2><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily">Alltag &amp; Persönlichkeit</option><option value="business">Mehrwert &amp; Vertrauen</option><option value="mixed" hidden>Alltag und Business</option></select><p id="storyDirectionHelp" class="small"></p><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div>
+<form id="storyForm"><div class="new-content-start"><div><strong>Bereit für eine neue Story?</strong><p>Setzt Anlass, Ergänzung und Story-Ziel zurück. Dein persönlicher Stil bleibt erhalten.</p></div><button class="btn" type="button" id="startNewContent">＋ Neuen Content starten</button><p id="newContentStatus" class="new-content-status" role="status" aria-live="polite"></p></div><div class="section"><h2>Deine Story</h2><label class="field" for="storyDirection">Welche Art Story möchtest du?</label><select id="storyDirection"><option value="daily">Alltag &amp; Persönlichkeit</option><option value="business">Mehrwert &amp; Vertrauen</option><option value="mixed" hidden>Alltag und Business</option></select><p id="storyDirectionHelp" class="small"></p><label class="field" for="occasion">Worum geht es heute?</label><textarea id="occasion" placeholder="Optional: deine konkrete Situation oder Idee"></textarea><p id="productScreenshotHelp" class="help" hidden>Lade deine Produkt-Screenshots später im Chat hoch. LIORA entwickelt daraus eine Story, die eine konkrete Frage deiner Zielgruppe beantwortet und zeigt, wobei dein Produkt hilft.</p><div><label class="field" for="slideCount">Anzahl Slides pro Story</label><select id="slideCount"><option value="1">1 Slide</option><option value="3">3 Slides</option><option value="5" selected>5 Slides</option></select></div></div>
 <details class="section story-settings more-story-settings"><summary>Weitere Story-Einstellungen <span class="story-settings-optional">Optional</span></summary>
 <details class="section story-settings"><summary>Bilderstellung und Ausgabe</summary><p class="help">Wähle den Ablauf für deinen ChatGPT-Zugang. Mit Free oder Go führst du die Story Slide für Slide fort. Nutzt du ChatGPT Work, kannst du die gesamte Serie beauftragen.</p><label class="field" for="production">Bilderstellung</label><select id="production"><option value="single" selected>Free / Go oder normaler Chat – einzeln mit „Weiter“</option><option value="batch">ChatGPT Work – alle Slides in einem Durchlauf</option><option value="prompts">Nur Bildprompts für ein anderes Bildtool</option><option value="unsure">Ich weiss noch nicht, was möglich ist</option></select><div class="two"><div><label class="field" for="textMode">Text auf den Bildern</label><select id="textMode"><option value="integrated">Mit Storytext direkt im Bild</option><option value="separate">Ohne Storytext – Text separat in Kopierboxen</option></select></div></div><label class="field" for="slideNumbers">Slide-Reihenfolge sichtbar machen</label><select id="slideNumbers"><option value="no" selected>Keine Nummer im Bild</option><option value="yes">Kleine Nummer oben rechts in der Bildecke: 1, 2, 3 …</option></select><p class="small">Instagram-Sicherheitszone: Die oberen 25 % und unteren 22 % bleiben frei von Storytext und Stickern. Die kleinen Ecklabels sind davon ausgenommen. Die Nummer gehört zum Inhalt, nicht zur Reihenfolge der Bildanzeige. Work kann Bilder zeitversetzt anzeigen.</p><label class="field" for="disclosure">Sichtbarer KI-Hinweis auf generierten Bildern</label><select id="disclosure"><option value="label">Klein und lesbar: „KI-generiert“</option><option value="none">Keinen Hinweis ins Bild einfügen</option></select><p class="small">Für den gesamten Durchlauf muss ChatGPT Work in deinem Zugang verfügbar und geöffnet sein. Ein Abo allein startet Work nicht automatisch. Bildlimits können beide Abläufe unterbrechen. Interaktive Sticker setzt du später in Instagram; der Chat liefert die Hinweise separat.</p></details>
 <details class="section story-settings"><summary>Sprache und Ton</summary><p class="help">Welche Wirkung soll dein Content haben?</p><div class="grid">
@@ -402,6 +402,11 @@ async function generatePrompt(){
  const valueRequirement=promptInput.storyDirection==='business'
   ? 'VERBINDLICHER AUFTRAG – MEHRWERT & VERTRAUEN. Diese Anforderung gilt bereits für den ersten Story-Vorschlag und hat Vorrang vor allgemeinen Alltags- und Ablaufbeispielen. Nutze den Anlass als Einstieg in genau eine konkrete Frage der Community. Formuliere die Antwort im eigentlichen Storytext: einen machbaren Schritt, ein Entscheidungskriterium oder eine nachvollziehbare Erklärung. Zeige ihn an derselben Szene und mache erkennbar, wann oder warum er hilft. Eine Abfolge von Alltagshandlungen, eine Begrüssung, ein netter Wunsch oder eine reine Umfrage erfüllt diesen Auftrag nicht. Beispiel nur zur Orientierung: Aus einer Morgenroutine kann eine Story darüber werden, wie man einen wiederkehrenden Einstieg gestaltet: Wähle für dieselbe Rubrik jedes Mal denselben ersten Bildausschnitt und ändere danach das Thema. Nutze den konkreten Anlass und das Fachgebiet der Nutzerin für eigene Beispiele. Erfinde keine persönlichen Erfahrungen, Resultate oder fachlichen Behauptungen. Prüfe vor der Ausgabe des Storyplans nur die sichtbare Copy: Kann die Zuschauerin daraus konkret sagen, was sie ausprobieren, entscheiden oder besser verstehen kann? Wenn nein, überarbeite den Plan vor der Freigabe und vor jedem Bildaufruf. Bei drei oder fünf Slides muss die Antwort vor einem optionalen CTA kommen. Bei einem Slide müssen Beispiel und Erkenntnis zusammen verständlich sein. Sprache und Story-Ziel bleiben massgeblich für Ton und Abschluss.'
   : '';
+ const screenshotRequirement=promptInput.storyDirection==='business'&&promptInput.fields.occasion===productScreenshotChoice
+  ? 'PRODUKT-SCREENSHOTS GEWÄHLT – STARTAUFTRAG: Fordere zuerst die Produkt-Screenshots im Chat an und warte auf den Upload. Nutze sichtbare Funktionen und bestätigte Produktangaben. Bei fehlendem entscheidendem Kontext frage einmal nach Zielgruppe oder Produktzweck. Schlage anschliessend eine konkrete Kundenfrage und einen hilfreichen Lösungsweg anhand einer sichtbaren Funktion vor. Nenne in zwei Sätzen Idee und Nutzen. Die Story erklärt einen direkt anwendbaren Schritt und zeigt auf Wunsch den passenden Anschluss zum Produkt. Produktreferenzen dienen der Funktionsanalyse und werden nur auf ausdrücklichen Wunsch verändert. Kläre danach die weiteren Bildressourcen im bestehenden Ablauf. Nutze die bestehende Planfreigabe.'
+  : promptInput.storyDirection==='business'&&!promptInput.fields.occasion
+   ? 'AUTOMATISCHE IDEENAUSWAHL – STARTAUFTRAG: Die Nutzerin hat LIORA die Themenwahl überlassen. Wähle aus der Mehrwert-Sammlung drei konkrete Ideen passend zu Zielgruppe und bestätigtem Fachgebiet. Beschreibe je Idee den Nutzen in einem Satz und lass die Nutzerin wählen. Frage nicht nochmals nach einem Anlass. Fehlt dafür entscheidendes Fachwissen, stelle genau eine gezielte Frage.'
+   : '';
  const selectedOptions=storyOutputOptions();
  $('#copy').disabled=true;$('#downloadPrompt').disabled=true;verifiedPrompt='';
  promptInFlight=true;
@@ -427,7 +432,7 @@ async function generatePrompt(){
   }
   rememberPeople(promptInput.fields.people);
   const basePrompt=data.prompt.replaceAll('Keine Collage und kein Kontaktblatt.', 'Jeder Slide ist ein separates Bild. Gestalte einzelne Slides gemäss der gewählten Einstellung als Collage. Fasse die Serie nie in einem Kontaktblatt zusammen.').replaceAll('Keine Collage zur Lösung des Reihenfolgeproblems erstellen.', 'Behalte für die Reihenfolge die festen Slide-IDs bei, auch wenn einzelne Slides als Collage gestaltet sind.');
-  verifiedPrompt=[valueRequirement,basePrompt,selectedOptions].filter(Boolean).join('\n\n');
+  verifiedPrompt=[screenshotRequirement,valueRequirement,basePrompt,selectedOptions].filter(Boolean).join('\n\n');
   $('#result').textContent=verifiedPrompt;
   $('#copy').disabled=false;$('#downloadPrompt').disabled=false;
   $('#status').textContent='✓ Vollständig empfangen ('+verifiedPrompt.length.toLocaleString('de-CH')+' Zeichen). Du kannst den Prompt kopieren oder als TXT speichern.';
@@ -518,14 +523,20 @@ for(const [id,items] of Object.entries(presets)){
   field.dispatchEvent(new Event('input',{bubbles:true}));
  });
 }
+const productScreenshotChoice='Mein Produkt zeigen – mit Screenshots';
 const valueExamples=[
- 'Wiedererkennung: Mein Lieblingssong eröffnet immer dieselbe Rubrik. Zeige, wie ein wiederkehrender Sound mit einem Format verbunden werden kann, und gib einen kleinen Versuch für die eigene Reihe.',
- 'Konsistenz: Dieselbe Tasse, eine neue Frage. Zeige, wie ein wiederkehrender Einstieg eine Story-Reihe erkennbar macht, während die Inhalte wechseln.',
- 'Einstieg finden: Hast du heute schon eine Story gepostet? Zeige, wie aus einem Moment und einer Entscheidung ein konkreter erster Satz wird.',
- 'Story-Hürden: Wann hast du eine Story angefangen und dann doch nicht gepostet? Greife eine konkrete Hürde auf und zeige eine machbare Lösung.',
- 'Roter Faden: Aus einem Alltagsmoment werden drei Slides. Zeige am selben Beispiel, wie Einstieg, Entwicklung und Auflösung zusammenhängen.',
- 'Arbeitsweise zeigen: Stelle zwei Einstiege gegenüber und erkläre, welcher den Anlass schneller verständlich macht.'
+ 'Einen einfachen Story-Einstieg finden',
+ 'Aus einer Idee eine zusammenhängende Story machen',
+ 'Eine häufige Kundenfrage beantworten',
+ 'Einen Fehler zeigen und die Lösung erklären',
+ 'Einen Tipp direkt zum Ausprobieren geben',
+ 'Meine Marke wiedererkennbar machen',
+ productScreenshotChoice
 ];
+function updateProductScreenshotHelp(){
+ const screenshot=val('#storyDirection')==='business'&&val('#occasion')===productScreenshotChoice;
+ $('#productScreenshotHelp').hidden=!screenshot;
+}
 const goalOptions=[...$('#goal').options];
 function updateStoryDirection(){
  const direction=$('#storyDirection');
@@ -536,10 +547,13 @@ function updateStoryDirection(){
  const occasion=$('#occasion');
  if([...presets.occasion,...valueExamples].includes(occasion.value)&&!examples.includes(occasion.value))occasion.value='';
  preset.options.length=1;
+ preset.options[0].textContent=valueStory?'LIORA schlägt mir etwas Passendes vor':'Vorschlag wählen – oder darunter selbst schreiben';
+ $('label[for="occasion"]').textContent=valueStory?'Wobei soll deine Story helfen?':'Worum geht es heute?';
+ occasion.placeholder=valueStory?'Optional: deine konkrete Frage oder ein eigenes Thema':'Optional: deine konkrete Situation oder Idee';
  examples.forEach(example=>preset.add(new Option(example,example)));
  preset.value=examples.includes(occasion.value)?occasion.value:'';
  $('#storyDirectionHelp').textContent=valueStory
-  ? 'Vermittle eine Erkenntnis oder einen Tipp anhand einer konkreten Szene.'
+  ? 'Du wählst die Richtung. LIORA entwickelt eine konkrete Idee und zeigt dir vor der Bilderstellung, was deine Community mitnehmen kann.'
   : 'Erzähle einen Alltagsmoment mit einer Pointe, einer Eigenheit oder einem echten Wiedererkennungsmoment.';
  const extra=$('#topicsPreset');
  const extraOptions=valueStory
@@ -558,8 +572,10 @@ function updateStoryDirection(){
  const selected=$('#goal').value;
  $('#goal').replaceChildren(...goals);
  $('#goal').value=goals.some(option=>option.value===selected)?selected:goals[0].value;
+ updateProductScreenshotHelp();
 }
 $('#storyDirection').addEventListener('change',updateStoryDirection);
+$('#occasion').addEventListener('input',updateProductScreenshotHelp);
 const noAvatarPreset='Ohne Avatar – nur Motive ohne sichtbare Person';
 function updateAvatarReferenceHelp(){
  const withoutAvatar=val('#avatarPreset')===noAvatarPreset;
